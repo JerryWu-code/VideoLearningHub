@@ -1,0 +1,29 @@
+.getStarted {
+  position: relative;
+  font-size: var(--paragraph-size);
+  display: inline-block;
+  font-family: var(--body-base);
+  color: var(--backgrounds-primary);
+  text-align: left;
+  min-width: 115px;
+}
+.buttonHoverPattern2 {
+  cursor: pointer;
+  border: 1px solid var(--color-black);
+  padding: var(--padding-3xs) var(--padding-3xl) var(--padding-2xs)
+    var(--padding-6xl);
+  background-color: var(--color-theme-blue);
+  height: 49px;
+  border-radius: var(--br-4xs);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.buttonHoverPattern2:hover {
+  background-color: var(--color-royalblue-100);
+  border: 1px solid var(--color-darkslategray-200);
+  box-sizing: border-box;
+}

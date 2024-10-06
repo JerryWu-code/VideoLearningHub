@@ -1,0 +1,89 @@
+.frameChild {
+  height: 463px;
+  width: 768px;
+  position: absolute;
+  margin: 0 !important;
+  top: -22.5px;
+  left: -763px;
+  border-radius: var(--br-mini);
+  background-color: var(--color-floralwhite);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.comgrps,
+.frameGroup {
+  align-items: flex-start;
+  max-width: 100%;
+}
+.comgrps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 42.5px;
+  z-index: 1;
+}
+.frameGroup {
+  width: 599px;
+  flex-direction: row;
+  position: relative;
+}
+.frameGroup,
+.frameParent,
+.homepage,
+.homepageInner {
+  display: flex;
+  justify-content: flex-start;
+}
+.frameParent {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 127.5px;
+  max-width: 100%;
+}
+.homepage,
+.homepageInner {
+  align-items: flex-start;
+}
+.homepageInner {
+  width: 1424px;
+  flex-direction: row;
+  padding: 0 var(--padding-8xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.homepage {
+  width: 100%;
+  position: relative;
+  background-color: var(--backgrounds-primary);
+  overflow: hidden;
+  flex-direction: column;
+  gap: 89.5px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1200px) {
+  .frameParent {
+    gap: 64px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .comgrps {
+    gap: var(--gap-2xl);
+  }
+  .frameParent {
+    gap: var(--gap-13xl);
+  }
+  .homepage {
+    gap: 45px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .frameParent {
+    gap: var(--gap-base);
+  }
+  .homepage {
+    gap: var(--gap-3xl);
+  }
+}

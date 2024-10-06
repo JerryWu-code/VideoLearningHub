@@ -1,0 +1,40 @@
+.avatarIcon {
+  height: var(--icon-large);
+  width: var(--icon-large);
+  position: relative;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.description,
+.title {
+  position: relative;
+  line-height: 140%;
+}
+.title {
+  align-self: stretch;
+  font-weight: 600;
+}
+.description {
+  color: var(--text-default-tertiary);
+}
+.avatarBlock,
+.info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.info {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-050);
+}
+.avatarBlock {
+  flex-direction: row;
+  gap: var(--space-300);
+  text-align: left;
+  font-size: var(--body-base-size);
+  color: var(--text-default-secondary);
+  font-family: var(--body-base);
+}
