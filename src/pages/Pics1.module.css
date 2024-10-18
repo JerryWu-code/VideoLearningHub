@@ -1,0 +1,19 @@
+.imageIcon,
+.pics1 {
+  width: 100%;
+  overflow: hidden;
+}
+.imageIcon {
+  position: absolute;
+  top: calc(50% - 234px);
+  right: 0;
+  left: 0;
+  border-radius: var(--br-6xl);
+  max-width: 100%;
+  height: 458px;
+  object-fit: cover;
+}
+.pics1 {
+  position: relative;
+  height: 468px;
+}
