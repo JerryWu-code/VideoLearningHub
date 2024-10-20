@@ -9,12 +9,14 @@
 .accessAWideRangeOfEducati {
   margin: 0;
   font-family: var(--paragraph);
+  font-size: 25px;
 }
 .learnAnytimeAnywhereContainer {
   position: absolute;
   width: calc(100% - 598px);
   top: calc(50% - 54.5px);
   left: 298px;
+  font-size: 40px;
   display: inline-block;
 }
 .learnMore {
