@@ -5,225 +5,134 @@ import styles from "./Homepage.module.css";
 const Homepage = () => {
   const navigate = useNavigate();
 
-  const onFrameContainerClick = useCallback(() => {
+  const onNavigateToMainPage = useCallback(() => {
     navigate("/main-page");
   }, [navigate]);
 
-  const onFrameContainerClick1 = useCallback(() => {
+  const onNavigateToCoursePage = useCallback(() => {
     navigate("/course-page");
   }, [navigate]);
 
   return (
     <div className={styles.homepage}>
-      <div className={styles.hero}>
+      <header className={styles.navibar}>
+        <div className={styles.logoParent}>
+          <img className={styles.logoIcon} alt="Logo" src="/logo1@2x.png" />
+          <nav className={styles.navLinks}>
+            <button className={styles.navButton} onClick={() => navigate("/")}>
+              Home
+            </button>
+            <button className={styles.navButton} onClick={onNavigateToMainPage}>
+              Main
+            </button>
+            <button className={styles.navButton} onClick={onNavigateToCoursePage}>
+              Courses
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <header className={styles.hero}>
         <div className={styles.learnAnytimeAnywhereContainer}>
-          <p className={styles.learnAnytimeAnywhere}>Learn Anytime, Anywhere</p>
-          <p className={styles.blankLine}>
-            <span>
-              <span>&nbsp;</span>
-            </span>
-          </p>
+          <h1 className={styles.learnAnytimeAnywhere}>Learn Anytime, Anywhere</h1>
           <p className={styles.accessAWideRangeOfEducati}>
-            <span>
-              <b>
-                Access a wide range of educational videos from various sources
-                to enhance your learning experience.
-              </b>
-            </span>
+            <strong>Access a wide range of educational videos from various sources to enhance your learning experience.</strong>
           </p>
         </div>
         <div className={styles.buttonHoverParent}>
-          <div className={styles.buttonHover}>
-            <b className={styles.learnMore}>Learn More</b>
-          </div>
-          <div className={styles.buttonHoverPattern2}>
-            <b className={styles.getStarted}>Get Started</b>
-          </div>
-          <div className={styles.component1}>
-            <div className={styles.component1Inner}>
-              <div className={styles.logoParent}>
-                <img className={styles.logoIcon} alt="" src="/logo1@2x.png" />
-                <div className={styles.homeWrapper}>
-                  <b className={styles.home}>Home</b>
-                </div>
-                <div
-                  className={styles.homeContainer}
-                  onClick={onFrameContainerClick}
-                >
-                  <b className={styles.home}>Main</b>
-                </div>
-                <div
-                  className={styles.homeFrame}
-                  onClick={onFrameContainerClick1}
-                >
-                  <b className={styles.home}>Courses</b>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button className={styles.buttonHover} onClick={onNavigateToMainPage}>
+            <span className={styles.learnMore}>Learn More</span>
+          </button>
+          <button className={styles.buttonHoverPattern2} onClick={onNavigateToCoursePage}>
+            <span className={styles.getStarted}>Get Started</span>
+          </button>
         </div>
-      </div>
-      <div className={styles.homepageChild} />
+      </header>
+
       <div className={styles.features}>
-        <div className={styles.comgrps}>
-          <div className={styles.homepagecom}>
-            <div className={styles.homepagecom1}>
-              <div className={styles.homepagecomChild} />
-              <div className={styles.multipleVideoSourcesContainer}>
-                <p className={styles.multipleVideoSources}>
-                  <b>Multiple Video Sources</b>
-                </p>
-                <p className={styles.accessVideosFrom}>&nbsp;</p>
-                <p className={styles.accessVideosFrom}>
-                  Access videos from various resources to enhance your learning
-                  experience
-                </p>
-              </div>
-            </div>
+        <div className={styles.homepagecom}>
+          <div className={styles.multipleVideoSourcesContainer}>
+            <h2 className={styles.multipleVideoSources}>Multiple Video Sources</h2>
+            <p className={styles.accessVideosFrom}>
+              Access videos from various resources to enhance your learning experience.
+            </p>
           </div>
-          <div className={styles.homepagecom2}>
-            <div className={styles.homepagecom1}>
-              <div className={styles.homepagecomChild} />
-              <div className={styles.multipleVideoSourcesContainer}>
-                <p className={styles.multipleVideoSources}>
-                  <b>Track Your Progress</b>
-                </p>
-                <p className={styles.accessVideosFrom}>&nbsp;</p>
-                <p className={styles.accessVideosFrom}>
-                  Keep track of the videos you have watched and your learning
-                  milestones
-                </p>
-              </div>
-            </div>
+        </div>
+
+        <div className={styles.homepagecom}>
+          <div className={styles.multipleVideoSourcesContainer}>
+            <h2 className={styles.multipleVideoSources}>Track Your Progress</h2>
+            <p className={styles.accessVideosFrom}>
+              Keep track of the videos you have watched and your learning milestones.
+            </p>
           </div>
-          <div className={styles.homepagecom4}>
-            <div className={styles.homepagecom1}>
-              <div className={styles.homepagecomChild} />
-              <div className={styles.multipleVideoSourcesContainer}>
-                <p className={styles.multipleVideoSources}>
-                  <b>Personalized Learning</b>
-                </p>
-                <p className={styles.accessVideosFrom}>&nbsp;</p>
-                <p className={styles.accessVideosFrom}>
-                  Customize your study plan and choose videos based on your
-                  preferences
-                </p>
-              </div>
-            </div>
+        </div>
+
+        <div className={styles.homepagecom}>
+          <div className={styles.multipleVideoSourcesContainer}>
+            <h2 className={styles.multipleVideoSources}>Personalized Learning</h2>
+            <p className={styles.accessVideosFrom}>
+              Customize your study plan and choose videos based on your preferences.
+            </p>
           </div>
         </div>
       </div>
-      <div className={styles.footer}>
+
+      <footer className={styles.footer}>
         <div className={styles.title}>
           <div className={styles.figma}>
-            <img className={styles.icon} alt="" src="/icon1.svg" />
+            <img className={styles.icon} alt="Figma icon" src="/icon1.svg" />
           </div>
           <div className={styles.buttonList}>
-            <img className={styles.xLogoIcon} alt="" src="/x-logo.svg" />
-            <img
-              className={styles.logoInstagramIcon}
-              alt=""
-              src="/logo-instagram.svg"
-            />
-            <img
-              className={styles.logoInstagramIcon}
-              alt=""
-              src="/logo-youtube.svg"
-            />
-            <img
-              className={styles.logoInstagramIcon}
-              alt=""
-              src="/linkedin.svg"
-            />
+            <img className={styles.xLogoIcon} alt="Twitter Logo" src="/x-logo.svg" />
+            <img className={styles.logoInstagramIcon} alt="Instagram Logo" src="/logo-instagram.svg" />
+            <img className={styles.logoInstagramIcon} alt="YouTube Logo" src="/logo-youtube.svg" />
+            <img className={styles.logoInstagramIcon} alt="LinkedIn Logo" src="/linkedin.svg" />
           </div>
         </div>
+
         <div className={styles.textLinkList}>
-          <div className={styles.title1}>
-            <div className={styles.textStrong}>
-              <div className={styles.textStrong1}>Use cases</div>
-            </div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>UI design</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>UX design</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Wireframing</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Diagramming</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Brainstorming</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Online whiteboard</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Team collaboration</div>
-          </div>
+          <h3 className={styles.title1}>Use Cases</h3>
+          <ul>
+            <li className={styles.textLinkListItem}>UI design</li>
+            <li className={styles.textLinkListItem}>UX design</li>
+            <li className={styles.textLinkListItem}>Wireframing</li>
+            <li className={styles.textLinkListItem}>Diagramming</li>
+            <li className={styles.textLinkListItem}>Brainstorming</li>
+            <li className={styles.textLinkListItem}>Online whiteboard</li>
+            <li className={styles.textLinkListItem}>Team collaboration</li>
+          </ul>
         </div>
+
         <div className={styles.textLinkList}>
-          <div className={styles.title1}>
-            <div className={styles.textStrong}>
-              <div className={styles.textStrong1}>Explore</div>
-            </div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Design</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Prototyping</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Development features</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Design systems</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Collaboration features</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Design process</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>FigJam</div>
-          </div>
+          <h3 className={styles.title1}>Explore</h3>
+          <ul>
+            <li className={styles.textLinkListItem}>Design</li>
+            <li className={styles.textLinkListItem}>Prototyping</li>
+            <li className={styles.textLinkListItem}>Development features</li>
+            <li className={styles.textLinkListItem}>Design systems</li>
+            <li className={styles.textLinkListItem}>Collaboration features</li>
+            <li className={styles.textLinkListItem}>Design process</li>
+            <li className={styles.textLinkListItem}>FigJam</li>
+          </ul>
         </div>
+
         <div className={styles.textLinkList}>
-          <div className={styles.title1}>
-            <div className={styles.textStrong}>
-              <div className={styles.textStrong1}>Resources</div>
-            </div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Blog</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Best practices</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Colors</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Color wheel</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Support</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Developers</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Resource library</div>
-          </div>
+          <h3 className={styles.title1}>Resources</h3>
+          <ul>
+            <li className={styles.textLinkListItem}>Blog</li>
+            <li className={styles.textLinkListItem}>Best practices</li>
+            <li className={styles.textLinkListItem}>Colors</li>
+            <li className={styles.textLinkListItem}>Color wheel</li>
+            <li className={styles.textLinkListItem}>Support</li>
+            <li className={styles.textLinkListItem}>Developers</li>
+            <li className={styles.textLinkListItem}>Resource library</li>
+          </ul>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };
 
 export default Homepage;
+
