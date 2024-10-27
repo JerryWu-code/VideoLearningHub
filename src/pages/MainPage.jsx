@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.css";
 import {Navibar} from "../components/Navibar";
 import { SearchBar } from "../components/SearchBar";
+import { Footer } from "../components/Footer";
 import { SearchResultsList } from "../components/SearchResultsList";
 
 const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
@@ -218,116 +219,7 @@ const MainPage = () => {
           <b className={styles.source}>Source:</b>
         </div>
       </div>
-      <div className={styles.footer}>
-        <div className={styles.title6}>
-          <div className={styles.figma}>
-            <img className={styles.icon} alt="" src="/icon1.svg" />
-          </div>
-          <div className={styles.buttonList}>
-            <img className={styles.xLogoIcon} alt="" src="/x-logo.svg" />
-            <img
-              className={styles.logoInstagramIcon}
-              alt=""
-              src="/logo-instagram.svg"
-            />
-            <img
-              className={styles.logoInstagramIcon}
-              alt=""
-              src="/logo-youtube.svg"
-            />
-            <img
-              className={styles.logoInstagramIcon}
-              alt=""
-              src="/linkedin.svg"
-            />
-          </div>
-        </div>
-        <div className={styles.textLinkList}>
-          <div className={styles.title7}>
-            <div className={styles.textStrong}>
-              <div className={styles.title2}>Use cases</div>
-            </div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>UI design</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>UX design</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Wireframing</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Diagramming</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Brainstorming</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Online whiteboard</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Team collaboration</div>
-          </div>
-        </div>
-        <div className={styles.textLinkList}>
-          <div className={styles.title7}>
-            <div className={styles.textStrong}>
-              <div className={styles.title2}>Explore</div>
-            </div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Design</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Prototyping</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Development features</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Design systems</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Collaboration features</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Design process</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>FigJam</div>
-          </div>
-        </div>
-        <div className={styles.textLinkList}>
-          <div className={styles.title7}>
-            <div className={styles.textStrong}>
-              <div className={styles.title2}>Resources</div>
-            </div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Blog</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Best practices</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Colors</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Color wheel</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Support</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Developers</div>
-          </div>
-          <div className={styles.textLinkListItem}>
-            <div className={styles.listItem}>Resource library</div>
-          </div>
-        </div>
-      </div>
-      
+      <Footer />
     </div>
   );
 };
