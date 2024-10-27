@@ -2,17 +2,10 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import IconButton from "../components/IconButton";
 import styles from "./CoursePage.module.css";
+import { Navibar } from "../components/Navibar";
 
 const CoursePage = () => {
   const navigate = useNavigate();
-
-  const onFrameContainerClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
-
-  const onFrameContainerClick1 = useCallback(() => {
-    navigate("/main-page");
-  }, [navigate]);
 
   const onFrameContainerClick2 = useCallback(() => {
     navigate("/course-page");
@@ -24,25 +17,7 @@ const CoursePage = () => {
 
   return (
     <div className={styles.coursePage}>
-      <div className={styles.component1}>
-        <div className={styles.component1Inner}>
-          <div className={styles.logoParent}>
-            <img className={styles.logoIcon} alt="" src="/logo1@2x.png" />
-            <div className={styles.homeWrapper} onClick={onFrameContainerClick}>
-              <b className={styles.home}>Home</b>
-            </div>
-            <div
-              className={styles.homeContainer}
-              onClick={onFrameContainerClick1}
-            >
-              <b className={styles.home}>Main</b>
-            </div>
-            <div className={styles.homeFrame} onClick={onFrameContainerClick2}>
-              <b className={styles.home}>Courses</b>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Navibar />
       <div className={styles.exploreYourFavorite}>
         Explore your favorite areas
       </div>

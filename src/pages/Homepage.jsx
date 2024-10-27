@@ -1,53 +1,23 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Homepage.module.css";
+import { Navibar } from "../components/Navibar";
 
 const Homepage = () => {
-  const navigate = useNavigate();
-
-  const onNavigateToMainPage = useCallback(() => {
-    navigate("/main-page");
-  }, [navigate]);
-
-  const onNavigateToCoursePage = useCallback(() => {
-    navigate("/course-page");
-  }, [navigate]);
 
   return (
     <div className={styles.homepage}>
-      <header className={styles.navibar}>
-        <div className={styles.logoParent}>
-          <img className={styles.logoIcon} alt="Logo" src="/logo1@2x.png" />
-          <nav className={styles.navLinks}>
-            <button className={styles.navButton} onClick={() => navigate("/")}>
-              Home
-            </button>
-            <button className={styles.navButton} onClick={onNavigateToMainPage}>
-              Main
-            </button>
-            <button className={styles.navButton} onClick={onNavigateToCoursePage}>
-              Courses
-            </button>
-          </nav>
-        </div>
-      </header>
-
-      <header className={styles.hero}>
-        <div className={styles.learnAnytimeAnywhereContainer}>
-          <h1 className={styles.learnAnytimeAnywhere}>Learn Anytime, Anywhere</h1>
-          <p className={styles.accessAWideRangeOfEducati}>
-            <strong>Access a wide range of educational videos from various sources to enhance your learning experience.</strong>
-          </p>
-        </div>
-        <div className={styles.buttonHoverParent}>
-          <button className={styles.buttonHover} onClick={onNavigateToMainPage}>
-            <span className={styles.learnMore}>Learn More</span>
-          </button>
-          <button className={styles.buttonHoverPattern2} onClick={onNavigateToCoursePage}>
-            <span className={styles.getStarted}>Get Started</span>
-          </button>
-        </div>
-      </header>
+      <Navibar />
+      <div class={styles.content}>
+        <header className={styles.hero}>
+          <div className={styles.learnAnytimeAnywhereContainer}>
+            <h1 className={styles.learnAnytimeAnywhere}>Learn Anytime, Anywhere</h1>
+            <p className={styles.accessAWideRangeOfEducati}>
+              <strong>Access a wide range of educational videos from various sources to enhance your learning experience.</strong>
+            </p>
+          </div>
+        </header>
+      </div>
 
       <div className={styles.features}>
         <div className={styles.homepagecom}>

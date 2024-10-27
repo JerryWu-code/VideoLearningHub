@@ -2,6 +2,21 @@ import { useCallback } from "react";
 import IconButton from "../components/IconButton";
 import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.css";
+import {Navibar} from "../components/Navibar";
+import { SearchBar } from "../components/SearchBar";
+import { SearchResultsList } from "../components/SearchResultsList";
+
+const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
+
+async function getServerSideProps () {
+  const res = await fetch(`${YOUTUBE_SEARCH_API}?key=${process.env.YOUTUBE_API_KEY}`);
+  data = await res.json();
+  return {
+    props: {
+      data
+    }
+  }
+}
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -14,25 +29,16 @@ const MainPage = () => {
     navigate("/video-player-page");
   }, [navigate]);
 
-  const onFrameContainerClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
-
-  const onFrameContainerClick1 = useCallback(() => {
-    navigate("/course-page");
-  }, [navigate]);
-
   return (
     <div className={styles.mainPage}>
+      <Navibar />
       <div className={styles.startYourLearningJourneyHeParent}>
         <div className={styles.startYourLearning}>
           Start your learning journey here
         </div>
-        <div className={styles.searchbar}>
-          <IconButton propTop="calc(50% - 24.5px)" propLeft="28px" />
-          <div className={styles.content} onClick={onContentContainerClick}>
-            <div className={styles.supportingText}>Hinted search text</div>
-          </div>
+        <div className ={styles.SearchBar}>
+          <SearchBar/>
+          {/* {results && results.length > 0 && <SearchResultsList results={results} />} */}
         </div>
       </div>
       <div className={styles.cardGridTestimonials}>
@@ -321,22 +327,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <div className={styles.navibar}>
-        <div className={styles.navibarInner}>
-          <div className={styles.logoParent}>
-            <img className={styles.logoIcon} alt="" src="/logo1@2x.png" />
-            <div className={styles.homeWrapper} onClick={onFrameContainerClick}>
-              <b className={styles.title}>Home</b>
-            </div>
-            <div className={styles.homeContainer}>
-              <b className={styles.title}>Main</b>
-            </div>
-            <div className={styles.homeFrame} onClick={onFrameContainerClick1}>
-              <b className={styles.title}>Courses</b>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 };

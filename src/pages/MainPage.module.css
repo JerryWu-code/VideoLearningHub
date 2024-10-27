@@ -1,5 +1,5 @@
 .startYourLearning {
-  position: absolute;
+  /* position: absolute; */
   width: calc(100% - 598px);
   top: calc(50% - 56.5px);
   left: 299px;
@@ -10,8 +10,9 @@
   letter-spacing: 0.5px;
   line-height: 24px;
 }
+
 .content {
-  position: absolute;
+  /* position: absolute; */
   top: 5px;
   left: 105px;
   width: 842px;
@@ -28,7 +29,7 @@
   overflow: hidden;
 }
 .searchbar {
-  position: absolute;
+  /* position: absolute; */
   top: 215px;
   left: 105px;
   border-radius: var(--br-21xl);
@@ -424,78 +425,7 @@
   font-size: var(--body-base-size);
   color: var(--text-default-default);
 }
-.logoIcon {
-  position: absolute;
-  height: 100%;
-  width: 19.19%;
-  top: 0;
-  right: 80.81%;
-  bottom: 0;
-  left: 0;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-  object-fit: cover;
-}
-.homeContainer,
-.homeFrame,
-.homeWrapper {
-  position: absolute;
-  height: 40.38%;
-  width: 22.09%;
-  top: 33.65%;
-  bottom: 25.96%;
-  border-radius: var(--br-4xs);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-3xs) var(--padding-11xl);
-  box-sizing: border-box;
-}
-.homeWrapper {
-  right: 54.14%;
-  left: 23.77%;
-  background-color: var(--background-default-default);
-  cursor: pointer;
-}
-.homeContainer,
-.homeFrame {
-  right: 26.64%;
-  left: 51.27%;
-  background-color: var(--color-papayawhip);
-}
-.homeFrame {
-  width: 21.22%;
-  right: 0;
-  left: 78.78%;
-  background-color: var(--background-default-default);
-  cursor: pointer;
-}
-.logoParent,
-.navibarInner {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.navibarInner {
-  width: 103.51%;
-  right: -3.51%;
-}
-.navibar {
-  width: 569px;
-  position: absolute;
-  margin: 0 !important;
-  top: 0;
-  left: 27px;
-  height: 104px;
-  z-index: 4;
-  font-family: var(--paragraph);
-}
+
 .mainPage {
   width: 100%;
   position: relative;
