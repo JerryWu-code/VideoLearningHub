@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useState } from "react";
 import IconButton from "../components/IconButton";
 import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.css";
@@ -20,6 +21,9 @@ async function getServerSideProps () {
 }
 
 const MainPage = () => {
+
+  const [results, setResults] = useState([]);
+
   const navigate = useNavigate();
 
   const onContentContainerClick = useCallback(() => {
@@ -37,9 +41,9 @@ const MainPage = () => {
         <div className={styles.startYourLearning}>
           Start your learning journey here
         </div>
-        <div className ={styles.SearchBar}>
-          <SearchBar/>
-          {/* {results && results.length > 0 && <SearchResultsList results={results} />} */}
+        <div className ={styles.searchbar}>
+          <SearchBar setResults={setResults} />
+          {results && results.length > 0 && <SearchResultsList results={results} />}
         </div>
       </div>
       <div className={styles.cardGridTestimonials}>

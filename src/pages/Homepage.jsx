@@ -9,7 +9,7 @@ const Homepage = () => {
   return (
     <div>
       <Navibar />
-      <div class='content'>
+      <div className='content'>
       <div>
         <header>
           <div>
