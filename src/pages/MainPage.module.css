@@ -1,243 +1,59 @@
-.startYourLearning {
-  /* position: absolute; */
-  width: calc(100% - 598px);
-  top: calc(50% - 56.5px);
-  left: 299px;
-  display: inline-block;
-}
-
-.supportingText {
-  position: relative;
-  letter-spacing: 0.5px;
-  line-height: 24px;
-}
-
-.content {
-  /* position: absolute; */
-  top: 5px;
-  left: 105px;
-  width: 842px;
-  height: 48px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-}
-
-.searchbar,
 .startYourLearningJourneyHeParent {
-  background-color: var(--background-default-default);
-  overflow: hidden;
-}
-
-.searchbar {
-  padding-top: 2vh;
-  width: 50%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 200px;
-}
-
-.startYourLearningJourneyHeParent {
-  height: 399px;
-  flex-shrink: 0;
-  z-index: 0;
-  text-align: center;
-  font-size: var(--style-header-size);
-  font-family: var(--style-header);
-}
-
-.heading,
-.startYourLearningJourneyHeParent {
-  align-self: stretch;
-  position: relative;
-}
-
-.subheading {
-  width: 113px;
-  position: relative;
-  font-size: var(--paragraph-size);
-  line-height: 120%;
-  color: var(--text-default-secondary);
-  display: none;
-}
-
-.textContentHeading {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--space-200);
-}
-
-.textHeading1 {
-  flex: 1;
-  position: relative;
-  letter-spacing: -0.02em;
-  line-height: 120%;
-  font-weight: 600;
-}
-
-.textHeading {
-  align-self: stretch;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.avatarIcon {
-  width: var(--icon-large);
-  border-radius: var(--radius-full);
-  height: var(--icon-large);
-  overflow: hidden;
-  flex-shrink: 0;
-  object-fit: cover;
-}
-
-.avatarIcon,
-.description,
-.title {
-  position: relative;
-}
-
-.description {
-  align-self: stretch;
-  font-size: var(--body-base-size);
-  line-height: 140%;
-  font-family: var(--body-base);
-  color: var(--text-default-tertiary);
-}
-
-.info {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-050);
-}
-
-.avatarBlock,
-.testimonialCard {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.avatarBlock {
-  width: 139px;
-  flex-direction: row;
-  gap: var(--space-300);
-  font-size: var(--paragraph-size);
-  color: var(--text-default-secondary);
-  font-family: var(--paragraph);
-}
-
-.testimonialCard {
-  flex: 1;
-  border-radius: var(--radius-200);
+  padding: auto;
   background-color: var(--background-default-default);
-  border: 1px solid var(--border-default-default);
-  box-sizing: border-box;
-  flex-direction: column;
-  padding: var(--space-600);
-  gap: var(--space-600);
-  min-width: 300px;
+  text-align: center;
+  font-size: 2.5rem;
+  /* Adjust as per your heading size needs */
+  font-family: var(--style-header);
+  z-index: 0;
 }
 
-.description1,
-.title1 {
-  align-self: stretch;
-  position: relative;
-  line-height: 140%;
+.startYourLearning {
+  margin-bottom: 40px;
+  /* Space between heading and search bar */
+  font-weight: bold;
+  color: #333;
+  /* Choose a color that contrasts with the background */
 }
 
-.title1 {
-  font-weight: 600;
-}
-
-.description1 {
-  color: var(--text-default-tertiary);
-}
-
-.info1 {
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-050);
-}
-
-.avatarBlock1,
-.info1,
-.testimonialCard1 {
+.searchbar {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.avatarBlock1 {
-  width: 139px;
-  flex-direction: row;
-  gap: var(--space-300);
-  font-size: var(--body-base-size);
-  color: var(--text-default-secondary);
-}
-
-.testimonialCard1 {
-  flex: 1;
-  border-radius: var(--radius-200);
-  background-color: var(--background-default-default);
-  border: 1px solid var(--border-default-default);
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  padding: var(--space-600);
-  gap: var(--space-600);
-  min-width: 300px;
-  cursor: pointer;
+  width: 50%;
+  max-width: 600px;
+  min-width: 200px;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  padding-top: 2vh;
 }
 
-.title2 {
-  position: relative;
-  line-height: 140%;
-  font-weight: 600;
+.searchbar input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #666;
+  border-radius: 50px;
+  font-family: inherit;
 }
 
-.cardGrid,
-.cardGridTestimonials,
-.textContentHeading1 {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+.searchbar input::placeholder {
+  color: #aaa;
 }
 
-.cardGrid {
-  align-self: stretch;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: var(--space-1200);
-  font-size: var(--heading-size);
-}
-
-.cardGridTestimonials,
-.textContentHeading1 {
-  flex-direction: column;
-  font-size: var(--header-size);
-  color: var(--text-default-default);
-}
-
-.cardGridTestimonials {
-  align-self: stretch;
-  background-color: var(--background-default-default);
-  height: 546px;
-  padding: var(--space-1600);
-  box-sizing: border-box;
-  gap: var(--space-1200);
-  z-index: 1;
+.searchbar svg {
+  margin-right: 0.5rem;
+  color: #666;
 }
 
 .textContentHeading1 {
@@ -376,16 +192,8 @@
 }
 
 .mainPage {
-  width: 100%;
-  position: relative;
-  background-color: var(--color-floralwhite);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  text-align: left;
-  font-size: var(--paragraph-size);
-  color: var(--color-black);
-  font-family: var(--body-base);
+  min-height: 100vh;
+  width: 100%;
 }

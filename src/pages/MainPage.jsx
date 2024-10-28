@@ -83,25 +83,19 @@ const MainPage = () => {
       <Navibar />
       <div className={styles.startYourLearningJourneyHeParent}>
         <div className={styles.startYourLearning}>
-          Start your learning journey here
+          Start your Learning Journey here.
         </div>
         <div className={styles.searchbar}>
           <SearchBar setResults={setResults} />
           {results && results.length > 0 && <SearchResultsList results={results} />}
         </div>
       </div>
-      <div>
-        <div>
-          <div className="textContentHeading1">
-            <h2>Trending Fields</h2>
-          </div>
-          <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {categories.map((category, index) => (
-              <CategoryCard key={index} icon={category.icon} text={category.text} link={category.link} />
-            ))}
-          </div>
-        </div>
-      </div >
+      <b className={styles.heading}>Trending Fields</b>
+      <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {categories.map((category, index) => (
+          <CategoryCard key={index} icon={category.icon} text={category.text} link={category.link} />
+        ))}
+      </div>
       <div className={styles.textContentHeadingParent}>
         <div className={styles.textContentHeading1}>
           <b className={styles.heading}>Most Visits</b>
