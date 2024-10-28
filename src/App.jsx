@@ -8,10 +8,7 @@ import {
 import Homepage from "./pages/Homepage";
 import VideoPlayerPage from "./pages/VideoPlayerPage";
 import CoursePage from "./pages/CoursePage";
-import Pics from "./pages/Pics";
 import MainPage from "./pages/MainPage";
-import Pics2 from "./pages/Pics2";
-import Pics1 from "./pages/Pics1";
 
 function App() {
   const action = useNavigationType();
@@ -28,36 +25,6 @@ function App() {
     let title = "";
     let metaDescription = "";
 
-    switch (pathname) {
-      case "/":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/video-player-page":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/course-page":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/pics2":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/main-page":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/pics3":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/pics1":
-        title = "";
-        metaDescription = "";
-        break;
-    }
 
     if (title) {
       document.title = title;
@@ -76,12 +43,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/video-player-page" element={<VideoPlayerPage />} />
-      <Route path="/course-page" element={<CoursePage />} />
-      <Route path="/pics2" element={<Pics />} />
       <Route path="/main-page" element={<MainPage />} />
-      <Route path="/pics3" element={<Pics2 />} />
-      <Route path="/pics1" element={<Pics1 />} />
+      <Route path="/course-page" element={<CoursePage />} />
+      <Route path="/video-player-page" element={<VideoPlayerPage />} />
     </Routes>
   );
 }

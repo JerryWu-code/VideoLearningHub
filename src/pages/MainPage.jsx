@@ -6,8 +6,7 @@ import { Navibar } from "../components/Navibar";
 import { SearchBar } from "../components/SearchBar";
 import { Footer } from "../components/Footer";
 import { SearchResultsList } from "../components/SearchResultsList";
-// import { TrendingFields } from "../components/TrendingFields";
-// import { Card } from "../components/Card";
+import { Link } from "react-router-dom";
 
 const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
 
@@ -55,12 +54,12 @@ const MainPage = () => {
                 <div className="textContentHeading1">
                   <h2>Trending Fields</h2>
                 </div>
-                <a href="#" title="" className="flex items-center text-base font-medium text-primary-700 hover:underline dark:text-primary-500">
+                <Link to="/course-page" title="" className="flex items-center text-base font-medium text-primary-700 hover:underline dark:text-primary-500">
                   See more categories
                   <svg className="ms-1 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
                   </svg>
-                </a>
+                </Link>
               </div>
               <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <a href="#" className="flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
