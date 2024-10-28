@@ -9,7 +9,7 @@ import './scss/styles.scss';
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
-import "./global.css";
+import "./index.css";
 
 
 import { Ripple, initMDB } from 'mdb-ui-kit/js/mdb.es.min.js'; // Import needed modules
