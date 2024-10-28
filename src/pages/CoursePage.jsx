@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CoursePage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
-import Card from "../components/Card";
+import Card from "../components/CourseCard";
 
 const CoursePage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const CoursePage = () => {
 
   return (
     <div>
-      <div className="navbar">
+      <div>
         <Navibar />
       </div>
       <div className={styles.coursePage}>
