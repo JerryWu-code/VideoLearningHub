@@ -5,6 +5,7 @@
   left: 299px;
   display: inline-block;
 }
+
 .supportingText {
   position: relative;
   letter-spacing: 0.5px;
@@ -23,11 +24,13 @@
   justify-content: flex-start;
   cursor: pointer;
 }
+
 .searchbar,
 .startYourLearningJourneyHeParent {
   background-color: var(--background-default-default);
   overflow: hidden;
 }
+
 .searchbar {
   padding-top: 2vh;
   width: 50%;
@@ -37,6 +40,7 @@
   align-items: center;
   min-width: 200px;
 }
+
 .startYourLearningJourneyHeParent {
   height: 399px;
   flex-shrink: 0;
@@ -45,11 +49,13 @@
   font-size: var(--style-header-size);
   font-family: var(--style-header);
 }
+
 .heading,
 .startYourLearningJourneyHeParent {
   align-self: stretch;
   position: relative;
 }
+
 .subheading {
   width: 113px;
   position: relative;
@@ -58,6 +64,7 @@
   color: var(--text-default-secondary);
   display: none;
 }
+
 .textContentHeading {
   display: flex;
   flex-direction: column;
@@ -65,6 +72,7 @@
   justify-content: flex-start;
   gap: var(--space-200);
 }
+
 .textHeading1 {
   flex: 1;
   position: relative;
@@ -72,6 +80,7 @@
   line-height: 120%;
   font-weight: 600;
 }
+
 .textHeading {
   align-self: stretch;
   overflow: hidden;
@@ -80,6 +89,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .avatarIcon {
   width: var(--icon-large);
   border-radius: var(--radius-full);
@@ -88,11 +98,13 @@
   flex-shrink: 0;
   object-fit: cover;
 }
+
 .avatarIcon,
 .description,
 .title {
   position: relative;
 }
+
 .description {
   align-self: stretch;
   font-size: var(--body-base-size);
@@ -100,6 +112,7 @@
   font-family: var(--body-base);
   color: var(--text-default-tertiary);
 }
+
 .info {
   flex: 1;
   display: flex;
@@ -108,12 +121,14 @@
   justify-content: center;
   gap: var(--space-050);
 }
+
 .avatarBlock,
 .testimonialCard {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .avatarBlock {
   width: 139px;
   flex-direction: row;
@@ -122,6 +137,7 @@
   color: var(--text-default-secondary);
   font-family: var(--paragraph);
 }
+
 .testimonialCard {
   flex: 1;
   border-radius: var(--radius-200);
@@ -133,23 +149,28 @@
   gap: var(--space-600);
   min-width: 300px;
 }
+
 .description1,
 .title1 {
   align-self: stretch;
   position: relative;
   line-height: 140%;
 }
+
 .title1 {
   font-weight: 600;
 }
+
 .description1 {
   color: var(--text-default-tertiary);
 }
+
 .info1 {
   flex: 1;
   flex-direction: column;
   gap: var(--space-050);
 }
+
 .avatarBlock1,
 .info1,
 .testimonialCard1 {
@@ -157,6 +178,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .avatarBlock1 {
   width: 139px;
   flex-direction: row;
@@ -164,6 +186,7 @@
   font-size: var(--body-base-size);
   color: var(--text-default-secondary);
 }
+
 .testimonialCard1 {
   flex: 1;
   border-radius: var(--radius-200);
@@ -176,11 +199,13 @@
   min-width: 300px;
   cursor: pointer;
 }
+
 .title2 {
   position: relative;
   line-height: 140%;
   font-weight: 600;
 }
+
 .cardGrid,
 .cardGridTestimonials,
 .textContentHeading1 {
@@ -188,6 +213,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .cardGrid {
   align-self: stretch;
   flex-direction: row;
@@ -196,12 +222,14 @@
   gap: var(--space-1200);
   font-size: var(--heading-size);
 }
+
 .cardGridTestimonials,
 .textContentHeading1 {
   flex-direction: column;
   font-size: var(--header-size);
   color: var(--text-default-default);
 }
+
 .cardGridTestimonials {
   align-self: stretch;
   background-color: var(--background-default-default);
@@ -211,6 +239,7 @@
   gap: var(--space-1200);
   z-index: 1;
 }
+
 .textContentHeading1 {
   position: absolute;
   top: 0;
@@ -218,6 +247,7 @@
   gap: var(--space-200);
   font-family: var(--body-base);
 }
+
 .contentHolderChild {
   position: absolute;
   top: 237px;
@@ -228,17 +258,20 @@
   overflow: hidden;
   object-fit: cover;
 }
+
 .thisIsA {
   position: absolute;
   top: 48px;
   left: 60px;
 }
+
 .contentHolder1,
 .source {
   position: absolute;
   top: 263px;
   left: 23px;
 }
+
 .contentHolder1 {
   height: 100%;
   width: 100%;
@@ -251,6 +284,7 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+
 .contentHolder {
   position: absolute;
   top: 117px;
@@ -259,6 +293,7 @@
   height: 321px;
   cursor: pointer;
 }
+
 .contentHolder2,
 .contentHolder3,
 .contentHolder4,
@@ -277,6 +312,7 @@
   height: 321px;
   overflow: hidden;
 }
+
 .contentHolder3,
 .contentHolder4,
 .contentHolder5,
@@ -286,6 +322,7 @@
 .contentHolder9 {
   left: 1034px;
 }
+
 .contentHolder4,
 .contentHolder5,
 .contentHolder6,
@@ -295,6 +332,7 @@
   top: 507px;
   left: 80px;
 }
+
 .contentHolder5,
 .contentHolder6,
 .contentHolder7,
@@ -302,25 +340,30 @@
 .contentHolder9 {
   left: 557px;
 }
+
 .contentHolder6,
 .contentHolder7,
 .contentHolder8,
 .contentHolder9 {
   left: 1034px;
 }
+
 .contentHolder7,
 .contentHolder8,
 .contentHolder9 {
   top: 897px;
   left: 80px;
 }
+
 .contentHolder8,
 .contentHolder9 {
   left: 557px;
 }
+
 .contentHolder9 {
   left: 1034px;
 }
+
 .textContentHeadingParent {
   align-self: stretch;
   position: relative;
