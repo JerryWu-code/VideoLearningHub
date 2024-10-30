@@ -18,10 +18,23 @@
 
 3. Auto-Save Notes: Notes are auto-saved with timestamps (for videos) or text references, so users can go back to specific parts of the material.
 
-
-Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
-
 To preview and run the project on your device:
 1) Open project folder in <a href="https://code.visualstudio.com/download">Visual Studio Code</a>
 2) In the terminal, run `npm install`
 3) Run `npm start` to view project in browser
+
+Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
+
+To ensure successful start of this program you need Node.js version 16 or higher, run the following instrucitons to install Node.js 16:
+```bash
+# install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+source ~/.bashrc  # reload shell
+
+# install Node.js latest LTS version
+nvm install --lts
+nvm use --lts
+
+# set Node.js 16 as default version
+nvm alias default 16
+```
