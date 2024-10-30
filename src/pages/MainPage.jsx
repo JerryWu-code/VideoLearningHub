@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.css";
 import { Navibar } from "../components/Navibar";
@@ -7,18 +6,15 @@ import { SearchBar } from "../components/SearchBar";
 import { Footer } from "../components/Footer";
 import { SearchResultsList } from "../components/SearchResultsList";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
 import CategoryCard from "../components/CategotyCard";
 
 const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
 
-async function getServerSideProps() {
-  const res = await fetch(`${YOUTUBE_SEARCH_API}?key=${process.env.YOUTUBE_API_KEY}`);
-  data = await res.json();
-  return {
-    props: {
-      data
-    }
-  }
+async function fetchData() {
+  const res = await fetch(`${YOUTUBE_SEARCH_API}?key=${import.meta.env.VITE_YOUTUBE_API_KEY}`);
+  const data = await res.json();
+  return data;
 }
 
 const categories = [
@@ -65,7 +61,13 @@ const categories = [
 ];
 
 const MainPage = () => {
+  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    fetchData().then(setData);
+  }, []);
+
+  console.log("data", data);
   const [results, setResults] = useState([]);
 
   const navigate = useNavigate();
