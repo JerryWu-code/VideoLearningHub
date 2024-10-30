@@ -22,8 +22,8 @@ const CoursePage = () => {
         <Navibar />
       </div>
       <div className={styles.coursePage}>
-        <h1>
-          Explore Your Favourite Area.
+        <h1 className={styles.h1}>
+          Explore Your Favourite Area <br />
         </h1>
         <div className={styles.categrps}>
           <Card imageSrc="../public/frame-141@2x.png"
