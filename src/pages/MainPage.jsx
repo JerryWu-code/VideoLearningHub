@@ -92,104 +92,11 @@ const MainPage = () => {
           {results && results.length > 0 && <SearchResultsList results={results} />}
         </div>
       </div>
-      <b className={styles.heading}>Trending Fields</b>
+      <h1 className={styles.heading}>Trending Fields</h1>
       <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {categories.map((category, index) => (
           <CategoryCard key={index} icon={category.icon} text={category.text} link={category.link} />
         ))}
-      </div>
-      <div className={styles.textContentHeadingParent}>
-        <div className={styles.textContentHeading1}>
-          <b className={styles.heading}>Most Visits</b>
-          <div className={styles.subheading} />
-        </div>
-        <div
-          className={styles.contentHolder}
-          onClick={onTestimonialCardContainerClick}>
-          <div className={styles.contentHolder1}>
-            <img
-              className={styles.contentHolderChild}
-              alt=""
-              src="/frame-12@2x.png"
-            />
-            <b
-              className={styles.thisIsA}
-            >{`This is a content cover placer `}</b>
-            <b className={styles.source}>Source:</b>
-          </div>
-        </div>
-        <div className={styles.contentHolder2}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-121@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder3}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-122@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder4}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-123@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder5}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-124@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder6}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-124@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder7}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-124@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder8}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-124@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
-        <div className={styles.contentHolder9}>
-          <img
-            className={styles.contentHolderChild}
-            alt=""
-            src="/frame-124@2x.png"
-          />
-          <b className={styles.thisIsA}>{`This is a content cover placer `}</b>
-          <b className={styles.source}>Source:</b>
-        </div>
       </div>
       <Footer />
     </div >
