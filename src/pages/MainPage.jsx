@@ -69,7 +69,11 @@ const MainPage = () => {
   // }, []);
 
   // console.log("data", data);
+
+  // usded to store the search results
   const [results, setResults] = useState([]);
+  // check whether user is focusing on the search bar
+  const [isFocused, setIsFocused] = useState(false);
 
   const navigate = useNavigate();
 
@@ -89,9 +93,17 @@ const MainPage = () => {
           Start your Learning Journey here.
         </div>
         <div className={styles.searchbar}>
-          <SearchBar setResults={setResults} />
-          {results && results.length > 0 && <SearchResultsList results={results} />}
-        </div>
+        <SearchBar setResults={setResults} 
+        onFocus={() => setIsFocused(true)} 
+        onBlur={() => setTimeout(() => setIsFocused(false), 100)}
+        />
+        {console.log("isFocused", isFocused)}
+        {isFocused&&results && results.length > 0 && (
+          <div className={styles.suggestionBox}>
+            <SearchResultsList results={results} />
+          </div>
+        )}
+      </div>
       </div>
       <h1 className={styles.heading}>Trending Fields</h1>
       <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

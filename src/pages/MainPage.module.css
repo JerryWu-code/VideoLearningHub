@@ -13,7 +13,7 @@
 }
 
 .startYourLearning {
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   /* Space between heading and search bar */
   font-weight: bold;
   color: #333;
@@ -47,14 +47,13 @@
   max-width: 600px;
   min-width: 200px;
   padding: 0.5rem 1rem;
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 50px;
   margin-bottom: 40px;
   padding-top: 2vh;
-  position: absolute;
-  top: 20%;
+  position: relative;
+  top: 15%;
   z-index: 10;
-
 }
 
 .searchbar input {
@@ -75,4 +74,14 @@
 
 .searchbar input::placeholder {
   color: #aaa;
+}
+
+.suggestionBox {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 20; 
+  background-color: transparent; 
+  border-radius: 8px;
 }
