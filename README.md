@@ -32,8 +32,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 source ~/.bashrc  # reload shell
 
 # install Node.js latest LTS version
-nvm install --lts
-nvm use --lts
+nvm install 16 
+nvm use 16
 
 # set Node.js 16 as default version
 nvm alias default 16

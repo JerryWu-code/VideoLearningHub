@@ -13,10 +13,29 @@
 }
 
 .startYourLearning {
-  margin-bottom: 70px;
+  margin-bottom: 35px;
   /* Space between heading and search bar */
   font-weight: bold;
   color: #333;
+  /* Choose a color that contrasts with the background */
+}
+
+.textContentHeadingParent {
+  align-self: stretch;
+  position: relative;
+  background-color: var(--background-default-default);
+  height: 1335px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 2;
+  font-family: var(--paragraph);
+}
+
+.mainPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .searchbar {
@@ -49,153 +68,11 @@
   font-family: inherit;
 }
 
-.searchbar input::placeholder {
-  color: #aaa;
-}
-
 .searchbar svg {
   margin-right: 0.5rem;
   color: #666;
 }
 
-.textContentHeading1 {
-  position: absolute;
-  top: 0;
-  left: 61px;
-  gap: var(--space-200);
-  font-family: var(--body-base);
-}
-
-.contentHolderChild {
-  position: absolute;
-  top: 237px;
-  left: 103px;
-  border-radius: var(--br-xl);
-  width: 70px;
-  height: 75px;
-  overflow: hidden;
-  object-fit: cover;
-}
-
-.thisIsA {
-  position: absolute;
-  top: 48px;
-  left: 60px;
-}
-
-.contentHolder1,
-.source {
-  position: absolute;
-  top: 263px;
-  left: 23px;
-}
-
-.contentHolder1 {
-  height: 100%;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: var(--br-xl);
-  border: 1px solid var(--border-default-default);
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.contentHolder {
-  position: absolute;
-  top: 117px;
-  left: 80px;
-  width: 386px;
-  height: 321px;
-  cursor: pointer;
-}
-
-.contentHolder2,
-.contentHolder3,
-.contentHolder4,
-.contentHolder5,
-.contentHolder6,
-.contentHolder7,
-.contentHolder8,
-.contentHolder9 {
-  position: absolute;
-  top: 117px;
-  left: 557px;
-  border-radius: var(--br-xl);
-  border: 1px solid var(--border-default-default);
-  box-sizing: border-box;
-  width: 386px;
-  height: 321px;
-  overflow: hidden;
-}
-
-.contentHolder3,
-.contentHolder4,
-.contentHolder5,
-.contentHolder6,
-.contentHolder7,
-.contentHolder8,
-.contentHolder9 {
-  left: 1034px;
-}
-
-.contentHolder4,
-.contentHolder5,
-.contentHolder6,
-.contentHolder7,
-.contentHolder8,
-.contentHolder9 {
-  top: 507px;
-  left: 80px;
-}
-
-.contentHolder5,
-.contentHolder6,
-.contentHolder7,
-.contentHolder8,
-.contentHolder9 {
-  left: 557px;
-}
-
-.contentHolder6,
-.contentHolder7,
-.contentHolder8,
-.contentHolder9 {
-  left: 1034px;
-}
-
-.contentHolder7,
-.contentHolder8,
-.contentHolder9 {
-  top: 897px;
-  left: 80px;
-}
-
-.contentHolder8,
-.contentHolder9 {
-  left: 557px;
-}
-
-.contentHolder9 {
-  left: 1034px;
-}
-
-.textContentHeadingParent {
-  align-self: stretch;
-  position: relative;
-  background-color: var(--background-default-default);
-  height: 1335px;
-  overflow: hidden;
-  flex-shrink: 0;
-  z-index: 2;
-  font-family: var(--paragraph);
-}
-
-.mainPage {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
+.searchbar input::placeholder {
+  color: #aaa;
 }
