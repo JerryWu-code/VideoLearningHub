@@ -9,13 +9,14 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import CategoryCard from "../components/CategotyCard";
 
-const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
+// const YOUTUBE_SEARCH_API = "https://www.googleapis.com/youtube/v3/search"
 
-async function fetchData() {
-  const res = await fetch(`${YOUTUBE_SEARCH_API}?key=${import.meta.env.VITE_YOUTUBE_API_KEY}`);
-  const data = await res.json();
-  return data;
-}
+// async function fetchData() {
+//   const res = await fetch(`${YOUTUBE_SEARCH_API}?part=snippet&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`);
+//   console.log("API Key:", import.meta.env.VITE_YOUTUBE_API_KEY);
+//   const data = await res.json();
+//   return data;
+// }
 
 const categories = [
   {
@@ -61,13 +62,13 @@ const categories = [
 ];
 
 const MainPage = () => {
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
 
-  useEffect(() => {
-    fetchData().then(setData);
-  }, []);
+  // useEffect(() => {
+  //   fetchData().then(setData);
+  // }, []);
 
-  console.log("data", data);
+  // console.log("data", data);
   const [results, setResults] = useState([]);
 
   const navigate = useNavigate();
