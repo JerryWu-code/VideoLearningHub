@@ -24,6 +24,7 @@ input:focus {
 }
 
 #search-icon {
-  color: rgb(0, 0, 0);
-  margin-right: 30px;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
 }
