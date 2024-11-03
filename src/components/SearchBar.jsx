@@ -7,6 +7,8 @@ import "./SearchBar.css";
 export const SearchBar = ({ setResults, onFocus, onBlur }) => {
   const [input, setInput] = useState("");
 
+  console.log("API Key:", import.meta.env.VITE_RAPID_API_KEY);
+
   const options = {
     method: 'GET',
     headers: {
