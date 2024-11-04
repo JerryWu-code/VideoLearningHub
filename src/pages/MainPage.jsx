@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.css";
 import { Navibar } from "../components/Navibar";
 import { SearchBar } from "../components/SearchBar";
+import {PlayGrid} from "../components/PlayGrid";
 import { Footer } from "../components/Footer";
 import { SearchResultsList } from "../components/SearchResultsList";
 import { Link } from "react-router-dom";
@@ -110,6 +111,10 @@ const MainPage = () => {
         {categories.map((category, index) => (
           <CategoryCard key={index} icon={category.icon} text={category.text} link={category.link} />
         ))}
+      </div>
+      <h1>Most Visits</h1>
+      <div className={styles.gridContainer}>
+        <PlayGrid/>
       </div>
       <Footer />
     </div >

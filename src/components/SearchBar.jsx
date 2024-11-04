@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
 import { YOUTUBE_SEARCH_API } from "../../constants";
 import { debounce } from "lodash";
-import "./SearchBar.css";
+import styles from "./SearchBar.module.css";
 
 export const SearchBar = ({ setResults, onFocus, onBlur }) => {
   const [input, setInput] = useState("");
@@ -17,24 +17,23 @@ export const SearchBar = ({ setResults, onFocus, onBlur }) => {
     }
   };
 
-  const fetchData = (value) => {
+  const fetchData = async (value) => {
     console.log("Fetching data for:", value);
-    fetch(`${YOUTUBE_SEARCH_API}?query=${value}`, options)
-      .then((response) => response.json())
-      .then((json) => {
-        const results = json.data.filter((video) => {
-          return (
-            video &&
-            video.title &&
-            video.title.toLowerCase().includes(value.toLowerCase())
-          );
-        });
-        console.log("Results:", results);
-        setResults(results);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+    try {
+      const response = await fetch(`${YOUTUBE_SEARCH_API}?query=${value}`, options);
+      const json = await response.json();
+      const results = json.data.filter((video) => {
+        return (
+          video &&
+          video.title &&
+          video.title.toLowerCase().includes(value.toLowerCase())
+        );
       });
+      console.log("Search Results:", results);
+      setResults(results);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   // Debounce the fetchData function
@@ -46,8 +45,8 @@ export const SearchBar = ({ setResults, onFocus, onBlur }) => {
   };
 
   return (
-    <div className="input-wrapper">
-      <FaSearch id="search-icon" />
+    <div className={styles.input_wrapper}>
+      <FaSearch className={styles.search_icon} />
       <input
         placeholder="Type to search..."
         value={input}

@@ -1,4 +1,4 @@
-.input-wrapper {
+.input_wrapper {
   width: 100%;
   height: fit-content;
   border: none;
@@ -23,7 +23,7 @@ input:focus {
   outline: none;
 }
 
-#search-icon {
+.search_icon {
   margin-right: 10px;
   width: 20px;
   height: 20px;
