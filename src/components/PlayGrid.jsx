@@ -15,7 +15,7 @@ export const PlayGrid = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=self-study&type=video&sort=views&duration=long`, options);
+            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=datascienceself-study&type=video&sort=views&duration=long`, options);
             const json = await response.json();
             
             const results = json.data.filter((video) => video && video.title);
@@ -44,6 +44,14 @@ export const PlayGrid = () => {
                             />
                         )}
                         <h3>{video.title}</h3>
+                        <div className={styles.source}>
+                            <span>Source:</span>
+                            <img
+                                src="../public/frame-12@2x.png"
+                                alt=""
+                                className={styles.sourceIcon}
+                            />
+                        </div>
                     </div>
                 </li>
             ))}

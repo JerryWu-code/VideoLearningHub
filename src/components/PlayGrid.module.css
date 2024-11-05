@@ -2,18 +2,17 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 24px 200px;
-    padding: 0 16px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px 30px;
+    padding: 0 20px;
     box-sizing: border-box;
-    max-width: 100%;
-    overflow-x: auto;
+    max-width: 95%;
     margin: 0 auto;
+    margin-bottom: 32px;
 }
 
 .card {
-    width: 320px;
-    height: 250px;
+    position: relative;
     border: 1px solid #ccc; /* Add border to each card */
     border-radius: 8px; /* Optional: adds rounded corners */
     padding: 16px;
@@ -25,6 +24,7 @@
     align-items: center;
     text-align: center;
     overflow: hidden;
+    padding-bottom: 60px;
 }
 
 .card img {
@@ -43,9 +43,27 @@
     text-overflow: ellipsis;
     word-break: break-word;
     overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit text to 2 lines */
+    -webkit-box-orient: vertical;   
 }
 
 .card:hover {
     transform: translateY(-4px); /* Slight lift on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.source {
+    position: absolute;
+    bottom: 5px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.sourceIcon {
+    max-width: 40px;
+    max-height: 40px;
+    margin-left: 8px;
 }
