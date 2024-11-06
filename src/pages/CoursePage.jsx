@@ -26,16 +26,16 @@ const CoursePage = () => {
           Explore Your Favourite Area <br />
         </h1>
         <div className={styles.categrps}>
-          <Card imageSrc="../public/frame-141@2x.png"
+          <Card imageSrc="../frame-141@2x.png"
             title="Chemistry"
             link="/details" />
-          <Card imageSrc="../public/frame-142@2x.png"
+          <Card imageSrc="../frame-142@2x.png"
             title="Computer Science"
             link="/video-player-page" />
-          <Card imageSrc="../public/frame-14@2x.png"
+          <Card imageSrc="../frame-14@2x.png"
             title="Physics"
             link="/details" />
-          <Card imageSrc="../public/frame-141@2x.png"
+          <Card imageSrc="../frame-141@2x.png"
             title="Chemistry"
             link="/details" />
         </div>
