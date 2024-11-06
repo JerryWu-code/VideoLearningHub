@@ -45,7 +45,7 @@
     "vite": "^4.5.5"
   },
   "scripts": {
-    "start": "concurrently \"vite\" \"node server/ProxyServer.js\"",
+    "start": "concurrently \"vite\" \"node server/ProxyServer.js\" \"node server/server.js\"",
     "build": "vite build",
     "server": "node server/server.js",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

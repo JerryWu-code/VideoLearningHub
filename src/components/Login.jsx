@@ -48,7 +48,7 @@ function Login() {
             // console.log("User Information:", decodedToken);
             // Extract user info from the decoded token
             const userProfile = {
-                id: decodedToken.sub,
+                id: Math.floor(Math.random() * 1000000),
                 fullName: decodedToken.name,
                 email: decodedToken.email,
             };
@@ -61,8 +61,8 @@ function Login() {
 
     const addUser = async (userProfile) => {
         const mutation = `
-        mutation AddUser($User: InputUser!) {
-          addUser(User: $User) {
+        mutation AddUser($user: InputUser!) {
+          addUser(user: $user) {
             id
             fullName
             email
@@ -70,7 +70,7 @@ function Login() {
         }
         `;
 
-        const variables = { User: userProfile };
+        const variables = { user: userProfile };
 
         const response = await graphQLFetch(mutation, variables);
 

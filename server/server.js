@@ -6,41 +6,30 @@ const { connectToDb } = require('./db.js');
 const cors = require('cors'); // Add CORS for cross-origin requests
 let db;
 
-// Define the custom Date scalar
-const GraphQLDate = new GraphQLScalarType({
-  name: 'GraphQLDate',
-  description: 'Custom scalar type for dates',
-  parseValue(value) {
-    return new Date(value); // Value from the client input
-  },
-  serialize(value) {
-    return value.toISOString(); // Value sent to the client
-  },
-  parseLiteral(ast) {
-    if (ast.kind === Kind.STRING) {
-      return new Date(ast.value); // Convert hard-coded AST string to Date
-    }
-    return null;
-  },
-});
+// Helper function to get the next sequence for user ID
+async function getNextSequence() {
+  try {
+    const lastUser = await db.collection('users')
+      .find({})
+      .sort({ id: -1 }) // Sort in descending order by `id`
+      .limit(1) // Get the last traveler (highest `id`)
+      .toArray(); // Convert to array
+
+    // If no travelers exist, start with 1; otherwise, increment by 1
+    return lastUser.length > 0 ? lastUser[0].id + 1 : 1;
+  } catch (err) {
+    throw new Error('Error getting next sequence for user ID');
+  }
+}
 
 // Add user function
-async function addUser(_, { user }) {  // Update parameter name to `user`
+async function addUser(_, { user }) {
   console.log("Adding user", user);
 
-  // Helper function to get the next ID sequence
-  async function getNextSequence() {
-    const result = await db.collection('counters').findOneAndUpdate(
-      { _id: 'fixedindex' },
-      { $inc: { current: 1 } },
-      { returnOriginal: false }
-    );
-    return result.value.current;
-  }
-
   try {
-    // Get the next available ID
+    // Get the next available ID and assign it to the user
     user.id = await getNextSequence();
+
     // Insert the user into the users collection
     const result = await db.collection('users').insertOne(user);
 
@@ -63,7 +52,6 @@ async function addUser(_, { user }) {  // Update parameter name to `user`
 
 // Define resolvers
 const resolvers = {
-  GraphQLDate, // Register custom scalar type
   Mutation: {
     addUser,
   },

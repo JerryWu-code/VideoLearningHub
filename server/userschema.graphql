@@ -9,8 +9,8 @@ type User {
 
 input InputUser {
 	id: Int!
-	email: String!
 	fullName: String!   
+	email: String!
 }
 
 type Mutation {
