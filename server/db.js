@@ -5,7 +5,7 @@ async function connectToDb() {
 	const url = 'mongodb://localhost/edulink';
 	const client = new MongoClient(url, { useNewUrlParser: true });
 	await client.connect();
-	console.log('Connected to Ticket To Ride MongoDB at', url);
+	console.log('Connected to EduLink MongoDB at', url);
 	db = client.db();
 	return db;
 }

@@ -4,14 +4,19 @@ type User {
 	_id: ID!
 	id: Int!
 	email: String!
-	password: String!   
+	fullName: String!   
 }
 
 input InputUser {
+	id: Int!
 	email: String!
-	password: String!   
+	fullName: String!   
 }
 
 type Mutation {
 	addUser(user: InputUser!): User!
+}
+
+type Query {
+  _empty: String  # Placeholder field to make Query type valid
 }

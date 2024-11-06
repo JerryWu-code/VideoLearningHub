@@ -11,13 +11,13 @@
 
 db.users.remove({});   //Remove all documents from the users collection
 
-db.users.insertOne([
+db.users.insertOne(
     {
         id: 1,
         email: "test_email@gmail.com",
-        password: "5551234",
+        fullName: "Test User",
     }
-]);
+);
 
 const count = db.users.count();
 print('Inserted', count, 'Users');
