@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Homepage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
+import Login from "../components/Login";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Homepage = () => {
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Learn Anytime, Anywhere </h1>
             <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Access a wide range of educational videos from various sources to enhance your learning experience.</p>
             <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+              <Login />
               <button
                 onClick={handleNavigate}
                 className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
