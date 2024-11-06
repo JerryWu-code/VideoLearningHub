@@ -5,17 +5,16 @@ import styles from "./PlayGrid.module.css";
 export const PlayGrid = () => {
     const [data, setData] = useState([]);
 
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': import.meta.env.VITE_RAPID_API_KEY,
-            'x-rapidapi-host': 'yt-api.p.rapidapi.com'
-        }
-    };
-
-    const fetchData = async () => {
+    const youtube_fetchData = async () => {
         try {
-            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=datascienceself-study&type=video&sort=views&duration=long`, options);
+            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=datascienceself-study&type=video&sort=views&duration=long`, 
+                {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': import.meta.env.VITE_RAPID_API_KEY,
+                    'x-rapidapi-host': 'yt-api.p.rapidapi.com'
+                }
+            });
             const json = await response.json();
             
             const results = json.data.filter((video) => video && video.title);
@@ -26,8 +25,19 @@ export const PlayGrid = () => {
         }
     };
 
+    const bilibili_fetchData = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:3000/api/bilibili');
+            const data = await response.json();
+            console.log("bilibilidata=", data);
+        } catch (error) {
+            console.error('Error fetching data from proxy server:', error);
+        }
+    };
+
     useEffect(() => {
-        fetchData();
+        bilibili_fetchData();
+        youtube_fetchData();
     }, []);
 
     return (
@@ -47,7 +57,7 @@ export const PlayGrid = () => {
                         <div className={styles.source}>
                             <span>Source:</span>
                             <img
-                                src="../public/frame-12@2x.png"
+                                src="../frame-12@2x.png"
                                 alt=""
                                 className={styles.sourceIcon}
                             />
