@@ -5,9 +5,11 @@ import styles from "./PlayGrid.module.css";
 export const PlayGrid = () => {
     const [data, setData] = useState([]);
 
+    const query = "data science";
+
     const youtube_fetchData = async () => {
         try {
-            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=datascienceself-study&type=video&sort=views&duration=long`, 
+            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=${query}&type=video&sort=views&duration=long`, 
                 {
                 method: 'GET',
                 headers: {
@@ -17,9 +19,12 @@ export const PlayGrid = () => {
             });
             const json = await response.json();
             
-            const results = json.data.filter((video) => video && video.title);
-            console.log("Grid Results:", results);
-            setData(results);
+            const youtubeResults = json.data
+            .filter((video) => video && video.title)
+            .map((video) => ({ ...video, source: 'YouTube' })); // Add source property
+
+            console.log("Youtube Results:", youtubeResults);
+            setData(youtubeResults);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -27,9 +32,16 @@ export const PlayGrid = () => {
 
     const bilibili_fetchData = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:3000/api/bilibili');
-            const data = await response.json();
-            console.log("bilibilidata=", data);
+            const response = await fetch(`http://127.0.0.1:3000/api/bilibili?keyword=${query}`);
+            const json = await response.json();
+
+            const videoData = json.data.result.find((item) => item.result_type === "video");
+            if (videoData && videoData.data) {
+                const bilibiliResults = videoData.data
+                .filter((video) => video && video.title)
+                .map((video) => ({ ...video, source: 'Bilibili' })); // Add source property
+                console.log("Bilibili Video Results:", bilibiliResults);}
+        
         } catch (error) {
             console.error('Error fetching data from proxy server:', error);
         }

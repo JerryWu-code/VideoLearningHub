@@ -7,7 +7,10 @@ const cors = require('cors');
 app.use(cors());
 
 app.get('/api/bilibili', async (req, res) => {;
-    const apiUrl = "https://api.bilibili.com/x/web-interface/search/all/v2";
+
+    const keyword = req.query.keyword;
+    console.log('Received keyword:', keyword);
+    const apiUrl = `https://api.bilibili.com/x/web-interface/search/all/v2?keyword=${keyword}`;
 
     try {
         const fetch = (await import('node-fetch')).default;
