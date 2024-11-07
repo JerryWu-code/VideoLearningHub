@@ -47,10 +47,12 @@ function Login() {
             const decodedToken = jwtDecode(res.credential);
             // console.log("User Information:", decodedToken);
             // Extract user info from the decoded token
+            console.log("Decoded Token:", decodedToken);
             const userProfile = {
-                id: Math.floor(Math.random() * 1000000),
+                id: decodedToken.exp,
                 fullName: decodedToken.name,
                 email: decodedToken.email,
+                picture: decodedToken.picture
             };
             console.log("User Profile:", userProfile);
             await addUser(userProfile);
@@ -66,6 +68,7 @@ function Login() {
             id
             fullName
             email
+            picture
           }
         }
         `;
@@ -81,7 +84,7 @@ function Login() {
         }
 
         if (response.addUser) {
-            alert('User added successfully.');
+            alert('Hi! ' + userProfile.fullName + ', you have successfully logged in.');
         } else {
             alert('An unexpected error occurred while adding the user.');
         }

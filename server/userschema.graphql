@@ -5,12 +5,14 @@ type User {
 	id: Int!
 	email: String!
 	fullName: String!   
+	picture: String 
 }
 
 input InputUser {
 	id: Int!
 	fullName: String!   
 	email: String!
+	picture: String 
 }
 
 type Mutation {
@@ -18,5 +20,5 @@ type Mutation {
 }
 
 type Query {
-  _empty: String  # Placeholder field to make Query type valid
+  _empty: String  
 }
