@@ -1,5 +1,7 @@
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import UserMenu from './UserMenu';
+import React, { useState } from 'react';
 
 const client_id = "316019998539-8rm0k1tq9p6e85f9q1umi3qu6auhnbts.apps.googleusercontent.com";
 
@@ -40,6 +42,8 @@ async function graphQLFetch(query, variables = {}) {
 
 
 function Login() {
+    const [user, setUser] = useState(null);
+
     const onSuccess = async (res) => {
         console.log("LOGIN SUCCESS! Raw response:", res);
         try {
@@ -55,6 +59,8 @@ function Login() {
                 picture: decodedToken.picture
             };
             console.log("User Profile:", userProfile);
+            // Store user profile in state and add to the database
+            setUser(userProfile);
             await addUser(userProfile);
         } catch (error) {
             console.error("Error decoding token or sending data:", error);
@@ -84,7 +90,7 @@ function Login() {
         }
 
         if (response.addUser) {
-            alert('Hi! ' + userProfile.fullName + ', you have successfully logged in.');
+            alert(`Hi! ${userProfile.fullName}, you have successfully logged in.`);
         } else {
             alert('An unexpected error occurred while adding the user.');
         }
@@ -98,10 +104,18 @@ function Login() {
 
     return (
         <GoogleOAuthProvider clientId={client_id}>
-            <GoogleLogin
-                onSuccess={onSuccess}
-                onError={onFailure}
-            />
+            {!user ? (
+                <GoogleLogin
+                    onSuccess={onSuccess}
+                    onError={onFailure}
+                />
+            ) : (
+                <UserMenu
+                    fullname={user.fullName}
+                    email={user.email}
+                    profilePicture={user.picture}
+                />
+            )}
         </GoogleOAuthProvider>
     );
 }
