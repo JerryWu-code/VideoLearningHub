@@ -23,6 +23,7 @@
   width: auto;
   max-height: 80%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .navLink {
