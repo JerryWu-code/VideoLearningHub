@@ -8,7 +8,7 @@ const Homepage = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     // Add any additional logic here if needed
-    navigate('/main-page');
+    navigate('/course-page');
   };
   return (
     <div>

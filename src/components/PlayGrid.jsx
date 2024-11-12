@@ -2,26 +2,25 @@ import { useState, useEffect } from "react";
 import { YOUTUBE_SEARCH_API } from "../../constants";
 import styles from "./PlayGrid.module.css";
 
-export const PlayGrid = () => {
-    const [data, setData] = useState([]);
 
-    const query = "data science";
+export const PlayGrid = ({ query }) => {
+    const [data, setData] = useState([]);
 
     const youtube_fetchData = async () => {
         try {
-            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=${query}&type=video&sort=views&duration=long`, 
+            const response = await fetch(`${YOUTUBE_SEARCH_API}?query=${query}&type=video&sort=views&duration=long`,
                 {
-                method: 'GET',
-                headers: {
-                    'x-rapidapi-key': import.meta.env.VITE_RAPID_API_KEY,
-                    'x-rapidapi-host': 'yt-api.p.rapidapi.com'
-                }
-            });
+                    method: 'GET',
+                    headers: {
+                        'x-rapidapi-key': import.meta.env.VITE_RAPID_API_KEY,
+                        'x-rapidapi-host': 'yt-api.p.rapidapi.com'
+                    }
+                });
             const json = await response.json();
-            
+
             const youtubeResults = json.data
-            .filter((video) => video && video.title)
-            .map((video) => ({ ...video, source: 'YouTube' })); // Add source property
+                .filter((video) => video && video.title)
+                .map((video) => ({ ...video, source: 'YouTube' })); // Add source property
 
             console.log("Youtube Results:", youtubeResults);
             setData(youtubeResults);
@@ -38,10 +37,11 @@ export const PlayGrid = () => {
             const videoData = json.data.result.find((item) => item.result_type === "video");
             if (videoData && videoData.data) {
                 const bilibiliResults = videoData.data
-                .filter((video) => video && video.title)
-                .map((video) => ({ ...video, source: 'Bilibili' })); // Add source property
-                console.log("Bilibili Video Results:", bilibiliResults);}
-        
+                    .filter((video) => video && video.title)
+                    .map((video) => ({ ...video, source: 'Bilibili' })); // Add source property
+                console.log("Bilibili Video Results:", bilibiliResults);
+            }
+
         } catch (error) {
             console.error('Error fetching data from proxy server:', error);
         }
@@ -57,7 +57,7 @@ export const PlayGrid = () => {
             {data.map((video) => (
                 <li key={video.videoId} className={styles.card}>
                     <div>
-                    {video.thumbnail && video.thumbnail[0] && (
+                        {video.thumbnail && video.thumbnail[0] && (
                             <img
                                 width={video.thumbnail[0].width}
                                 height={video.thumbnail[0].height}

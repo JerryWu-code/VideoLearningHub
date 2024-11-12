@@ -28,16 +28,16 @@ const CoursePage = () => {
         <div className={styles.categrps}>
           <Card imageSrc="../frame-141@2x.png"
             title="Chemistry"
-            link="/main-page" />
+            link={`/main-page?query=Chemistry`} />
           <Card imageSrc="../frame-142@2x.png"
             title="Computer Science"
-            link="/video-player-page" />
+            link="/main-page?query=ComputerScience" />
           <Card imageSrc="../frame-14@2x.png"
             title="Physics"
-            link="/main-page" />
+            link="/main-page?query=Physics" />
           <Card imageSrc="../frame-141@2x.png"
             title="Chemistry"
-            link="/main-page" />
+            link="/main-page?query=Chemistry" />
         </div>
       </div>
       <Footer />
