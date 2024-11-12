@@ -67,7 +67,7 @@ const MainPage = () => {
 
       <div className={styles.startYourLearningJourneyHeParent}>
         <div className={styles.startYourLearning}>
-          Start your Learning Journey here.
+          {query}
         </div>
         <div className={styles.searchbar}>
           <SearchBar

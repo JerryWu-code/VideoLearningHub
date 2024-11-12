@@ -1,10 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function UserMenu({ fullname, email, profilePicture }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  useEffect(() => {
+    const loadGapi = () => {
+      window.gapi.load('auth2', () => {
+        window.gapi.auth2.init({
+          client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com', // Replace with your client ID
+        });
+      });
+    };
+
+    loadGapi();
+  }, []);
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const signOut = () => {
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+      console.log('User signed out.');
+      window.location.href = '/login'; // Redirect after sign out
+    }).catch(err => {
+      console.error('Error signing out:', err);
+    });
   };
 
   return (
@@ -28,7 +50,27 @@ function UserMenu({ fullname, email, profilePicture }) {
           </div>
           <ul className="py-2" aria-labelledby="user-menu-button">
             <li>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
+                History
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
+                Collections
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onClick={(e) => { e.preventDefault(); signOut(); }} // Prevent default link behavior and call signOut
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
                 Sign out
               </a>
             </li>
