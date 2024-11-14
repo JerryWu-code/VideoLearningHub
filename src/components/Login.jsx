@@ -1,4 +1,4 @@
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import UserMenu from './UserMenu';
 import React, { useState } from 'react';
@@ -25,7 +25,8 @@ async function graphQLFetch(query, variables = {}) {
             const error = result.errors[0];
             if (error.extensions && error.extensions.code === 'BAD_USER_INPUT') {
                 const details = error.extensions.exception ? error.extensions.exception.errors.join('\n ') : '';
-                alert(`${error.message}:\n ${details}`);
+                alert(`${error.message}:
+ ${details}`);
             } else {
                 alert(`${error.extensions ? error.extensions.code : 'Error'}: ${error.message}`);
             }
@@ -39,7 +40,6 @@ async function graphQLFetch(query, variables = {}) {
         return null; // Return null in case of network or parsing errors
     }
 }
-
 
 function Login() {
     const [user, setUser] = useState(null);
@@ -96,6 +96,9 @@ function Login() {
         }
     };
 
+    const onLogout = () => {
+        setUser(null);
+    };
 
     const onFailure = (error) => {
         console.error("LOGIN FAILED:", error);
@@ -110,11 +113,14 @@ function Login() {
                     onError={onFailure}
                 />
             ) : (
-                <UserMenu
-                    fullname={user.fullName}
-                    email={user.email}
-                    profilePicture={user.picture}
-                />
+                <div>
+                    <UserMenu
+                        fullname={user.fullName}
+                        email={user.email}
+                        profilePicture={user.picture}
+                        onLogout={onLogout}
+                    />
+                </div>
             )}
         </GoogleOAuthProvider>
     );

@@ -1,80 +1,76 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { googleLogout } from '@react-oauth/google';
 
-function UserMenu({ fullname, email, profilePicture }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const loadGapi = () => {
-      window.gapi.load('auth2', () => {
-        window.gapi.auth2.init({
-          client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com', // Replace with your client ID
-        });
-      });
-    };
-
-    loadGapi();
-  }, []);
+function UserMenu({ fullname, email, profilePicture, onLogout }) {
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+    setIsOpen(!isOpen);
   };
 
-  const signOut = () => {
-    const auth2 = window.gapi.auth2.getAuthInstance();
-    auth2.signOut().then(() => {
-      console.log('User signed out.');
-      window.location.href = '/login'; // Redirect after sign out
-    }).catch(err => {
-      console.error('Error signing out:', err);
-    });
+  const handleSignOut = () => {
+    googleLogout();
+    if (onLogout) onLogout(); // Call onLogout if provided to clear parent state
   };
 
   return (
     <div className="relative flex items-center space-x-3">
       <button
+        id="dropdownAvatarNameButton"
+        data-dropdown-toggle="dropdownAvatarName"
+        className="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
         type="button"
-        className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-        id="user-menu-button"
         onClick={toggleDropdown}
-        aria-expanded={dropdownOpen}
+        aria-expanded={isOpen}
       >
         <span className="sr-only">Open user menu</span>
-        <img className="w-8 h-8 rounded-full" src={profilePicture} alt="User profile" />
+        <img className="w-8 h-8 me-2 rounded-full" src={profilePicture} alt="user photo" />
+        {fullname}
+        <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+        </svg>
       </button>
 
-      {dropdownOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 dark:divide-gray-600">
-          <div className="px-4 py-3">
-            <span className="block text-sm font-semibold text-gray-900 dark:text-white">{fullname}</span>
-            <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{email}</span>
+      {/* Dropdown menu */}
+      {isOpen && (
+        <div
+          id="dropdownAvatarName"
+          className="absolute left-0 z-40 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+          style={{ top: '110%', left: '0' }} // Adjusted position to better align with the profile photo
+        >
+          <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div className="font-medium">{fullname}</div>
+            <div className="truncate">{email}</div>
           </div>
-          <ul className="py-2" aria-labelledby="user-menu-button">
+          <ul
+            className="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownAvatarNameButton"
+          >
             <li>
               <a
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                History
+                Histroy
               </a>
             </li>
             <li>
               <a
                 href="#"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Collections
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => { e.preventDefault(); signOut(); }} // Prevent default link behavior and call signOut
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >
-                Sign out
-              </a>
-            </li>
           </ul>
+          <div className="py-2">
+            <a
+              onClick={(e) => { e.preventDefault(); handleSignOut(); }}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer"
+            >
+              Sign out
+            </a>
+          </div>
         </div>
       )}
     </div>
@@ -82,7 +78,5 @@ function UserMenu({ fullname, email, profilePicture }) {
 }
 
 export default UserMenu;
-
-
 
 
