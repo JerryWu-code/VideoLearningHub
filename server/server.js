@@ -22,11 +22,19 @@ async function getNextSequence() {
   }
 }
 
-// Add user function
 async function addUser(_, { user }) {
   console.log("Adding user", user);
 
   try {
+    // Check if the user already exists
+    const existingUser = await db.collection('users').findOne({ email: user.email });
+
+    if (existingUser) {
+      // If the user already exists, return their information
+      console.log("User already exists, fetching info:", existingUser);
+      return existingUser;
+    }
+
     // Get the next available ID and assign it to the user
     user.id = await getNextSequence();
 
