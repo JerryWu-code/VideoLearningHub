@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { googleLogout } from '@react-oauth/google';
+import { UserContext } from '../UserContext';
 
 function UserMenu({ fullname, email, profilePicture, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { user, logout } = React.useContext(UserContext);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSignOut = () => {
-    googleLogout();
-    if (onLogout) onLogout(); // Call onLogout if provided to clear parent state
+    logout(user);
   };
 
   return (

@@ -1,7 +1,8 @@
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import UserMenu from './UserMenu';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 const client_id = "316019998539-8rm0k1tq9p6e85f9q1umi3qu6auhnbts.apps.googleusercontent.com";
 
@@ -42,8 +43,8 @@ async function graphQLFetch(query, variables = {}) {
 }
 
 function Login() {
-    const [user, setUser] = useState(null);
-
+    // const [user, setUser] = useState(null);
+    const { user, login, logout } = useContext(UserContext);
     const onSuccess = async (res) => {
         console.log("LOGIN SUCCESS! Raw response:", res);
         try {
@@ -60,7 +61,8 @@ function Login() {
             };
             console.log("User Profile:", userProfile);
             // Store user profile in state and add to the database
-            setUser(userProfile);
+            // setUser(userProfile);
+            login(userProfile);
             await addUser(userProfile);
         } catch (error) {
             console.error("Error decoding token or sending data:", error);
