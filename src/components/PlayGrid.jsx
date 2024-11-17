@@ -33,13 +33,13 @@ export const PlayGrid = ({ query }) => {
                             <span>Source:</span>
                             {video.source === "YouTube" ? (
                                 <img
-                                    src="../frame-12@2x.png" // Path to your YouTube logo or icon
+                                    src="../frame-12@2x.png" // Path to YouTube logo
                                     alt="YouTube"
                                     className={styles.sourceIcon}
                                 />
                             ) : video.source === "Bilibili" ? (
                                 <img
-                                    src="../frame-121@2x.png" // Path to your Bilibili logo or icon
+                                    src="../frame-121@2x.png" // Path Bilibili logo
                                     alt="Bilibili"
                                     className={styles.sourceIcon}
                                 />
