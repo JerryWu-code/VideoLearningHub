@@ -11,6 +11,9 @@ const app = express(); // Initialize Express app
 
 app.use(cors()); // Enable CORS for all routes
 
+// Helper function to filter out HTML content in the video title
+const sanitizeHTML = (text) => text.replace(/<[^>]*>?/gm, "");
+
 // Helper function to fetch image as base64
 const fetchImageAsBase64 = async (url) => {
     try {
@@ -87,7 +90,7 @@ app.get('/api/videos', async (req, res) => {
                     .filter((video) => video && video.title)
                     .map(async (video) => ({
                         id: video.id,
-                        title: video.title,
+                        title: sanitizeHTML(video.title),
                         description: video.description || '',
                         image: video.upic ? await fetchImageAsBase64('https:'+video.pic) : null,
                         source: 'Bilibili',
