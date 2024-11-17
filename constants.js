@@ -1,1 +1,0 @@
-export const YOUTUBE_SEARCH_API = "https://yt-api.p.rapidapi.com/search"
