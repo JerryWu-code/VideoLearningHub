@@ -9,6 +9,7 @@ import Homepage from "./pages/Homepage";
 import VideoPlayerPage from "./pages/VideoPlayerPage";
 import CoursePage from "./pages/CoursePage";
 import MainPage from "./pages/MainPage";
+import FeaturesOverviewPage from "./pages/FeaturesOverviewPage";
 
 function App() {
   const action = useNavigationType();
@@ -46,6 +47,7 @@ function App() {
       <Route path="/main-page" element={<MainPage />} />
       <Route path="/course-page" element={<CoursePage />} />
       <Route path="/video-player-page" element={<VideoPlayerPage />} />
+      <Route path="/features-page" element={<FeaturesOverviewPage />} />
     </Routes>
   );
 }
