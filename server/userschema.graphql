@@ -1,11 +1,13 @@
 scalar GraphQLDate
 
 type User {
-	_id: ID!
-	id: Int!
-	email: String!
-	fullName: String!   
-	picture: String 
+    _id: ID!
+    id: Int!
+    email: String!
+    fullName: String!   
+    picture: String 
+    collections: [VideoCollection]
+    history: [VideoHistory]
 }
 
 input InputUser {
@@ -15,10 +17,31 @@ input InputUser {
 	picture: String 
 }
 
+type VideoCollection {
+    videoId: Int!
+    addedAt: GraphQLDate!
+}
+
+type VideoHistory {
+    videoId: Int!
+    watchedAt: GraphQLDate!
+}
+
+input InputVideoCollection {
+    videoId: Int!
+}
+
+input InputVideoHistory {
+    videoId: Int!
+}
+
 type Mutation {
-	addUser(user: InputUser!): User!
+    addUser(user: InputUser!): User!
+    addVideoToCollection(userId: Int!, video: InputVideoCollection!): User!
+    removeVideoFromCollection(userId: Int!, videoId: Int!): User!
+    addVideoToHistory(userId: Int!, video: InputVideoHistory!): User!
 }
 
 type Query {
-  _empty: String  
+    _empty: String  
 }

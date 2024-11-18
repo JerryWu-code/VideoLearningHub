@@ -62,8 +62,8 @@ function Login() {
             console.log("User Profile:", userProfile);
             // Store user profile in state and add to the database
             // setUser(userProfile);
-            login(userProfile);
             await addUser(userProfile);
+            login(userProfile);
         } catch (error) {
             console.error("Error decoding token or sending data:", error);
         }

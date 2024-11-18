@@ -23,8 +23,6 @@ async function getNextSequence() {
 }
 
 async function addUser(_, { user }) {
-  console.log("Adding user", user);
-
   try {
     // Check if the user already exists
     const existingUser = await db.collection('users').findOne({ email: user.email });
@@ -37,7 +35,7 @@ async function addUser(_, { user }) {
 
     // Get the next available ID and assign it to the user
     user.id = await getNextSequence();
-
+    console.log("Adding user", user);
     // Insert the user into the users collection
     const result = await db.collection('users').insertOne(user);
 
@@ -58,10 +56,58 @@ async function addUser(_, { user }) {
   }
 }
 
+async function addVideoToCollection(_, { userId, video }) {
+  console.log("Adding video to collection for user", userId);
+  try {
+    await db.collection('users').updateOne(
+      { id: userId },
+      { $push: { collections: { ...video, addedAt: new Date() } } }
+    );
+    const updatedUser = await db.collection('users').findOne({ id: userId });
+    return updatedUser;
+  } catch (err) {
+    console.error('Error adding video to collection:', err);
+    throw new Error(`Error adding video to collection. Details: ${err.message}`);
+  }
+}
+
+async function removeVideoFromCollection(_, { userId, videoId }) {
+  console.log("Removing video from collection for user", userId);
+  try {
+    await db.collection('users').updateOne(
+      { id: userId },
+      { $pull: { collections: { videoId: videoId } } }
+    );
+    const updatedUser = await db.collection('users').findOne({ id: userId });
+    return updatedUser;
+  } catch (err) {
+    console.error('Error removing video from collection:', err);
+    throw new Error(`Error removing video from collection. Details: ${err.message}`);
+  }
+}
+
+async function addVideoToHistory(_, { userId, video }) {
+  console.log("Adding video to history for user", userId);
+  try {
+    await db.collection('users').updateOne(
+      { id: userId },
+      { $push: { history: { ...video, watchedAt: new Date() } } }
+    );
+    const updatedUser = await db.collection('users').findOne({ id: userId });
+    return updatedUser;
+  } catch (err) {
+    console.error('Error adding video to history:', err);
+    throw new Error(`Error adding video to history. Details: ${err.message}`);
+  }
+}
+
 // Define resolvers
 const resolvers = {
   Mutation: {
     addUser,
+    addVideoToCollection,
+    removeVideoFromCollection,
+    addVideoToHistory,
   },
 };
 
