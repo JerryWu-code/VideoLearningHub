@@ -44,9 +44,11 @@ cd course-project-project-3
     ```
 
 ### **3. Install Dependencies**
-Run the following commands to install the dependencies and start the project:
+Run the following commands to install the dependencies, load mongoDB, and start the server:
 ```bash
 npm install
+systemctl start mongod
+mongo scripts/init.mongo.js
 npm start
 ```
 Then you could access the project at <code><a href="http://localhost:5173">http://localhost:5173</a></code>.
