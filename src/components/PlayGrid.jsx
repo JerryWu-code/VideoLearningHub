@@ -20,14 +20,49 @@ export const PlayGrid = ({ query }) => {
         }
     };
 
-    const handleVideoClick = async (videoId) => {
+    // const handleVideoClick = async (videoId) => {
+    //     try {
+    //         console.log("Video clicked:", videoId);
+    //         const response = await fetch(`http://127.0.0.1:3000/api/videos?videoid=${videoId}`);
+    //         const videoDetails = await response.json();
+    //         console.log("Video CID:", videoDetails.cid);
+    //     } catch (error) {
+    //         console.error("Error fetching video details:", error);
+    //     }
+    // };
+    const handleVideoClick = async (video) => {
         try {
-            console.log("Video clicked:", videoId);
-            const response = await fetch(`http://127.0.0.1:3000/api/videos?videoid=${videoId}`);
+          console.log("Video clicked:", video);
+      
+          if (video.source === "YouTube") {
+            // YouTube: jump to video player page with 'id' url
+            const youtubePlayerURL = `https://www.youtube.com/embed/${video.id}`;
+            window.location.href = `/video-player-page?source=YouTube&url=${encodeURIComponent(
+              youtubePlayerURL
+            )}`;
+
+          } else if (video.source === "Bilibili") {
+            // Bilibili: jump to video player page with 'aid' and 'cid' (fetch again) url
+            console.log("Fetching Bilibili Video Details for aid:", video.id);
+
+            const response = await fetch(
+              `http://127.0.0.1:3000/api/videos?videoid=${video.id}`
+            );
             const videoDetails = await response.json();
-            console.log("Video CID:", videoDetails.cid);
+      
+            if (videoDetails.cid) {
+              const bilibiliPlayerURL = `https://player.bilibili.com/player.html?aid=${video.id}&cid=${videoDetails.cid}&page=1&high_quality=1`;
+              window.location.href = `/video-player-page?source=Bilibili&url=${encodeURIComponent(
+                bilibiliPlayerURL
+              )}`;
+            } else {
+              console.error("Failed to fetch Bilibili video details. CID not found.");
+            }
+          } else {
+            console.error("Unknown video source:", video.source);
+          }
         } catch (error) {
-            console.error("Error fetching video details:", error);
+          console.error("Error handling video click:", error);
         }
     };
 
@@ -65,7 +100,7 @@ export const PlayGrid = ({ query }) => {
               {data.map((video) => (
                 <li key={video.id} 
                     className={styles.card} 
-                    onClick={video.source === "Bilibili" ? () => handleVideoClick(video.id) : null}>
+                    onClick={() => handleVideoClick(video)}>
                   <div>
                     <img src={video.image} alt={video.title} />
                     <h3>{video.title}</h3>

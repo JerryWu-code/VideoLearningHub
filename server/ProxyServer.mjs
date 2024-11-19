@@ -130,7 +130,7 @@ app.get('/api/videos', async (req, res) => {
             
             // Send video details to the frontend
             if (videoDetails) {
-                // Return the `avid` directly
+                // Return the `cid` directly
                 return res.json({ cid: videoDetails[0].cid});
             } else {
                 // Handle case where `avid` is not found
