@@ -1,326 +1,47 @@
-.fill62Icon,
-.rectangle135Copy {
-  position: absolute;
-  left: 0;
-  mix-blend-mode: normal;
-}
-.rectangle135Copy {
-  height: 100%;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 18.3px;
-  background-color: var(--color-whitesmoke-100);
-  opacity: 0.3;
-}
-.fill62Icon {
-  height: 54.44%;
-  width: 21.28%;
-  top: 30%;
-  right: 78.72%;
-  bottom: 15.56%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-  object-fit: contain;
-}
-.share1 {
-  position: absolute;
-  width: 66.67%;
-  top: calc(50% - 9px);
-  left: 33.33%;
-  display: inline-block;
-  min-width: 42.6px;
-}
-.line,
-.share,
-.shareIcon {
-  position: absolute;
-  height: 55.05%;
-  width: 65.94%;
-  top: 17.13%;
-  right: 18.06%;
-  bottom: 27.83%;
-  left: 16%;
-}
-.line,
-.share {
-  height: 85.38%;
-  width: 8.56%;
-  top: 54.57%;
-  right: 4.3%;
-  bottom: -39.95%;
-  left: 87.14%;
-}
-.line {
-  height: 2.35%;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 97.65%;
-  left: 0;
-  background-color: rgba(216, 216, 216, 0.5);
-}
-.moreIcon {
-  position: relative;
-  width: 23.3px;
-  height: 5.4px;
-}
-.subscribeBackground {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: 18px;
-  background-color: var(--color-red);
-}
-.subscribe23m {
-  position: absolute;
-  top: calc(50% - 9.05px);
-  left: 13.32%;
-  display: inline-block;
-  min-width: 103px;
-}
-.button {
-  position: absolute;
-  height: 94.26%;
-  width: 12.26%;
-  top: -115.14%;
-  right: 0.59%;
-  bottom: 120.89%;
-  left: 87.14%;
-  text-align: center;
-  font-size: 14.4px;
-  color: var(--background-default-default);
-}
-.comment,
-.publishedOn14,
-.user {
-  position: absolute;
-  display: inline-block;
-}
-.comment {
-  width: 91.44%;
-  top: calc(50% - 13.45px);
-  left: 8.56%;
-  line-height: 28.6px;
-  opacity: 0.6;
-  mix-blend-mode: normal;
-}
-.publishedOn14,
-.user {
-  width: 67.22%;
-  top: calc(50% - 39.5px);
-  left: 24.69%;
-}
-.publishedOn14 {
-  width: 75.01%;
-  top: calc(50% - 6.5px);
-  left: 24.99%;
-  font-size: 16.9px;
-  color: var(--color-silver);
-  height: 20px;
-}
-.ovalIcon {
-  position: absolute;
-  height: 91.14%;
-  width: 21.26%;
-  top: 8.86%;
-  right: 78.74%;
-  bottom: 0;
-  left: 0;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-  object-fit: cover;
-}
-.publisherInfo {
-  position: absolute;
-  width: 34.92%;
-  top: calc(50% - 76.75px);
-  right: 65.08%;
-  left: 0;
-  height: 79px;
-  font-size: var(--heading-size);
-  color: var(--color-gray-200);
-}
-.showMore {
-  text-decoration: none;
-  position: absolute;
-  width: 11.85%;
-  top: calc(50% + 44.25px);
-  left: 8.52%;
-  font-size: var(--paragraph-size);
-  color: var(--color-silver);
-  display: inline-block;
-  height: 32.5px;
-  min-width: 114.9px;
-}
-.foodDrink {
-  position: absolute;
-  width: 85.62%;
-  top: calc(50% + 34.75px);
-  right: 14.22%;
-  left: 0.17%;
-  height: 153.5px;
-  font-size: 20.8px;
-  color: var(--color-black);
-}
-.shareParent,
-.videoCompoments {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.videoCompoments {
-  top: 702.1px;
-  left: 0.1px;
-  height: 38.3px;
-}
-.videoPlayerParent {
-  position: absolute;
-  top: 122px;
-  left: 40px;
-  width: 1132.5px;
-  height: 732.4px;
-  text-align: left;
-  font-size: 14.6px;
-  color: var(--color-gray-100);
-  font-family: var(--font-mulish);
-}
-.userInterfaceIcon {
-  position: absolute;
-  height: 199.44%;
-  width: 728.57%;
-  top: -39.11%;
-  right: -628.57%;
-  bottom: -60.34%;
-  left: 0;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-  object-fit: cover;
-}
-.combinedShapeIcon {
-  position: relative;
-  width: 18.3px;
-  height: 23.2px;
-  mix-blend-mode: normal;
-}
-.ovalIcon1 {
-  position: absolute;
-  height: 16.46%;
-  width: 66.96%;
-  top: 70.76%;
-  right: -0.45%;
-  bottom: 12.78%;
-  left: 33.48%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-}
-.iconLabel {
-  text-decoration: none;
-  position: absolute;
-  width: 29.46%;
-  top: calc(50% - 48.9px);
-  left: 55.8%;
-  font-weight: 700;
-  color: inherit;
-  display: inline-block;
-  min-width: 8px;
-}
-.icons {
-  position: absolute;
-  height: 546.37%;
-  width: 100%;
-  top: -424.58%;
-  right: -365.18%;
-  bottom: -21.79%;
-  left: 365.18%;
-}
-.logoIcon {
-  position: absolute;
-  top: -21px;
-  left: -1275px;
-  width: 64px;
-  height: 64px;
-  overflow: hidden;
-  object-fit: cover;
-  cursor: pointer;
-}
-.searchPlaceholder {
-  text-decoration: none;
-  position: relative;
-  letter-spacing: 0.5px;
-  line-height: 24px;
-  color: inherit;
-}
-.content {
-  position: absolute;
-  top: 5px;
-  left: 105px;
-  width: 842px;
-  height: 48px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
-.searchbar {
-  position: absolute;
-  top: -11px;
-  left: -1187px;
-  border-radius: var(--br-21xl);
-  background-color: var(--background-default-default);
-  border: 1px solid var(--color-black);
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  width: 994px;
-  height: 59px;
-  overflow: hidden;
-  font-size: var(--body-base-size);
-  color: var(--schemes-on-surface-variant);
-  font-family: var(--paragraph);
 }
-.forter {
-  position: absolute;
-  top: 32px;
-  left: 1336px;
-  width: 22.4px;
-  height: 17.9px;
-}
+
 .videoPlayerPage {
-  width: 100%;
-  height: 1314px;
-  position: relative;
-  background-color: var(--background-default-default);
-  overflow: hidden;
-  opacity: 1;
-  line-height: normal;
-  letter-spacing: normal;
+  font-family: "Arial", sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.videoPlayerContainer {
+  padding: 2rem;
   text-align: left;
-  font-size: 12px;
-  color: var(--background-default-default);
-  font-family: var(--font-mulish);
+  flex-grow: 1;
 }
-.videoPlayerPage.animate {
-  animation: 1s ease 0s 1 normal forwards roll-in-left;
+
+.videoTitle {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #1e1e1e;
 }
-@media screen and (max-width: 450px) {
-  .comment {
-    font-size: 17px;
-    line-height: 23px;
-  }
-  .user {
-    font-size: var(--font-size-lgi);
-  }
-  .showMore {
-    font-size: var(--body-base-size);
-  }
+
+.responsiveIframe {
+  width: 85%;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.responsiveIframe:hover {
+  transform: scale(1.02);
+}
+
+.errorText {
+  text-align: center;
+  font-size: 1.2rem;
+  color: red;
+  margin-top: 2rem;
 }

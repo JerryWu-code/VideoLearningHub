@@ -103,3 +103,7 @@ dist
 public/App.js
 
 .DS_Store
+
+# old cacheing files
+src/pages/VideoPlayerPage.module_old.css
+src/pages/VideoPlayerPage_old.jsx
