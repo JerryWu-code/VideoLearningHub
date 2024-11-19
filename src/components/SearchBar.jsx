@@ -4,7 +4,7 @@ import { YOUTUBE_SEARCH_API } from "../../constants";
 import { debounce } from "lodash";
 import styles from "./SearchBar.module.css";
 
-export const SearchBar = ({ setResults, onFocus, onBlur }) => {
+export const SearchBar = ({ setResults, onFocus, onBlur, onSearch }) => {
   const [input, setInput] = useState("");
 
   console.log("API Key:", import.meta.env.VITE_RAPID_API_KEY);
@@ -44,17 +44,24 @@ export const SearchBar = ({ setResults, onFocus, onBlur }) => {
     debouncedFetchData(value);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && input.trim()) {
+      onSearch(input.trim()); // Trigger the parent-provided onSearch function
+    }
+  };
+
   return (
     <div className={styles.input_wrapper}>
       <FaSearch className={styles.search_icon} />
       <input
         placeholder="Type to search..."
         value={input}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={(e) => handleChange(e.target.value)}
+        onFocus={onFocus} // Highlight or show suggestions on focus
+        onBlur={onBlur} // Hide suggestions after blur
+        onChange={(e) => handleChange(e.target.value)} // Handle user input
+        onKeyDown={handleKeyPress} // Trigger search on Enter
+        className={styles.search_input}
       />
     </div>
   );
 };
-

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./VideoPlayerPage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
+import SearchResultDisplay from "../components/SearchResultDisplay";
 
 const VideoPlayerPage = () => {
   const location = useLocation();
@@ -33,7 +34,7 @@ const VideoPlayerPage = () => {
     <div className={styles.videoPlayerPage}>
       {/* navibar */}
       <Navibar />
-
+      <SearchResultDisplay />
       {/* player */}
       <div className={styles.videoPlayerContainer}>
         <h3 className={styles.videoTitle}>{source} Player</h3>
@@ -42,8 +43,8 @@ const VideoPlayerPage = () => {
           src={playerURL}
           frameborder="no"
           framespacing="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen="true"
           className={styles.responsiveIframe}
           title={`${source} Video Player`}

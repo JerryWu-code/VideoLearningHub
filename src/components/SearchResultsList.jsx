@@ -8,7 +8,7 @@ export const SearchResultsList = ({ results }) => {
       {results.map((result, id) => (
         <Link
           key={id}
-          to={`/main-page?query=${encodeURIComponent(result.title || result)}`}
+          to={`/search-page?query1=${encodeURIComponent(result.title || result)}`}
           className={styles.resultLink}
         >
           <SearchResult result={result.title || result} />

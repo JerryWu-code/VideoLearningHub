@@ -1,28 +1,11 @@
-import { useCallback, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import styles from "./CoursePage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
 import Card from "../components/CourseCard";
-import { SearchBar } from '../components/SearchBar';
-import { SearchResultsList } from '../components/SearchResultsList';
+import SearchResultDisplay from "../components/SearchResultDisplay";
 
 const CoursePage = () => {
-  const navigate = useNavigate();
-  const [results, setResults] = useState([]);
-  const [isFocused, setIsFocused] = useState(false);
-  const location = useLocation();
-
-  const onFrameContainerClick2 = useCallback(() => {
-    navigate("/course-page");
-  }, [navigate]);
-
-  const onCategoryHolderContainerClick = useCallback(() => {
-    navigate("/video-player-page");
-  }, [navigate]);
-
-  const searchParams = new URLSearchParams(location.search);
-
   return (
     <div>
       <div>
@@ -32,18 +15,7 @@ const CoursePage = () => {
         <h1 className={styles.h1}>
           Explore Your Favourite Area <br />
         </h1>
-        <div className={styles.searchbar}>
-          <SearchBar
-            setResults={setResults}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setTimeout(() => setIsFocused(false), 100)}
-          />
-          {isFocused && results && results.length > 0 && (
-            <div className={styles.suggestionBox}>
-              <SearchResultsList results={results} />
-            </div>
-          )}
-        </div>
+        <SearchResultDisplay />
         <div className={styles.categrps}>
           <Card imageSrc="../Architecture.png"
             title="Architecture"
