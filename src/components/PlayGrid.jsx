@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./PlayGrid.module.css";
+import {GPT_SYSTEM_PROMPT, GPT_FILTER_PROMPT} from '../../constants.mjs';
 
 export const PlayGrid = ({ query }) => {
     const [data, setData] = useState([]);
@@ -12,13 +13,75 @@ export const PlayGrid = ({ query }) => {
             const response = await fetch(`http://127.0.0.1:3000/api/videos?keyword=${query}`);
             const combinedResults = await response.json();
             console.log("Combined Results:", combinedResults);
-            setData(combinedResults);
+
+            // Extract only title and description
+            const simplifiedResults = combinedResults.map(({ title, description }) => ({
+              title,
+              description,
+            }));
+            console.log("Simplified Results:", simplifiedResults);
+            const openAIResponse = await sendToOpenAI(simplifiedResults);
+            console.log("fontend OpenAI Response:", openAIResponse);
+
+            const videoList = JSON.parse(openAIResponse);
+
+            // Create a Map with titles as keys and relevance as values
+            const openAIRelevanceMap = new Map(
+              videoList.map((aiVideo) => [aiVideo.title, aiVideo.relevanceScore])
+            );
+
+            // Add relevance to the combined results
+            const enrichedResults = combinedResults.map((video) => ({
+                ...video,
+                relevanceScore: openAIRelevanceMap.get(video.title) || 0, // Default to 0 if not found
+            }));
+
+            console.log("Enriched Results with Relevance:", enrichedResults);
+
+            // Filter out videos with 0 relevance (not in OpenAI response)
+            const filteredResults = enrichedResults.filter((video) => video.relevanceScore > 0);
+
+            // Sort the filtered results based on relevance
+            const sortedResults = filteredResults.sort((a, b) => b.relevanceScore - a.relevanceScore);
+            console.log("Sorted Results by Relevance:", sortedResults);
+
+            setData(sortedResults);
+            
         } catch (error) {
             console.error("Error fetching combined data:", error);
         } finally {
             setLoading(false);
         }
     };
+
+    const sendToOpenAI = async (combinedResults) => {
+      try {
+          const openAIResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+              },
+              body: JSON.stringify({
+                  model: "gpt-4o-mini",
+                  messages: [
+                      { role: "system", content: `${GPT_SYSTEM_PROMPT}` },
+                      {
+                          role: "user",
+                          content: `${GPT_FILTER_PROMPT(query, JSON.stringify(combinedResults))}`,
+                      },
+                  ],
+              }),
+          });
+
+          const result = await openAIResponse.json();
+          console.log("OpenAI API Response:", result);
+
+          return result.choices[0].message.content;
+      } catch (error) {
+          console.error("Error sending data to OpenAI:", error);
+      }
+  };
 
     // const handleVideoClick = async (videoId) => {
     //     try {
