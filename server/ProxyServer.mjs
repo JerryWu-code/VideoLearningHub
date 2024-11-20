@@ -3,8 +3,12 @@
 import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch'; // Import node-fetch directly
-import { YOUTUBE_SEARCH_API, BILIBILI_SEARCH_API, BILIBILI_SEARCH_INFO_API } from '../constants.mjs';
+import { YOUTUBE_SEARCH_API, BILIBILI_SEARCH_API, BILIBILI_SEARCH_INFO_API, GPT_SYSTEM_PROMPT, GPT_FILTER_PROMPT } from '../constants.mjs';
 import dotenv from 'dotenv';
+import NodeCache from "node-cache";
+import { list } from 'postcss';
+
+const cache = new NodeCache({ stdTTL: 300 }); // Cache for 5 minutes
 dotenv.config();
 
 const app = express(); // Initialize Express app
@@ -30,6 +34,12 @@ const fetchImageAsBase64 = async (url) => {
 app.get('/api/videos', async (req, res) => {
     const keyword = req.query.keyword; // Get the keyword from query parameters
     const videoid = req.query.videoid; // Get the videoid from query parameters
+
+    if (cache.has(keyword)) {
+        console.log('Cache hit for keyword:', keyword);
+        console.log('Cache value:', cache.get(keyword));
+        return res.json(cache.get(keyword)); // Return cached results
+      }
 
     if (!keyword && !videoid) {
         return res.status(400).json({ error: 'Keyword or videoid is required' }); // Handle missing parameters
@@ -63,7 +73,7 @@ app.get('/api/videos', async (req, res) => {
                         id: video.videoId,
                         title: video.title,
                         description: video.description || '',
-                        image: video.thumbnail?.[0]?.url ? await fetchImageAsBase64(video.thumbnail[0].url) : null,
+                        image: video.thumbnail?.[0]?.url ? video.thumbnail[0].url : null,
                         source: 'YouTube',
                     }))
             );
@@ -103,9 +113,13 @@ app.get('/api/videos', async (req, res) => {
 
             // Combine results from keyword search
             combinedResults = [...youtubeResults, ...bilibiliResults];
+            
+            const finalResults = await getGptResponse(keyword, combinedResults);
+
+            cache.set(keyword, finalResults);
 
             // Send combined results to the frontend
-            res.json(combinedResults);
+            res.send(finalResults);
         }
 
         if (videoid) {
@@ -145,6 +159,63 @@ app.get('/api/videos', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch data' });
     }
 });
+
+const getGptResponse = async(query, combinedResults) => {
+    // Extract only title and description
+    const simplifiedResults = combinedResults.map(({ title, description }) => ({
+        title,
+      }));      
+      const openAIResponse = await sendToOpenAI(query, simplifiedResults);
+
+      const videoList = JSON.parse(openAIResponse);
+
+      // Create a Map with titles as keys and relevance as values
+      const openAIRelevanceMap = new Map(
+        videoList.map((aiVideo) => [aiVideo.title, aiVideo.relevanceScore])
+      );
+
+      // Add relevance to the combined results
+      const enrichedResults = combinedResults.map((video) => ({
+          ...video,
+          relevanceScore: openAIRelevanceMap.get(video.title) || 0, // Default to 0 if not found
+      }));
+
+      // Filter out videos with 0 relevance (not in OpenAI response)
+      const filteredResults = enrichedResults.filter((video) => video.relevanceScore > 0);
+
+      // Sort the filtered results based on relevance
+      const sortedResults = filteredResults.sort((a, b) => b.relevanceScore - a.relevanceScore);
+
+    return sortedResults;
+}
+
+const sendToOpenAI = async (query, Results) => {
+    try {
+        const openAIResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${process.env.VITE_OPENAI_API_KEY}`,
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: `${GPT_SYSTEM_PROMPT}` },
+                    {
+                        role: "user",
+                        content: `${GPT_FILTER_PROMPT(query, JSON.stringify(Results))}`,
+                    },
+                ],
+            }),
+        });
+
+        const result = await openAIResponse.json();
+
+        return result.choices[0].message.content;
+    } catch (error) {
+        console.error("Error sending data to OpenAI:", error);
+    }
+};
 
 // Start the server
 app.listen(3000, () => {

@@ -9,7 +9,7 @@
   font-size: 2.5rem;
   /* Adjust as per your heading size needs */
   font-family: var(--style-header);
-  z-index: 0;
+  z-index: 9999;
 }
 
 .startYourLearning {
