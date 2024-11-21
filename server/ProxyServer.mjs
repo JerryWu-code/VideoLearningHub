@@ -6,11 +6,9 @@ import fetch from 'node-fetch'; // Import node-fetch directly
 import { YOUTUBE_SEARCH_API, BILIBILI_SEARCH_API, BILIBILI_SEARCH_INFO_API, GPT_SYSTEM_PROMPT, GPT_FILTER_PROMPT } from '../constants.mjs';
 import dotenv from 'dotenv';
 import NodeCache from "node-cache";
-import { Blob } from 'blob-polyfill';
 import { list } from 'postcss';
 
 dotenv.config();
-global.Blob = Blob;
 
 const app = express(); // Initialize Express app
 const cache = new NodeCache({ stdTTL: 300 }); // Cache for 5 minutes
@@ -20,13 +18,11 @@ app.use(cors()); // Enable CORS for all routes
 const sanitizeHTML = (text) => text.replace(/<[^>]*>?/gm, "");
 
 // Helper function to fetch image as binary data
-const fetchImageAsBinary = async (url) => {
+const fetchImageAsBase64 = async (url) => {
     try {
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch image from ${url}`);
-        }
-        return response.buffer(); // Return the binary buffer
+        const buffer = await response.buffer();
+        return `data:${response.headers.get('content-type')};base64,${buffer.toString('base64')}`;
     } catch (error) {
         console.error(`Error fetching image from ${url}:`, error);
         return null; // Return null if the image fetch fails
@@ -61,28 +57,29 @@ app.get('/api/videos', async (req, res) => {
             console.log('Fetching data for keyword:', keyword);
             // YouTube API Configuration for keyword search
             const YOUTUBE_API_URL = `${YOUTUBE_SEARCH_API}?query=${keyword}&type=video&sort=views&duration=long`;
-
-            // Fetch data from YouTube API for keyword
-            const youtubeResponse = await fetch(YOUTUBE_API_URL, {
-                headers: {
-                    'x-rapidapi-key': config.rapidApiKey,
-                    'x-rapidapi-host': 'yt-api.p.rapidapi.com',
-                },
-            });
-            const youtubeData = await youtubeResponse.json();
-
-            console.log('YouTube Data:', youtubeData.data[0]);
-
             // Bilibili API Configuration for keyword search
             const BILIBILI_API_URL = `${BILIBILI_SEARCH_API}?keyword=${keyword}`;
 
-            // Fetch data from Bilibili API for keyword
-            const bilibiliResponse = await fetch(BILIBILI_API_URL, {
-                headers: {
-                    Cookie: `SESSDATA=${config.bilibiliSessData}`,
-                },
-            });
-            const bilibiliData = await bilibiliResponse.json();
+            // Fetch data from YouTube and Bilibili concurrently
+            const [youtubeResponse, bilibiliResponse] = await Promise.all([
+                fetch(YOUTUBE_API_URL, {
+                    headers: {
+                        'x-rapidapi-key': config.rapidApiKey,
+                        'x-rapidapi-host': 'yt-api.p.rapidapi.com',
+                    },
+                }),
+                fetch(BILIBILI_API_URL, {
+                    headers: {
+                        Cookie: `SESSDATA=${config.bilibiliSessData}`,
+                    },
+                }),
+            ]);
+
+            // Parse the responses concurrently
+            const [youtubeData, bilibiliData] = await Promise.all([
+                youtubeResponse.json(),
+                bilibiliResponse.json(),
+            ]);
 
             // Extract video results from Bilibili response
             const bilibiliVideoData = bilibiliData?.data?.result?.find(
@@ -97,11 +94,10 @@ app.get('/api/videos', async (req, res) => {
             const [openAIRelevanceMap, youtubeResults, bilibiliResults] = await Promise.all([
                 // GPT data processing
                 (async () => {
-                    const openAIResponse = await sendToOpenAI(keyword, titlelist);
-                    const videoList = JSON.parse(openAIResponse);
-        
-                    // Create a Map with titles as keys and relevance as values
-                    return new Map(videoList.map((aiVideo) => [aiVideo.title, aiVideo.relevanceScore]));
+                    console.time('Process gpt Results');
+                    const result =  await sendToOpenAI(keyword, titlelist);
+                    console.timeEnd('Process gpt Results');
+                    return result;
                 })(),
         
                 // YouTube data processing
@@ -121,31 +117,25 @@ app.get('/api/videos', async (req, res) => {
         
                 // Bilibili data processing
                 (async () => {
+                    console.time('Process Bilibili Results');
                     if (!bilibiliVideoData || !bilibiliVideoData.data) {
                         return [];
                     }
         
-                    return Promise.all(
+                    const result =  Promise.all(
                         bilibiliVideoData.data
                             .filter((video) => video && video.title)
-                            .map(async (video) => {
-                                const binaryImage = video.pic
-                                    ? await fetchImageAsBinary('https:' + video.pic)
-                                    : null;
-        
-                                const imageUrl = binaryImage
-                                    ? URL.createObjectURL(new Blob([binaryImage], { type: 'image/jpeg' }))
-                                    : null;
-        
-                                return {
+                            .map(async (video) => ({
                                     id: video.id,
                                     title: sanitizeHTML(video.title),
                                     description: video.description || '',
-                                    image: imageUrl,
+                                    image: video.pic ? await fetchImageAsBase64('https:' + video.pic) : null,
                                     source: 'Bilibili',
-                                };
-                            })
+                                }))
                     );
+                    console.timeEnd('Process Bilibili Results');
+
+                    return result;
                 })(),
             ]);
 
@@ -208,32 +198,47 @@ app.get('/api/videos', async (req, res) => {
     }
 });
 
-const sendToOpenAI = async (query, Results) => {
-    try {
-        const openAIResponse = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${config.openAiApiKey}`,
-            },
-            body: JSON.stringify({
-                model: "gpt-4o-mini",
-                messages: [
-                    { role: "system", content: `${GPT_SYSTEM_PROMPT}` },
-                    {
-                        role: "user",
-                        content: `${GPT_FILTER_PROMPT(query, JSON.stringify(Results))}`,
-                    },
-                ],
-            }),
-        });
+const sendToOpenAI = async (query, titles) => {
+    const BATCH_SIZE = 15; // batch size for parallel processing
+    const batches = [];
 
-        const result = await openAIResponse.json();
-
-        return result.choices[0].message.content;
-    } catch (error) {
-        console.error("Error sending data to OpenAI:", error);
+    for (let i = 0; i < titles.length; i += BATCH_SIZE) {
+        const batchTitles = titles.slice(i, i + BATCH_SIZE);
+        batches.push(
+            fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${config.openAiApiKey}`,
+                },
+                body: JSON.stringify({
+                    model: "gpt-4o-mini",
+                    messages: [
+                        { role: "system", content: `${GPT_SYSTEM_PROMPT}` },
+                        {
+                            role: "user",
+                            content: `${GPT_FILTER_PROMPT(query, JSON.stringify(batchTitles))}`,
+                        },
+                    ],
+                }),
+            }).then((res) => res.json())
+        );
     }
+
+    // Wait for all batches to complete
+    const results = await Promise.all(batches);
+    console.log('Results:',results[0].choices[0].message.content.replace(/```json|```/g, '').trim());
+
+    // Combine results from all batches
+    const relevanceMap = new Map();
+    results.forEach((result) => {
+        const batchResults = JSON.parse(result.choices[0].message.content.replace(/```json|```/g, '').trim());
+        batchResults.forEach((video) => {
+            relevanceMap.set(video.title, video.relevanceScore);
+        });
+    });
+
+    return relevanceMap;
 };
 
 // Start the server
