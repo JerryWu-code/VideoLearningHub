@@ -10,9 +10,11 @@ export const PlayGrid = ({ query }) => {
     const fetchData = async () => {
         try {
             const response = await fetch(`http://127.0.0.1:3000/api/videos?keyword=${query}`);
-            const combinedResults = await response.json();
-            console.log("Combined Results:", combinedResults);
-            setData(combinedResults);
+            const Results = await response.json();
+            console.log("Results:", Results);
+
+            setData(Results);
+            
         } catch (error) {
             console.error("Error fetching combined data:", error);
         } finally {
@@ -20,16 +22,6 @@ export const PlayGrid = ({ query }) => {
         }
     };
 
-    // const handleVideoClick = async (videoId) => {
-    //     try {
-    //         console.log("Video clicked:", videoId);
-    //         const response = await fetch(`http://127.0.0.1:3000/api/videos?videoid=${videoId}`);
-    //         const videoDetails = await response.json();
-    //         console.log("Video CID:", videoDetails.cid);
-    //     } catch (error) {
-    //         console.error("Error fetching video details:", error);
-    //     }
-    // };
     const handleVideoClick = async (video) => {
         try {
           console.log("Video clicked:", video);

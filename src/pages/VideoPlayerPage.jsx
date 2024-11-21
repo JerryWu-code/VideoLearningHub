@@ -10,7 +10,7 @@ const VideoPlayerPage = () => {
   const queryParams = new URLSearchParams(location.search);
 
   const source = queryParams.get("source"); // video source: YouTube or Bilibili
-  const playerURL = queryParams.get("url"); // whole player URL
+  let playerURL = queryParams.get("url"); // whole player URL
 
   if (!playerURL) {
     return <p className={styles.errorText}>Error: Missing player URL.</p>;
@@ -30,6 +30,15 @@ const VideoPlayerPage = () => {
     };
   }, []);
 
+  // // Add &high_quality=1 to Bilibili URLs
+  // if (source?.toLowerCase() === "bilibili" && playerURL) {
+  //   const url = new URL(playerURL);
+  //   url.searchParams.set("high_quality", "1");
+  //   playerURL = url.toString();
+  // }
+
+  console.log("playerURL now is: ", playerURL);
+  
   return (
     <div className={styles.videoPlayerPage}>
       {/* navibar */}
@@ -41,12 +50,13 @@ const VideoPlayerPage = () => {
         <iframe
           id="videoPlayer"
           src={playerURL}
-          frameborder="no"
+          frameBorder="no"
           framespacing="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen="true"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerPolicy="strict-origin-when-cross-origin" 
+          allowFullScreen={true}
           className={styles.responsiveIframe}
+          // sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"// block auto-redirection to bilibili when click
           title={`${source} Video Player`}
         ></iframe>
       </div>
