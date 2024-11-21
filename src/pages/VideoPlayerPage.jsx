@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./VideoPlayerPage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
+import SearchResultDisplay from "../components/SearchResultDisplay";
 
 const VideoPlayerPage = () => {
   const location = useLocation();
@@ -42,7 +43,7 @@ const VideoPlayerPage = () => {
     <div className={styles.videoPlayerPage}>
       {/* navibar */}
       <Navibar />
-
+      <SearchResultDisplay />
       {/* player */}
       <div className={styles.videoPlayerContainer}>
         <h3 className={styles.videoTitle}>{source} Player</h3>

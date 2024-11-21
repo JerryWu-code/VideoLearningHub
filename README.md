@@ -48,7 +48,6 @@ Run the following commands to install the dependencies, load mongoDB, and start 
 ```bash
 npm install
 systemctl start mongod
-mongo scripts/init.mongo.js
 npm start
 ```
-Then you could access the project at <code><a href="http://localhost:5173">http://localhost:5173</a></code>.
+Then you could access the project at <code><a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a></code>.
