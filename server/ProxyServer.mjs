@@ -1,12 +1,11 @@
 // Proxy server is used to get rid of CORS issues when fetching data from external APIs.
-
 import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch'; // Import node-fetch directly
 import { YOUTUBE_SEARCH_API, BILIBILI_SEARCH_API, BILIBILI_SEARCH_INFO_API, GPT_SYSTEM_PROMPT, GPT_FILTER_PROMPT } from '../constants.mjs';
 import dotenv from 'dotenv';
 import NodeCache from "node-cache";
-import { list } from 'postcss';
+import arxiv_api from 'arxiv-api';
 
 dotenv.config();
 
@@ -42,7 +41,6 @@ app.get('/api/videos', async (req, res) => {
 
     if (cache.has(keyword)) {
         console.log('Cache hit for keyword:', keyword);
-        console.log('Cache value:', cache.get(keyword));
         return res.json(cache.get(keyword)); // Return cached results
       }
 
@@ -60,8 +58,26 @@ app.get('/api/videos', async (req, res) => {
             // Bilibili API Configuration for keyword search
             const BILIBILI_API_URL = `${BILIBILI_SEARCH_API}?keyword=${keyword}`;
 
+            async function searchArxiv() {
+                try {
+                    const results = await arxiv_api.search({
+                        searchQueryParams: [
+                            {
+                                include: [{ name: `${keyword}`, scope: 'abs' }]
+                            },
+                        ],
+                        maxResults: 5,
+                        sortBy: 'relevance',
+                    });
+                    return results;
+                } catch (error) {
+                    console.error('Error fetching data from arXiv:', error);
+                }
+            }
+
             // Fetch data from YouTube and Bilibili concurrently
-            const [youtubeResponse, bilibiliResponse] = await Promise.all([
+            const [arxivData, youtubeResponse, bilibiliResponse] = await Promise.all([
+                searchArxiv(),
                 fetch(YOUTUBE_API_URL, {
                     headers: {
                         'x-rapidapi-key': config.rapidApiKey,
@@ -85,19 +101,36 @@ app.get('/api/videos', async (req, res) => {
             const bilibiliVideoData = bilibiliData?.data?.result?.find(
                 (item) => item.result_type === 'video'
             );
-
+            
+            console.log('Arxiv Data:', arxivData);
+            console.log('YouTube Data:', youtubeData.data[0]);
             console.log('Bilibili Data:', bilibiliVideoData.data[0]);
 
-            const titlelist = [...youtubeData.data, ...bilibiliVideoData.data].map((video) => video.title);
+
+            const titlelist = [...arxivData, ...youtubeData.data, ...bilibiliVideoData.data].map((data) => data.title);
 
             // parallel fetch data from GPT, YouTube and Bilibili
-            const [openAIRelevanceMap, youtubeResults, bilibiliResults] = await Promise.all([
+            const [openAIRelevanceMap, arxivResults, youtubeResults, bilibiliResults] = await Promise.all([
                 // GPT data processing
                 (async () => {
                     console.time('Process gpt Results');
                     const result =  await sendToOpenAI(keyword, titlelist);
                     console.timeEnd('Process gpt Results');
                     return result;
+                })(),
+
+                (async () => {
+                    return Promise.all(
+                        (arxivData || [])
+                            .filter((paper) => paper && paper.title)
+                            .map(async (paper) => ({
+                                id: paper.id.replace('http://arxiv.org/abs/', 'https://arxiv.org/pdf/'),
+                                title: paper.title,
+                                description: paper.summary || '',
+                                image: null,
+                                source: 'ArXiv',
+                            }))
+                    );
                 })(),
         
                 // YouTube data processing
@@ -140,16 +173,16 @@ app.get('/api/videos', async (req, res) => {
             ]);
 
             // Combine results from keyword search
-            combinedResults = [...youtubeResults, ...bilibiliResults];
+            combinedResults = [...arxivResults, ...youtubeResults, ...bilibiliResults];
 
             // Add relevance to the combined results
-            const enrichedResults = combinedResults.map((video) => ({
-                ...video,
-                relevanceScore: openAIRelevanceMap.get(video.title) || 0, // Default to 0 if not found
+            const enrichedResults = combinedResults.map((data) => ({
+                ...data,
+                relevanceScore: openAIRelevanceMap.get(data.title) || 0, // Default to 0 if not found
             }));
 
             // Filter out videos with 0 relevance (not in OpenAI response)
-            const filteredResults = enrichedResults.filter((video) => video.relevanceScore > 0);
+            const filteredResults = enrichedResults.filter((data) => data.relevanceScore > 0);
 
             // Sort the filtered results based on relevance
             const finalResults = filteredResults.sort((a, b) => b.relevanceScore - a.relevanceScore);
@@ -199,7 +232,7 @@ app.get('/api/videos', async (req, res) => {
 });
 
 const sendToOpenAI = async (query, titles) => {
-    const BATCH_SIZE = 15; // batch size for parallel processing
+    const BATCH_SIZE = 10; // batch size for parallel processing
     const batches = [];
 
     for (let i = 0; i < titles.length; i += BATCH_SIZE) {

@@ -22,36 +22,39 @@ export const PlayGrid = ({ query }) => {
         }
     };
 
-    const handleVideoClick = async (video) => {
+    const handleVideoClick = async (data) => {
         try {
-          console.log("Video clicked:", video);
+          console.log("Video clicked:", data);
       
-          if (video.source === "YouTube") {
+          if (data.source === "YouTube") {
             // YouTube: jump to video player page with 'id' url
-            const youtubePlayerURL = `https://www.youtube.com/embed/${video.id}`;
+            const youtubePlayerURL = `https://www.youtube.com/embed/${data.id}`;
             window.location.href = `/video-player-page?source=YouTube&url=${encodeURIComponent(
               youtubePlayerURL
             )}`;
 
-          } else if (video.source === "Bilibili") {
+          } else if (data.source === "Bilibili") {
             // Bilibili: jump to video player page with 'aid' and 'cid' (fetch again) url
-            console.log("Fetching Bilibili Video Details for aid:", video.id);
+            console.log("Fetching Bilibili Video Details for aid:", data.id);
 
             const response = await fetch(
-              `http://127.0.0.1:3000/api/videos?videoid=${video.id}`
+              `http://127.0.0.1:3000/api/videos?videoid=${data.id}`
             );
             const videoDetails = await response.json();
       
             if (videoDetails.cid) {
-              const bilibiliPlayerURL = `https://player.bilibili.com/player.html?aid=${video.id}&cid=${videoDetails.cid}&page=1&high_quality=1`;
+              const bilibiliPlayerURL = `https://player.bilibili.com/player.html?aid=${data.id}&cid=${videoDetails.cid}&page=1&high_quality=1`;
               window.location.href = `/video-player-page?source=Bilibili&url=${encodeURIComponent(
                 bilibiliPlayerURL
               )}`;
             } else {
               console.error("Failed to fetch Bilibili video details. CID not found.");
             }
-          } else {
-            console.error("Unknown video source:", video.source);
+          } else if (data.source === "ArXiv") {
+            window.location.href = `/pdf-reader-page?url=${data.id}`;
+          }
+          else {
+            console.error("Unknown video source:", data.source);
           }
         } catch (error) {
           console.error("Error handling video click:", error);
@@ -90,11 +93,17 @@ export const PlayGrid = ({ query }) => {
           ) : (
             <ul className={styles.grid}>
               {data.map((video) => (
-                <li key={video.id} 
-                    className={styles.card} 
-                    onClick={() => handleVideoClick(video)}>
+                <li 
+                  key={video.id} 
+                  className={styles.card} 
+                  onClick={() => handleVideoClick(video)}
+                >
                   <div>
-                    <img src={video.image} alt={video.title} />
+                    {video.source === "ArXiv" ? (
+                      <p className={styles.arxivDescription}>{video.description}</p>
+                    ) : (
+                      <img src={video.image} alt={video.title} />
+                    )}
                     <h3>{video.title}</h3>
                     <div className={styles.source}>
                       <span>Source:</span>
@@ -108,6 +117,12 @@ export const PlayGrid = ({ query }) => {
                         <img
                           src="../frame-121@2x.png" // Path to Bilibili logo
                           alt="Bilibili"
+                          className={styles.sourceIcon}
+                        />
+                      ) : video.source === "ArXiv" ? (
+                        <img
+                          src="../arxiv-logo-small.jpg" // Path to ArXiv logo
+                          alt="ArXiv"
                           className={styles.sourceIcon}
                         />
                       ) : null}

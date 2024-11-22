@@ -12,6 +12,13 @@
   z-index: 9999;
 }
 
+.heading {
+  padding: auto;
+  background-color: var(--background-default-default);
+  font-size: 2.5rem;
+  font-family: var(--style-header);
+}
+
 .startYourLearning {
   margin-bottom: 20px;
   /* Space between heading and search bar */

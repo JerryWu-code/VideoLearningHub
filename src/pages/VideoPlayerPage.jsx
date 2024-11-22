@@ -30,13 +30,6 @@ const VideoPlayerPage = () => {
     };
   }, []);
 
-  // // Add &high_quality=1 to Bilibili URLs
-  // if (source?.toLowerCase() === "bilibili" && playerURL) {
-  //   const url = new URL(playerURL);
-  //   url.searchParams.set("high_quality", "1");
-  //   playerURL = url.toString();
-  // }
-
   console.log("playerURL now is: ", playerURL);
   
   return (

@@ -45,14 +45,16 @@ const MainPage = () => {
       <div className={styles.searchbarContainer}>
         <SearchResultDisplay />
       </div>
-      <h1 className={styles.heading}>Trending Fields</h1>
-      <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      
+      
+      <h4 className="text-2xl font-bold dark:text-white pl-20 pb-3">Trending Fields</h4>
+      <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pl-20 pb-3">
         {categories.map((category, index) => (
           <CategoryCard key={index} icon={category.icon} text={category.text} link={category.link} />
         ))}
       </div>
 
-      <h1>Most Visits</h1>
+      <h4 className="text-2xl font-bold dark:text-white pl-20 pb-3">Most Visits</h4>
       <div className={styles.gridContainer}>
         {/* Use query to fetch data for coursepage */}
         <PlayGrid query={query} />
