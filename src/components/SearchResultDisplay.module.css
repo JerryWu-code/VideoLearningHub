@@ -11,10 +11,9 @@
     border-radius: 50px;
     /* Rounded edges */
     margin-bottom: 20px;
-    /* Space below the search bar */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* Subtle shadow for depth */
     position: relative;
+    padding: 10px;
 }
 
 .searchbar input {
@@ -51,26 +50,13 @@
     border-radius: 8px;
 }
 
-.startYourLearningJourneyHeParent {
+.searchbar-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: auto;
-    background-color: var(--background-default-default);
-    text-align: center;
-    font-size: 2.5rem;
-    /* Adjust as per your heading size needs */
-    font-family: var(--style-header);
-    z-index: 0;
-}
-
-.startYourLearning {
-    margin-bottom: 20px;
-    /* Space between heading and search bar */
-    font-weight: bold;
-    color: #333;
-    /* Choose a color that contrasts with the background */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 .textContentHeadingParent {

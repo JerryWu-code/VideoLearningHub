@@ -42,8 +42,9 @@ const MainPage = () => {
       </div>
 
       {/* Integrate SearchResultDisplay */}
-      <SearchResultDisplay />
-
+      <div className={styles.searchbarContainer}>
+        <SearchResultDisplay />
+      </div>
       <h1 className={styles.heading}>Trending Fields</h1>
       <div className="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {categories.map((category, index) => (

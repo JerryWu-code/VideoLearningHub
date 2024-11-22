@@ -227,7 +227,7 @@ const sendToOpenAI = async (query, titles) => {
 
     // Wait for all batches to complete
     const results = await Promise.all(batches);
-    console.log('Results:',results[0].choices[0].message.content.replace(/```json|```/g, '').trim());
+    // console.log('Results:',results[0].choices[0].message.content.replace(/```json|```/g, '').trim());
 
     // Combine results from all batches
     const relevanceMap = new Map();
