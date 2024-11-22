@@ -12,6 +12,7 @@ import MainPage from "./pages/MainPage";
 import FeaturesOverviewPage from "./pages/FeaturesOverviewPage";
 import SearchPage from "./pages/SearchPage";
 import PDFReaderPage from "./pages/PDFReaderPage";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   const action = useNavigationType();
@@ -52,6 +53,7 @@ function App() {
       <Route path="/pdf-reader-page" element={<PDFReaderPage />} />
       <Route path="/features-page" element={<FeaturesOverviewPage />} />
       <Route path="/search-page" element={<SearchPage />} />
+      <Route path="/history-page" element={<HistoryPage />} />
     </Routes>
   );
 }

@@ -1,9 +1,9 @@
 const fs = require('fs');
 const express = require('express');
 const { ApolloServer, UserInputError } = require('apollo-server-express');
-const { GraphQLScalarType, Kind } = require('graphql');
 const { connectToDb } = require('./db.js');
-const cors = require('cors'); // Add CORS for cross-origin requests
+const cors = require('cors'); // Enable CORS for cross-origin requests
+
 let db;
 
 // Helper function to get the next sequence for user ID
@@ -11,129 +11,159 @@ async function getNextSequence() {
   try {
     const lastUser = await db.collection('users')
       .find({})
-      .sort({ id: -1 }) // Sort in descending order by `id`
-      .limit(1) // Get the last traveler (highest `id`)
-      .toArray(); // Convert to array
+      .sort({ id: -1 }) // Sort by `id` in descending order
+      .limit(1)
+      .toArray();
 
-    // If no travelers exist, start with 1; otherwise, increment by 1
-    return lastUser.length > 0 ? lastUser[0].id + 1 : 1;
+    return lastUser.length > 0 ? lastUser[0].id + 1 : 1; // Increment or start at 1
   } catch (err) {
-    throw new Error('Error getting next sequence for user ID');
+    console.error('Error generating next user ID:', err);
+    throw new Error('Unable to generate the next user ID.');
   }
 }
 
-async function addUser(_, { user }) {
-  try {
-    // Check if the user already exists
-    const existingUser = await db.collection('users').findOne({ email: user.email });
+// Mutation Resolvers
+const Mutation = {
+  async addUser(_, { user }) {
+    try {
+      const existingUser = await db.collection('users').findOne({ email: user.email });
+      if (existingUser) return existingUser;
 
-    if (existingUser) {
-      // If the user already exists, return their information
-      console.log("User already exists, fetching info:", existingUser);
-      return existingUser;
+      // Generate new ID and add the user
+      user.id = await getNextSequence();
+      const result = await db.collection('users').insertOne(user);
+
+      return result.ops[0];
+    } catch (err) {
+      console.error('Error adding user:', err);
+      throw new Error(`Error adding user. Details: ${err.message}`);
     }
+  },
 
-    // Get the next available ID and assign it to the user
-    user.id = await getNextSequence();
-    console.log("Adding user", user);
-    // Insert the user into the users collection
-    const result = await db.collection('users').insertOne(user);
-
-    // Return the inserted user
-    return result.ops[0];
-  } catch (err) {
-    // Handle duplicate key error (e.g., if user already exists)
-    if (err.code === 11000) {
-      console.error('Duplicate user ID:', err);
-      throw new UserInputError('User with this ID already exists.', {
-        extensions: { code: 'BAD_USER_INPUT' }
-      });
+  async addVideoToCollection(_, { email, video }) {
+    try {
+      const updatedUser = await db.collection('users').findOneAndUpdate(
+        { email },
+        { $push: { collections: { ...video, addedAt: new Date() } } },
+        { returnDocument: 'after' } // Return the updated document
+      );
+      if (!updatedUser.value) throw new UserInputError('User not found.');
+      return updatedUser.value;
+    } catch (err) {
+      console.error('Error adding video to collection:', err);
+      throw new Error(`Error adding video to collection. Details: ${err.message}`);
     }
+  },
 
-    // Log unexpected errors for debugging
-    console.error('Error adding user:', err);
-    throw new Error(`Error adding user. Details: ${err.message}`);
-  }
-}
+  async removeVideoFromCollection(_, { email, videoId }) {
+    try {
+      const updatedUser = await db.collection('users').findOneAndUpdate(
+        { email },
+        { $pull: { collections: { videoId } } },
+        { returnDocument: 'after' } // Return the updated document
+      );
+      if (!updatedUser.value) throw new UserInputError('User not found.');
+      return updatedUser.value;
+    } catch (err) {
+      console.error('Error removing video from collection:', err);
+      throw new Error(`Error removing video from collection. Details: ${err.message}`);
+    }
+  },
 
-async function addVideoToCollection(_, { userId, video }) {
-  console.log("Adding video to collection for user", userId);
-  try {
-    await db.collection('users').updateOne(
-      { id: userId },
-      { $push: { collections: { ...video, addedAt: new Date() } } }
-    );
-    const updatedUser = await db.collection('users').findOne({ id: userId });
-    return updatedUser;
-  } catch (err) {
-    console.error('Error adding video to collection:', err);
-    throw new Error(`Error adding video to collection. Details: ${err.message}`);
-  }
-}
+  async addVideoToHistory(_, { email, video }) {
+    try {
+      const historyEntry = {
+        ...video,
+        watchedAt: video.watchedAt ? new Date(video.watchedAt) : new Date(),
+      };
 
-async function removeVideoFromCollection(_, { userId, videoId }) {
-  console.log("Removing video from collection for user", userId);
-  try {
-    await db.collection('users').updateOne(
-      { id: userId },
-      { $pull: { collections: { videoId: videoId } } }
-    );
-    const updatedUser = await db.collection('users').findOne({ id: userId });
-    return updatedUser;
-  } catch (err) {
-    console.error('Error removing video from collection:', err);
-    throw new Error(`Error removing video from collection. Details: ${err.message}`);
-  }
-}
+      const updatedUser = await db.collection("users").findOneAndUpdate(
+        { email },
+        { $push: { history: historyEntry } },
+        { returnDocument: "after" } // Return the updated document
+      );
 
-async function addVideoToHistory(_, { userId, video }) {
-  console.log("Adding video to history for user", userId);
-  try {
-    await db.collection('users').updateOne(
-      { id: userId },
-      { $push: { history: { ...video, watchedAt: new Date() } } }
-    );
-    const updatedUser = await db.collection('users').findOne({ id: userId });
-    return updatedUser;
-  } catch (err) {
-    console.error('Error adding video to history:', err);
-    throw new Error(`Error adding video to history. Details: ${err.message}`);
-  }
-}
+      if (!updatedUser.value) {
+        throw new UserInputError("User not found.");
+      }
 
-// Define resolvers
-const resolvers = {
-  Mutation: {
-    addUser,
-    addVideoToCollection,
-    removeVideoFromCollection,
-    addVideoToHistory,
+      return updatedUser.value;
+    } catch (err) {
+      console.error("Error adding video to history:", err);
+      throw new Error(`Error adding video to history. Details: ${err.message}`);
+    }
+  },
+
+  async clearVideoHistory(_, { email }) {
+    try {
+      const updatedUser = await db.collection('users').findOneAndUpdate(
+        { email },
+        { $set: { history: [] } },
+        { returnDocument: 'after' } // Return the updated document
+      );
+      if (!updatedUser.value) throw new UserInputError('User not found.');
+      return updatedUser.value;
+    } catch (err) {
+      console.error('Error clearing video history:', err);
+      throw new Error(`Error clearing video history. Details: ${err.message}`);
+    }
   },
 };
 
-// Set up Express and Apollo Server
+// Query Resolvers
+const Query = {
+  listVideoHistory: async (_, { email }, { db }) => {
+    const user = await db.collection("users").findOne({ email });
+    if (!user) throw new Error("User not found");
+    return user.history.map(video => ({
+      ...video,
+      source: video.source || "unknown",
+      url: video.url || "#",
+    }));
+  },
+
+  async listVideoCollection(_, { email }) {
+    try {
+      const user = await db.collection('users').findOne(
+        { email },
+        { projection: { collections: 1 } }
+      );
+      if (!user) throw new UserInputError('User not found.');
+      return user.collections || [];
+    } catch (err) {
+      console.error('Error fetching video collection:', err);
+      throw new Error(`Error fetching video collection. Details: ${err.message}`);
+    }
+  },
+};
+
+// Express and Apollo Server Setup
 const app = express();
 app.use(cors()); // Enable CORS
 
 const server = new ApolloServer({
-  typeDefs: fs.readFileSync('./server/userschema.graphql', 'utf-8'), // Adjust path if needed
-  resolvers,
+  typeDefs: fs.readFileSync('./server/userschema.graphql', 'utf-8'),
+  resolvers: { Mutation, Query },
+  context: async () => ({ db }), // Pass database connection to resolvers
   formatError: (error) => {
-    console.log(error);
+    console.error('GraphQL Error:', error);
     return error;
   },
 });
 
+// Increase payload size limit
+app.use(express.json({ limit: "10mb" })); // Adjust limit as needed
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
+// Apply Middleware and Start Server
 server.applyMiddleware({ app, path: '/graphql' });
 
-// Connect to the database and start the server
-(async function () {
+(async function startServer() {
   try {
-    db = await connectToDb();
-    app.listen(8000, function () {
-      console.log('App started on port 8000');
+    db = await connectToDb(); // Connect to MongoDB
+    app.listen(8000, () => {
+      console.log('Server running at http://localhost:8000/graphql');
     });
   } catch (err) {
-    console.log('ERROR:', err);
+    console.error('Failed to start the server:', err);
   }
 })();

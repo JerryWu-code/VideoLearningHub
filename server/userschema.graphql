@@ -6,8 +6,8 @@ type User {
     email: String!
     fullName: String!   
     picture: String 
-    collections: [VideoCollection]
-    history: [VideoHistory]
+    collections: [VideoCollection!]!
+    history: [VideoHistory!]!
 }
 
 input InputUser {
@@ -17,31 +17,55 @@ input InputUser {
 	picture: String 
 }
 
+input InputVideoCollection {
+    videoId: String!
+    title: String!
+    image: String!
+    source: String!
+    description: String!
+    videoUrl: String!
+    addedAt: GraphQLDate!
+}
+
+input InputVideoHistory {
+    videoId: String!
+    title: String!
+    image: String!
+    source: String!
+    description: String!
+    videoUrl: String!
+    watchedAt: GraphQLDate!
+}
+
 type VideoCollection {
-    videoId: Int!
+    videoId: String!
+    title: String!
+    image: String!
+    description: String!
+    source: String!
+    videoUrl: String!
     addedAt: GraphQLDate!
 }
 
 type VideoHistory {
-    videoId: Int!
+    videoId: String!
+    title: String!
+    image: String!
+    source: String!
+    description: String!
+    videoUrl: String!
     watchedAt: GraphQLDate!
-}
-
-input InputVideoCollection {
-    videoId: Int!
-}
-
-input InputVideoHistory {
-    videoId: Int!
 }
 
 type Mutation {
     addUser(user: InputUser!): User!
-    addVideoToCollection(userId: Int!, video: InputVideoCollection!): User!
-    removeVideoFromCollection(userId: Int!, videoId: Int!): User!
-    addVideoToHistory(userId: Int!, video: InputVideoHistory!): User!
+    addVideoToCollection(email: String!, video: InputVideoCollection!): User!
+    removeVideoFromCollection(email: String!, videoId: String!): User!
+    addVideoToHistory(email: String!, video: InputVideoHistory!): User!
+    clearVideoHistory(email: String!): User!
 }
 
 type Query {
-    _empty: String  
+    listVideoHistory(email: String!): [VideoHistory!]!               
+    listVideoCollection(email: String!): [VideoCollection!]!         
 }

@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { googleLogout } from '@react-oauth/google';
+import HistoryPage from '../pages/HistoryPage';
 import { UserContext } from '../UserContext';
+import { useNavigate } from "react-router-dom";
 
 function UserMenu({ fullname, email, profilePicture, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = React.useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -48,7 +54,7 @@ function UserMenu({ fullname, email, profilePicture, onLogout }) {
           >
             <li>
               <a
-                href="#"
+                onClick={() => handleNavigation("/history-page")}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Histroy
