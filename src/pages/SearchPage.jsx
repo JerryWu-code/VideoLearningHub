@@ -40,7 +40,7 @@ const SearchPage = () => {
             <h1>Results for "{query1}"</h1>
 
             <div className={styles.resultsContainer}>
-                <PlayGrid results={results} />
+                <PlayGrid query={query1} />
             </div>
 
             <Footer />

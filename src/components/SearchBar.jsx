@@ -47,6 +47,7 @@ export const SearchBar = ({ setResults, onFocus, onBlur, onSearch }) => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && input.trim()) {
       onSearch(input.trim()); // Trigger the parent-provided onSearch function
+      setInput(""); // Optionally, clear the input field after search
     }
   };
 
