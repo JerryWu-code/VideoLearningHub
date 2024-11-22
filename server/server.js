@@ -112,18 +112,14 @@ const Mutation = {
 
 // Query Resolvers
 const Query = {
-  async listVideoHistory(_, { email }) {
-    try {
-      const user = await db.collection('users').findOne(
-        { email },
-        { projection: { history: 1 } }
-      );
-      if (!user) throw new UserInputError('User not found.');
-      return user.history || [];
-    } catch (err) {
-      console.error('Error fetching video history:', err);
-      throw new Error(`Error fetching video history. Details: ${err.message}`);
-    }
+  listVideoHistory: async (_, { email }, { db }) => {
+    const user = await db.collection("users").findOne({ email });
+    if (!user) throw new Error("User not found");
+    return user.history.map(video => ({
+      ...video,
+      source: video.source || "unknown",
+      url: video.url || "#",
+    }));
   },
 
   async listVideoCollection(_, { email }) {

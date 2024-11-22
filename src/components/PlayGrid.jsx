@@ -70,6 +70,7 @@ export const PlayGrid = ({ query }) => {
               title
               image
               description
+              source
               videoUrl
               watchedAt
             }
@@ -128,6 +129,7 @@ export const PlayGrid = ({ query }) => {
           videoId: video.id,
           title: video.title || "Untitled Video", // Provide a fallback title
           image: video.image || "../default-featured-image.png.jpg",
+          source: video.source,
           description: video.description || "No description available.", // Fallback for description
           videoUrl,
           watchedAt: new Date(), // Current time for watchedAt

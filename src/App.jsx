@@ -11,6 +11,7 @@ import CoursePage from "./pages/CoursePage";
 import MainPage from "./pages/MainPage";
 import FeaturesOverviewPage from "./pages/FeaturesOverviewPage";
 import SearchPage from "./pages/SearchPage";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   const action = useNavigationType();
@@ -50,6 +51,7 @@ function App() {
       <Route path="/video-player-page" element={<VideoPlayerPage />} />
       <Route path="/features-page" element={<FeaturesOverviewPage />} />
       <Route path="/search-page" element={<SearchPage />} />
+      <Route path="/history-page" element={<HistoryPage />} />
     </Routes>
   );
 }

@@ -21,14 +21,17 @@ input InputVideoCollection {
     videoId: String!
     title: String!
     image: String!
+    source: String!
     description: String!
     videoUrl: String!
+    addedAt: GraphQLDate!
 }
 
 input InputVideoHistory {
     videoId: String!
     title: String!
     image: String!
+    source: String!
     description: String!
     videoUrl: String!
     watchedAt: GraphQLDate!
@@ -39,6 +42,7 @@ type VideoCollection {
     title: String!
     image: String!
     description: String!
+    source: String!
     videoUrl: String!
     addedAt: GraphQLDate!
 }
@@ -47,6 +51,7 @@ type VideoHistory {
     videoId: String!
     title: String!
     image: String!
+    source: String!
     description: String!
     videoUrl: String!
     watchedAt: GraphQLDate!
