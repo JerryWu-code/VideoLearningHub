@@ -130,7 +130,7 @@ export const PlayGrid = ({ query }) => {
 
       try {
         await addVideoToHistory(user.email, {
-          videoId: video.id,
+          videoId: String(video.id),
           title: video.title || "Untitled Video", // Provide a fallback title
           image: video.image || "../default-featured-image.png.jpg",
           source: video.source,
@@ -144,7 +144,7 @@ export const PlayGrid = ({ query }) => {
       }
 
       if (paperUrl) {
-        window.location.href = `/pdf-reader-page?url=${paperUrl}`;
+        window.location.href = `${paperUrl}`;
       } else if(githubUrl){ window.location.href = `${githubUrl}`;}
       else {
       window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
@@ -156,6 +156,7 @@ export const PlayGrid = ({ query }) => {
   };
 
   useEffect(() => {
+    console.log("Query changed, fetching data:", query);
     setLoading(true);
     fetchData();
   }, [query]);
