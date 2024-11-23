@@ -72,7 +72,10 @@ export const PlayGrid = ({ query }) => {
               source
               videoUrl
               watchedAt
-            }`;
+            }
+          }
+        }
+    `;
 
     const variables = { email, video, };
 
