@@ -1,69 +1,81 @@
-import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
+import { GPT_TRENDING_FIELD_PROMPT, GPT_TRENDING_FIELD_SYSTEM_PROMPT } from '../../constants.mjs';
+import CategoryCard from "./CategoryCard";
 
-const categories = [
-    { title: 'Computer & Office', icon: <ComputerOfficeIcon /> },
-    { title: 'Collectibles & Toys', icon: <CollectiblesToysIcon /> },
-    { title: 'Books', icon: <BooksIcon /> },
-    { title: 'Fashion/Clothes', icon: <FashionClothesIcon /> },
-    { title: 'Sports & Outdoors', icon: <SportsOutdoorsIcon /> },
-    { title: 'Painting & Hobby', icon: <PaintingHobbyIcon /> },
-    { title: 'Electronics', icon: <ElectronicsIcon /> },
-    { title: 'Food & Grocery', icon: <FoodGroceryIcon /> },
-    { title: 'Music', icon: <MusicIcon /> },
-    { title: 'TV/Projectors', icon: <TVProjectorsIcon /> },
-    // Add more categories here
-];
+const sendToOpenAI = async (query) => {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: `${GPT_TRENDING_FIELD_SYSTEM_PROMPT}` },
+                {
+                    role: "user",
+                    content: `${GPT_TRENDING_FIELD_PROMPT(query)}`,
+                },
+            ],
+        }),
+    });
+    const data = await response.json();
 
-// Icon components (example for one, repeat for each as needed)
-const ComputerOfficeIcon = () => (
-    <svg className="me-2 h-4 w-4 shrink-0 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v5m-3 0h6M4 11h16M5 15h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1Z" />
-    </svg>
-);
+    return JSON.parse(data.choices[0].message.content.replace(/```json|```/g, '').trim());
+};
 
-export const TrendingFields = () => {
-    const [input, setInput] = useState("");
-    const [filteredCategories, setFilteredCategories] = useState(categories);
+const TrendingFields = ({ setQuery }) => {
+    const location = useLocation();
+    const [loading, setLoading] = useState(true);
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get("query");
 
-    const handleSearch = (value) => {
-        setInput(value);
-        const results = categories.filter((category) =>
-            category.title.toLowerCase().includes(value.toLowerCase())
-        );
-        setFilteredCategories(results);
-    };
+    const [trendingFields, setTrendingFields] = useState([]);
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchTrendingFields = async () => {
+            try{
+            if (query) {
+                const fields = await sendToOpenAI(query);
+                setTrendingFields(fields);
+            }
+        } catch (error) {
+            console.error("Error fetching trending fields:", error);
+        } finally {
+            setLoading(false);
+        }
+        };
+        fetchTrendingFields();
+    }, [query]);
 
     return (
-        <section className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-16">
-            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                <div className="mb-4 flex items-center justify-between gap-4 md:mb-8">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Trending Fields</h2>
-                </div>
-
-                {/* Search Input */}
-                <div className="input-wrapper mb-6 flex items-center border border-gray-300 rounded-lg p-2 dark:border-gray-700">
-                    <FaSearch id="search-icon" className="text-gray-400" />
-                    <input
-                        className="flex-1 bg-transparent outline-none ml-2 text-gray-900 dark:text-white"
-                        placeholder="Type to search..."
-                        value={input}
-                        onChange={(e) => handleSearch(e.target.value)}
-                    />
-                </div>
-
-                {/* Categories Grid */}
-                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {filteredCategories.map((category, index) => (
-                        <a key={index} href="#" className="flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            {category.icon}
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">{category.title}</span>
-                        </a>
-                    ))}
-                </div>
-            </div>
-        </section>
+        <>
+        {loading ? (
+        <div role="status" className="max-w-sm animate-pulse pl-20">
+            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+        </div>
+        ):
+        (<div className="w-fit grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pl-20 pb-4">
+        {trendingFields.map((data, index) => (
+          <CategoryCard
+          key={index}
+          text={data}
+          link="#"
+          onClick={() => {
+            console.log("Trending field clicked:", data);
+            setQuery(data);
+          }}
+        />
+        ))}
+      </div>)
+}
+      </>
     );
 };
 
-
+export default TrendingFields;
