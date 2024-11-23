@@ -61,7 +61,7 @@ const TrendingFields = ({ setQuery }) => {
             <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         </div>
         ):
-        (<div className="w-fit grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pl-20 pb-4">
+        (<div className="w-fit grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr))] pl-20 pb-4">
         {trendingFields.map((data, index) => (
           <CategoryCard
           key={index}

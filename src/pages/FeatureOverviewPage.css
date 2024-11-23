@@ -21,6 +21,10 @@ body {
     font-size: 1.2rem;
 }
 
+.features-page{
+    padding-bottom: 50px;
+}
+
 .cta-button {
     background: #2563eb;
     color: white;

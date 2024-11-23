@@ -10,6 +10,7 @@
   font-family: var(--style-header);
   padding-top: 20px;
   font-size: var(--style-header-size);
+  padding-bottom: 50px;
 }
 
 /* Title styling */

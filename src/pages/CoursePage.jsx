@@ -21,8 +21,8 @@ const CoursePage = () => {
             title="Architecture"
             link="/main-page?query=Architecture" />
           <Card imageSrc="../AIML.png"
-            title="Artificial Intelligence and Machine Learning"
-            link="/main-page?query=Artificial Intelligence and Machine Learning" />
+            title="AI and Machine Learning"
+            link="/main-page?query=AI and Machine Learning" />
           <Card imageSrc="../astronomy.png"
             title="Astronomy"
             link="/main-page?query=Astronomy" />
