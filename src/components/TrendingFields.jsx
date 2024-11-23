@@ -23,7 +23,8 @@ const sendToOpenAI = async (query) => {
     });
     const data = await response.json();
 
-    return JSON.parse(data.choices[0].message.content.replace(/```json|```/g, '').trim());
+    const GPTresponse = JSON.parse(data.choices[0].message.content.replace(/```json|```/g, '').trim());
+    return GPTresponse.field
 };
 
 const TrendingFields = ({ setQuery }) => {

@@ -43,7 +43,10 @@ ${topic}
    4. List the top 10 fields in descending order of popularity.
 
 ##Response Format
-[field A, field B, field C, field D, field E]
+
+{
+        "field": [field A, field B, field C, field D, field E]
+}
 
 ##Action
 Ensure to focuses on the academic and educational alignment to the topic, and give your result of filering STRICTLY in the required JSON format`
