@@ -24,7 +24,7 @@
     "express": "^4.21.1",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
-    "graphql": "^0.13.2",
+    "graphql": "^15.9.0",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "mdb-ui-kit": "^8.0.0",
