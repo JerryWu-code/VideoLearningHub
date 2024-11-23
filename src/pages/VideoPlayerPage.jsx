@@ -56,7 +56,8 @@ const VideoPlayerPage = () => {
           title={`${source} Video Player`}
         ></iframe>
       </div>
-
+      <br />
+      <br />
       {/* footer */}
       <Footer />
     </div>
