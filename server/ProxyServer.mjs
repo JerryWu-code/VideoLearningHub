@@ -6,6 +6,7 @@ import { YOUTUBE_SEARCH_API, BILIBILI_SEARCH_API, BILIBILI_SEARCH_INFO_API, GPT_
 import dotenv from 'dotenv';
 import NodeCache from "node-cache";
 import arxiv_api from 'arxiv-api';
+import { Octokit } from "@octokit/rest";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ const config = {
     rapidApiKey: process.env.VITE_RAPID_API_KEY,
     bilibiliSessData: process.env.VITE_BILIBILI_SESSDATA,
     openAiApiKey: process.env.VITE_OPENAI_API_KEY,
+    githubApiKey: process.env.VITE_GITHUB_API_KEY,
 };
 
 // API endpoint to fetch videos from YouTube and Bilibili
@@ -75,9 +77,33 @@ app.get('/api/videos', async (req, res) => {
                 }
             }
 
+            // Initialize Octokit with GitHub API key
+            const octokit = new Octokit({
+                auth: config.githubApiKey,
+                request: { fetch }
+            });
+
+            // Search repositories based on keyword
+            async function searchRepos() {
+                try {
+                  const response = await octokit.rest.search.repos({
+                    q: `${keyword}`,
+                    sort: 'stars',
+                    order: 'desc',
+                    per_page: 10
+                  }
+                );
+                return response.data.items;
+                } catch (error) {
+                  console.error(`Error: ${error}`);
+                }
+              }
+                         
+
             // Fetch data from YouTube and Bilibili concurrently
-            const [arxivData, youtubeResponse, bilibiliResponse] = await Promise.all([
+            const [arxivData, githubData, youtubeResponse, bilibiliResponse] = await Promise.all([
                 searchArxiv(),
+                searchRepos(),
                 fetch(YOUTUBE_API_URL, {
                     headers: {
                         'x-rapidapi-key': config.rapidApiKey,
@@ -102,19 +128,52 @@ app.get('/api/videos', async (req, res) => {
                 (item) => item.result_type === 'video'
             );
             
-            console.log('Arxiv Data:', arxivData);
+            console.log('Arxiv Data:', arxivData[0]);
+            console.log('GitHub Data:', githubData[0]);
             console.log('YouTube Data:', youtubeData.data[0]);
             console.log('Bilibili Data:', bilibiliVideoData.data[0]);
 
 
-            const titlelist = [...arxivData, ...youtubeData.data, ...bilibiliVideoData.data].map((data) => data.title);
-
+            // Helper function to clean and extract a given number of words
+            const cleanAndExtract = (text, wordCount) =>
+                text
+                ? text
+                    .replace(/\n/g, " ") // Replace newlines with space
+                    .replace(/\s+/g, " ") // Replace multiple spaces with a single space
+                    .trim() // Remove leading/trailing spaces
+                    .split(" ") // Split into words
+                    .slice(0, wordCount) // Take the specified number of words
+                    .join(" ") // Join back into a string
+                : "";
+            
+            // Generate description list for GPT
+            const desclist = [
+                ...arxivData.map((data) => ({
+                    title: data.title,
+                    description: cleanAndExtract(data.summary, 30),
+                })),
+                ...githubData.map((data) => ({
+                    title: data.name,
+                    description: cleanAndExtract(data.description, 30),
+                })),
+                ...youtubeData.data.map((data) => ({
+                    title: data.title,
+                    description: cleanAndExtract(data.description, 30),
+                })),
+                ...bilibiliVideoData.data.map((data) => ({
+                    title: data.title,
+                    description: cleanAndExtract(data.description, 10),
+                })),
+            ];
+              
+            console.log('desclist:', desclist);  
+            
             // parallel fetch data from GPT, YouTube and Bilibili
-            const [openAIRelevanceMap, arxivResults, youtubeResults, bilibiliResults] = await Promise.all([
+            const [openAIRelevanceMap, arxivResults, githubResults, youtubeResults, bilibiliResults] = await Promise.all([
                 // GPT data processing
                 (async () => {
                     console.time('Process gpt Results');
-                    const result =  await sendToOpenAI(keyword, titlelist);
+                    const result =  await sendToOpenAI(keyword, desclist);
                     console.timeEnd('Process gpt Results');
                     return result;
                 })(),
@@ -129,6 +188,20 @@ app.get('/api/videos', async (req, res) => {
                                 description: paper.summary || '',
                                 image: null,
                                 source: 'ArXiv',
+                            }))
+                    );
+                })(),
+
+                (async () => {
+                    return Promise.all(
+                        (githubData || [])
+                            .filter((repo) => repo && repo.name)
+                            .map(async (repo) => ({
+                                id: repo.full_name,
+                                title: repo.name,
+                                description: repo.description || '',
+                                image: null,
+                                source: 'GitHub',
                             }))
                     );
                 })(),
@@ -173,7 +246,7 @@ app.get('/api/videos', async (req, res) => {
             ]);
 
             // Combine results from keyword search
-            combinedResults = [...arxivResults, ...youtubeResults, ...bilibiliResults];
+            combinedResults = [...arxivResults, ...githubResults, ...youtubeResults, ...bilibiliResults];
 
             // Add relevance to the combined results
             const enrichedResults = combinedResults.map((data) => ({
@@ -231,12 +304,12 @@ app.get('/api/videos', async (req, res) => {
     }
 });
 
-const sendToOpenAI = async (query, titles) => {
+const sendToOpenAI = async (query, descData) => {
     const BATCH_SIZE = 10; // batch size for parallel processing
     const batches = [];
 
-    for (let i = 0; i < titles.length; i += BATCH_SIZE) {
-        const batchTitles = titles.slice(i, i + BATCH_SIZE);
+    for (let i = 0; i < descData.length; i += BATCH_SIZE) {
+        const batchData = descData.slice(i, i + BATCH_SIZE);
         batches.push(
             fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
@@ -250,7 +323,7 @@ const sendToOpenAI = async (query, titles) => {
                         { role: "system", content: `${GPT_SYSTEM_PROMPT}` },
                         {
                             role: "user",
-                            content: `${GPT_FILTER_PROMPT(query, JSON.stringify(batchTitles))}`,
+                            content: `${GPT_FILTER_PROMPT(query, JSON.stringify(batchData))}`,
                         },
                     ],
                 }),

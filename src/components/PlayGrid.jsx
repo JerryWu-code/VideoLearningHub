@@ -100,9 +100,11 @@ export const PlayGrid = ({ query }) => {
 
       let videoUrl = "";
       let paperUrl = "";
+      let githubUrl = "";
       if (video.source === "YouTube") {
         videoUrl = `https://www.youtube.com/embed/${video.id}`;
-      } else if (video.source === "Bilibili") {
+      } else if (video.source ==="GitHub"){githubUrl=`https://github.com/${video.id}`;}
+      else if (video.source === "Bilibili") {
         const response = await fetch(
           `http://127.0.0.1:3000/api/videos?videoid=${video.id}`
         );
@@ -143,7 +145,8 @@ export const PlayGrid = ({ query }) => {
 
       if (paperUrl) {
         window.location.href = `/pdf-reader-page?url=${paperUrl}`;
-      } else {
+      } else if(githubUrl){ window.location.href = `${githubUrl}`;}
+      else {
       window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
         videoUrl)}`;}
 
@@ -183,44 +186,66 @@ export const PlayGrid = ({ query }) => {
           </div>
       ) : (
         <ul className={styles.grid}>
-          {data.map((video) => (
-            <li 
-              key={video.id} 
-              className={styles.card} 
-              onClick={() => handleVideoClick(video)}>
-              <div>
-                {video.source === "ArXiv" ? (
+        {data.map((video) => (
+          <li
+            key={video.id}
+            className={styles.card}
+            onClick={() => handleVideoClick(video)}
+          >
+            <div>
+              {video.source === 'GitHub' ? (
+                console.log("video.username:", video.id.split('/')[1]),
+                <>
                   <p className={styles.arxivDescription}>{video.description}</p>
-                ) : (
-                  <img src={video.image} alt={video.title} />
-                )}
-                <h3>{video.title}</h3>
-                <div className={styles.source}>
-                  <span>Source:</span>
-                  {video.source === "YouTube" ? (
+                  <h3>{video.title}</h3>
+                  <div className={styles.source}>
+                    <span>Source:</span>
                     <img
-                      src="../frame-12@2x.png" // Path to YouTube logo
-                      alt="YouTube"
+                      src="../github-mark.png" // Path to GitHub logo
+                      alt="GitHub"
                       className={styles.sourceIcon}
                     />
-                  ) : video.source === "Bilibili" ? (
-                    <img
-                      src="../frame-121@2x.png" // Path to Bilibili logo
-                      alt="Bilibili"
-                      className={styles.sourceIcon}
-                    />
-                  ) : video.source === "ArXiv" ? (
+                  </div>
+                </>
+              ) : video.source === 'ArXiv' ? (
+                <>
+                  <p className={styles.arxivDescription}>{video.description}</p>
+                  <h3>{video.title}</h3>
+                  <div className={styles.source}>
+                    <span>Source:</span>
                     <img
                       src="../arxiv-logo-small.jpg" // Path to ArXiv logo
                       alt="ArXiv"
                       className={styles.sourceIcon}
                     />
-                  ) : null}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <img src={video.image} alt={video.title} />
+                  <h3>{video.title}</h3>
+                  <div className={styles.source}>
+                    <span>Source:</span>
+                    {video.source === 'YouTube' ? (
+                      <img
+                        src="../frame-12@2x.png" // Path to YouTube logo
+                        alt="YouTube"
+                        className={styles.sourceIcon}
+                      />
+                    ) : video.source === 'Bilibili' ? (
+                      <img
+                        src="../frame-121@2x.png" // Path to Bilibili logo
+                        alt="Bilibili"
+                        className={styles.sourceIcon}
+                      />
+                    ) : null}
+                  </div>
+                </>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>      
       )}
     </div>
   );
