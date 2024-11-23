@@ -1,59 +1,43 @@
-import styles from "./Footer.module.css";
-
+import React from "react";
 
 export const Footer = () => {
-    return (
-        <footer className={styles.footer}>
-        <div className={styles.title}>
-          <div className={styles.figma}>
-            <img className={styles.icon} alt="Figma icon" src="/icon1.svg" />
-          </div>
-          <div className={styles.buttonList}>
-            <img className={styles.xLogoIcon} alt="Twitter Logo" src="/x-logo.svg" />
-            <img className={styles.logoInstagramIcon} alt="Instagram Logo" src="/logo-instagram.svg" />
-            <img className={styles.logoInstagramIcon} alt="YouTube Logo" src="/logo-youtube.svg" />
-            <img className={styles.logoInstagramIcon} alt="LinkedIn Logo" src="/linkedin.svg" />
-          </div>
-        </div>
+  return (
+    <footer className="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+      <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+        © 2023{" "}
+        <a
+          href="http://127.0.0.1:5173/"
+          className="hover:underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          EduLink
+        </a>
+        . All Rights Reserved.
+      </span>
+      <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+        <li>
+          <a href="#" className="hover:underline me-4 md:me-6">
+            About
+          </a>
+        </li>
+        <li>
+          <a href="#" className="hover:underline me-4 md:me-6">
+            Privacy Policy
+          </a>
+        </li>
+        <li>
+          <a href="#" className="hover:underline me-4 md:me-6">
+            Licensing
+          </a>
+        </li>
+        <li>
+          <a href="#" className="hover:underline">
+            Contact
+          </a>
+        </li>
+      </ul>
+    </footer>
+  );
+};
 
-        <div className={styles.textLinkList}>
-          <h3 className={styles.title1}>Use Cases</h3>
-          <ul>
-            <li className={styles.textLinkListItem}>UI design</li>
-            <li className={styles.textLinkListItem}>UX design</li>
-            <li className={styles.textLinkListItem}>Wireframing</li>
-            <li className={styles.textLinkListItem}>Diagramming</li>
-            <li className={styles.textLinkListItem}>Brainstorming</li>
-            <li className={styles.textLinkListItem}>Online whiteboard</li>
-            <li className={styles.textLinkListItem}>Team collaboration</li>
-          </ul>
-        </div>
-
-        <div className={styles.textLinkList}>
-          <h3 className={styles.title1}>Explore</h3>
-          <ul>
-            <li className={styles.textLinkListItem}>Design</li>
-            <li className={styles.textLinkListItem}>Prototyping</li>
-            <li className={styles.textLinkListItem}>Development features</li>
-            <li className={styles.textLinkListItem}>Design systems</li>
-            <li className={styles.textLinkListItem}>Collaboration features</li>
-            <li className={styles.textLinkListItem}>Design process</li>
-            <li className={styles.textLinkListItem}>FigJam</li>
-          </ul>
-        </div>
-
-        <div className={styles.textLinkList}>
-          <h3 className={styles.title1}>Resources</h3>
-          <ul>
-            <li className={styles.textLinkListItem}>Blog</li>
-            <li className={styles.textLinkListItem}>Best practices</li>
-            <li className={styles.textLinkListItem}>Colors</li>
-            <li className={styles.textLinkListItem}>Color wheel</li>
-            <li className={styles.textLinkListItem}>Support</li>
-            <li className={styles.textLinkListItem}>Developers</li>
-            <li className={styles.textLinkListItem}>Resource library</li>
-          </ul>
-        </div>
-      </footer>
-    )
-}
