@@ -81,18 +81,12 @@ export const PlayGrid = ({ query }) => {
 
     const response = await graphQLFetch(mutation, variables);
 
-    // if (!response) {
-    //   console.error("No response from server.");
-    //   alert("Failed to add video to history due to a server error.");
-    //   return;
-    // }
-
     if (response.addVideoToHistory) {
       alert("Video successfully added to your history!");
-      } else {
-        alert("An unexpected error occurred while adding the video to history.");
-      }
-    };
+    } else {
+      alert("An unexpected error occurred while adding the video to history.");
+    }
+  };
 
   const handleVideoClick = async (video) => {
     try {
@@ -103,7 +97,7 @@ export const PlayGrid = ({ query }) => {
       let githubUrl = "";
       if (video.source === "YouTube") {
         videoUrl = `https://www.youtube.com/embed/${video.id}`;
-      } else if (video.source ==="GitHub"){githubUrl=`https://github.com/${video.id}`;}
+      } else if (video.source === "GitHub") { githubUrl = `https://github.com/${video.id}`; }
       else if (video.source === "Bilibili") {
         const response = await fetch(
           `http://127.0.0.1:3000/api/videos?videoid=${video.id}`
@@ -116,9 +110,9 @@ export const PlayGrid = ({ query }) => {
         }
 
         videoUrl = `https://player.bilibili.com/player.html?aid=${video.id}&cid=${videoDetails.cid}&page=1&high_quality=1`;
-      } else if (video.source =="ArXiv") {
-          paperUrl = video.id;
-      }else {
+      } else if (video.source == "ArXiv") {
+        paperUrl = video.id;
+      } else {
         console.error("Unknown video source:", video.source);
         return;
       }
@@ -132,10 +126,14 @@ export const PlayGrid = ({ query }) => {
         await addVideoToHistory(user.email, {
           videoId: String(video.id),
           title: video.title || "Untitled Video", // Provide a fallback title
-          image: video.image || "../default-featured-image.png.jpg",
+          image: video.source === "GitHub"
+            ? "../github-logo.png"
+            : video.source === "ArXiv"
+              ? "../arxiv-logo.jpg"
+              : video.image || "../default-featured-image.jpg.png", // Default image fallback
           source: video.source,
           description: video.description || "No description available.", // Fallback for description
-          videoUrl: videoUrl || paperUrl,
+          videoUrl: videoUrl || paperUrl || githubUrl, // Prioritize videoUrl, then paperUrl, then githubUrl
           watchedAt: new Date(), // Current time for watchedAt
         });
 
@@ -145,10 +143,11 @@ export const PlayGrid = ({ query }) => {
 
       if (paperUrl) {
         window.location.href = `${paperUrl}`;
-      } else if(githubUrl){ window.location.href = `${githubUrl}`;}
+      } else if (githubUrl) { window.location.href = `${githubUrl}`; }
       else {
-      window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
-        videoUrl)}`;}
+        window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
+          videoUrl)}`;
+      }
 
     } catch (error) {
       console.error("Error handling video click:", error);
@@ -184,69 +183,69 @@ export const PlayGrid = ({ query }) => {
             </svg>
             <span className="sr-only">Loading...</span>
           </div>
-          </div>
+        </div>
       ) : (
         <ul className={styles.grid}>
-        {data.map((video) => (
-          <li
-            key={video.id}
-            className={styles.card}
-            onClick={() => handleVideoClick(video)}
-          >
-            <div>
-              {video.source === 'GitHub' ? (
-                console.log("video.username:", video.id.split('/')[1]),
-                <>
-                  <p className={styles.arxivDescription}>{video.description}</p>
-                  <h3>{video.title}</h3>
-                  <div className={styles.source}>
-                    <span>Source:</span>
-                    <img
-                      src="../github-mark.png" // Path to GitHub logo
-                      alt="GitHub"
-                      className={styles.sourceIcon}
-                    />
-                  </div>
-                </>
-              ) : video.source === 'ArXiv' ? (
-                <>
-                  <p className={styles.arxivDescription}>{video.description}</p>
-                  <h3>{video.title}</h3>
-                  <div className={styles.source}>
-                    <span>Source:</span>
-                    <img
-                      src="../arxiv-logo-small.jpg" // Path to ArXiv logo
-                      alt="ArXiv"
-                      className={styles.sourceIcon}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <img src={video.image} alt={video.title} />
-                  <h3>{video.title}</h3>
-                  <div className={styles.source}>
-                    <span>Source:</span>
-                    {video.source === 'YouTube' ? (
+          {data.map((video) => (
+            <li
+              key={video.id}
+              className={styles.card}
+              onClick={() => handleVideoClick(video)}
+            >
+              <div>
+                {video.source === 'GitHub' ? (
+                  console.log("video.username:", video.id.split('/')[1]),
+                  <>
+                    <p className={styles.arxivDescription}>{video.description}</p>
+                    <h3>{video.title}</h3>
+                    <div className={styles.source}>
+                      <span>Source:</span>
                       <img
-                        src="../frame-12@2x.png" // Path to YouTube logo
-                        alt="YouTube"
+                        src="../github-mark.png" // Path to GitHub logo
+                        alt="GitHub"
                         className={styles.sourceIcon}
                       />
-                    ) : video.source === 'Bilibili' ? (
+                    </div>
+                  </>
+                ) : video.source === 'ArXiv' ? (
+                  <>
+                    <p className={styles.arxivDescription}>{video.description}</p>
+                    <h3>{video.title}</h3>
+                    <div className={styles.source}>
+                      <span>Source:</span>
                       <img
-                        src="../frame-121@2x.png" // Path to Bilibili logo
-                        alt="Bilibili"
+                        src="../arxiv-logo-small.jpg" // Path to ArXiv logo
+                        alt="ArXiv"
                         className={styles.sourceIcon}
                       />
-                    ) : null}
-                  </div>
-                </>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>      
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <img src={video.image} alt={video.title} />
+                    <h3>{video.title}</h3>
+                    <div className={styles.source}>
+                      <span>Source:</span>
+                      {video.source === 'YouTube' ? (
+                        <img
+                          src="../frame-12@2x.png" // Path to YouTube logo
+                          alt="YouTube"
+                          className={styles.sourceIcon}
+                        />
+                      ) : video.source === 'Bilibili' ? (
+                        <img
+                          src="../frame-121@2x.png" // Path to Bilibili logo
+                          alt="Bilibili"
+                          className={styles.sourceIcon}
+                        />
+                      ) : null}
+                    </div>
+                  </>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
