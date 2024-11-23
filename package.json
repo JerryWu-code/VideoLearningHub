@@ -12,6 +12,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "apollo-server-express": "^2.26.2",
+    "@octokit/rest": "^21.0.2",
     "arxiv-api": "^1.1.1",
     "autoprefixer": "^10.4.20",
     "blob-polyfill": "^9.0.20240710",
