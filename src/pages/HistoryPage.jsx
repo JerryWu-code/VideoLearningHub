@@ -116,14 +116,14 @@ const HistoryPage = () => {
         <div className={styles.videoHistoryPage}>
             <Navibar />
             <div className={styles.historyContainer}>
-                <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Watch History</h2>
+                <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Watch History</h2>
 
                 {videoHistory.length > 0 ? (
                     <div>
                         {/* Clear History Button */}
                         <button
                             type="button"
-                            class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                             onClick={handleClearHistory}>
                             Clear History
                         </button>
@@ -137,8 +137,26 @@ const HistoryPage = () => {
                                         src={video.image || "/images/video-placeholder.png"}
                                         alt={video.title}
                                         className={styles.thumbnail}
-                                        onClick={() => {
-                                            window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(video.videoUrl)}`;
+                                        onClick={async () => {
+                                            try {
+                                                if (video.source === "YouTube" || video.source === "Bilibili") {
+                                                    // Redirect to video-player page for YouTube or Bilibili
+                                                    window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
+                                                        video.videoUrl
+                                                    )}`;
+                                                } else if (video.source === "GitHub") {
+                                                    // Redirect directly to GitHub link
+                                                    window.location.href = video.videoUrl;
+                                                } else if (video.source === "ArXiv") {
+                                                    // Redirect directly to ArXiv link
+                                                    window.location.href = video.videoUrl;
+                                                } else {
+                                                    console.error("Unknown video source:", video.source);
+                                                    return;
+                                                }
+                                            } catch (error) {
+                                                console.error("Error handling video click:", error);
+                                            }
                                         }}
                                         style={{ cursor: "pointer" }}
                                     />
@@ -155,13 +173,31 @@ const HistoryPage = () => {
                                         </p>
                                         {/* Watch Again Link */}
                                         <a
-                                            onClick={() => {
-                                                window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(video.videoUrl)}`;
+                                            onClick={async () => {
+                                                try {
+                                                    if (video.source === "YouTube" || video.source === "Bilibili") {
+                                                        // Redirect to video-player page for YouTube or Bilibili
+                                                        window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
+                                                            video.videoUrl
+                                                        )}`;
+                                                    } else if (video.source === "GitHub") {
+                                                        // Redirect directly to GitHub link
+                                                        window.location.href = video.videoUrl;
+                                                    } else if (video.source === "ArXiv") {
+                                                        // Redirect directly to ArXiv link
+                                                        window.location.href = video.videoUrl;
+                                                    } else {
+                                                        console.error("Unknown video source:", video.source);
+                                                        return;
+                                                    }
+                                                } catch (error) {
+                                                    console.error("Error handling video click:", error);
+                                                }
                                             }}
                                             style={{ cursor: "pointer" }}
                                             className={styles.watchAgain}
                                         >
-                                            Watch Again
+                                            View Again
                                         </a>
                                     </div>
                                 </li>
@@ -169,7 +205,7 @@ const HistoryPage = () => {
                         </ul>
                     </div>
                 ) : (
-                    <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Your watch history is empty.</p>
+                    <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Your watch history is empty.</p>
                 )}
             </div>
             <Footer />

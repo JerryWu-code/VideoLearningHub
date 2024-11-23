@@ -44,7 +44,8 @@ const Mutation = {
     try {
       const updatedUser = await db.collection('users').findOneAndUpdate(
         { email },
-        { $push: { collections: { ...video, addedAt: new Date() } } },
+        { $push: { collections: { ...video, 
+          addedAt: video.addedAt ? new Date(video.addedAt) : new Date(), } } },
         { returnDocument: 'after' } // Return the updated document
       );
       if (!updatedUser.value) throw new UserInputError('User not found.');
