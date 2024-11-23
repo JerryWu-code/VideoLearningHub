@@ -54,29 +54,30 @@ const TrendingFields = ({ setQuery }) => {
 
     return (
         <>
-        {loading ? (
-        <div role="status" className="max-w-sm animate-pulse pl-20">
-            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-            <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-        </div>
-        ):
-        (<div className="w-full grid gap-4 grid-cols-[repeat(auto-fit,minmax(200px,2fr))] pr-20 pl-20 pb-4">
-        {trendingFields.map((data, index) => (
-          <CategoryCard
-          key={index}
-          text={data}
-          link="#"
-          onClick={() => {
-            console.log("Trending field clicked:", data);
-            setQuery(data);
-          }}
-        />
-        ))}
-      </div>)
-}
-      </>
-    );
+          {loading ? (
+            <div role="status" className="max-w-sm animate-pulse pl-20">
+              <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+              <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-4 gap-x-6 gap-y-2 pr-20 pl-20 pb-4">
+              {trendingFields.map((data, index) => (
+                <CategoryCard
+                  key={index}
+                  text={data}
+                  link="#"
+                  className="text-center font-bold"
+                  onClick={() => {
+                    console.log("Trending field clicked:", data);
+                    setQuery(data);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      );
 };
 
 export default TrendingFields;
