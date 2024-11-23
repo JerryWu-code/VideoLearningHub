@@ -36,9 +36,10 @@ const SearchPage = () => {
     return (
         <div className={styles.searchPage}>
             <Navibar />
-            <SearchResultDisplay />
-            <h1>Results for "{query1}"</h1>
-
+            <div className={styles.searchbarContainer}>
+                <SearchResultDisplay />
+            </div>
+            <h4 className="text-2xl font-bold dark:text-white pl-20 pb-3">Results for "{query1}"</h4>
             <div className={styles.resultsContainer}>
                 <PlayGrid query={query1} />
             </div>

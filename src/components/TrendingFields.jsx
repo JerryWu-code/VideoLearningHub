@@ -24,7 +24,7 @@ const sendToOpenAI = async (query) => {
     const data = await response.json();
 
     const GPTresponse = JSON.parse(data.choices[0].message.content.replace(/```json|```/g, '').trim());
-    return GPTresponse.field
+    return GPTresponse.field;
 };
 
 const TrendingFields = ({ setQuery }) => {
@@ -38,16 +38,24 @@ const TrendingFields = ({ setQuery }) => {
     useEffect(() => {
         setLoading(true);
         const fetchTrendingFields = async () => {
-            try{
-            if (query) {
-                const fields = await sendToOpenAI(query);
-                setTrendingFields(fields);
+            try {
+                if (query) {
+                    // Check cache for existing data
+                    const cachedData = localStorage.getItem(`trendingFields_${query}`);
+                    if (cachedData) {
+                        setTrendingFields(JSON.parse(cachedData));
+                    } else {
+                        const fields = await sendToOpenAI(query);
+                        setTrendingFields(fields);
+                        // Save to cache
+                        localStorage.setItem(`trendingFields_${query}`, JSON.stringify(fields));
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching trending fields:", error);
+            } finally {
+                setLoading(false);
             }
-        } catch (error) {
-            console.error("Error fetching trending fields:", error);
-        } finally {
-            setLoading(false);
-        }
         };
         fetchTrendingFields();
     }, [query]);

@@ -164,7 +164,7 @@ const HistoryPage = () => {
                                     {/* Video Details */}
                                     <div className={styles.videoDetails}>
                                         <h3>{video.title || "Untitled Video"}</h3>
-                                        <p>{video.description || "No description available."}</p>
+                                        <p className ={styles.videoDescription}>{video.description || "No description available."}</p>
                                         <p>
                                             Watched on:{" "}
                                             {video.watchedAt

@@ -45,12 +45,12 @@ const VideoPlayerAssistant = () => {
   };
 
   return (
-    <ChatBot
-      settings={{
-        chatHistory: { storageKey: "video_player_assistant_conversation" },
-      }}
-      flow={flow}
-    />
+      <ChatBot
+        settings={{
+          chatHistory: { storageKey: "video_player_assistant_conversation" },
+        }}
+        flow={flow}
+      />
   );
 };
 
