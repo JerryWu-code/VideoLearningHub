@@ -30,13 +30,6 @@ const VideoPlayerPage = () => {
     };
   }, []);
 
-  // // Add &high_quality=1 to Bilibili URLs
-  // if (source?.toLowerCase() === "bilibili" && playerURL) {
-  //   const url = new URL(playerURL);
-  //   url.searchParams.set("high_quality", "1");
-  //   playerURL = url.toString();
-  // }
-
   console.log("playerURL now is: ", playerURL);
   
   return (
@@ -56,7 +49,7 @@ const VideoPlayerPage = () => {
           referrerPolicy="strict-origin-when-cross-origin" 
           allowFullScreen={true}
           className={styles.responsiveIframe}
-          // sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"// block auto-redirection to bilibili when click
+          sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"// block auto-redirection to bilibili when click
           title={`${source} Video Player`}
         ></iframe>
       </div>

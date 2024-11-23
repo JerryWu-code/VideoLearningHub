@@ -51,7 +51,6 @@ export const PlayGrid = ({ query }) => {
         }
         return null; // Return null if there's an error in the GraphQL response
       }
-
       return result.data;
     } catch (e) {
       alert(`Error in sending data to server: ${e.message}`);
@@ -90,16 +89,17 @@ export const PlayGrid = ({ query }) => {
 
     if (response.addVideoToHistory) {
       alert("Video successfully added to your history!");
-    } else {
-      alert("An unexpected error occurred while adding the video to history.");
-    }
-  };
+      } else {
+        alert("An unexpected error occurred while adding the video to history.");
+      }
+    };
 
   const handleVideoClick = async (video) => {
     try {
       console.log("Video clicked:", video);
 
       let videoUrl = "";
+      let paperUrl = "";
       if (video.source === "YouTube") {
         videoUrl = `https://www.youtube.com/embed/${video.id}`;
       } else if (video.source === "Bilibili") {
@@ -114,7 +114,9 @@ export const PlayGrid = ({ query }) => {
         }
 
         videoUrl = `https://player.bilibili.com/player.html?aid=${video.id}&cid=${videoDetails.cid}&page=1&high_quality=1`;
-      } else {
+      } else if (video.source =="ArXiv") {
+          paperUrl = video.id;
+      }else {
         console.error("Unknown video source:", video.source);
         return;
       }
@@ -131,7 +133,7 @@ export const PlayGrid = ({ query }) => {
           image: video.image || "../default-featured-image.png.jpg",
           source: video.source,
           description: video.description || "No description available.", // Fallback for description
-          videoUrl,
+          videoUrl: videoUrl || paperUrl,
           watchedAt: new Date(), // Current time for watchedAt
         });
 
@@ -139,10 +141,12 @@ export const PlayGrid = ({ query }) => {
         console.error("Error adding video to history:", error);
       }
 
-      // Redirect to the video player page
+      if (paperUrl) {
+        window.location.href = `/pdf-reader-page?url=${paperUrl}`;
+      } else {
       window.location.href = `/video-player-page?source=${video.source}&url=${encodeURIComponent(
-        videoUrl
-      )}`;
+        videoUrl)}`;}
+
     } catch (error) {
       console.error("Error handling video click:", error);
     }
@@ -176,15 +180,20 @@ export const PlayGrid = ({ query }) => {
             </svg>
             <span className="sr-only">Loading...</span>
           </div>
-        </div>
+          </div>
       ) : (
         <ul className={styles.grid}>
           {data.map((video) => (
-            <li key={video.id}
-              className={styles.card}
+            <li 
+              key={video.id} 
+              className={styles.card} 
               onClick={() => handleVideoClick(video)}>
               <div>
-                <img src={video.image} alt={video.title} />
+                {video.source === "ArXiv" ? (
+                  <p className={styles.arxivDescription}>{video.description}</p>
+                ) : (
+                  <img src={video.image} alt={video.title} />
+                )}
                 <h3>{video.title}</h3>
                 <div className={styles.source}>
                   <span>Source:</span>
@@ -198,6 +207,12 @@ export const PlayGrid = ({ query }) => {
                     <img
                       src="../frame-121@2x.png" // Path to Bilibili logo
                       alt="Bilibili"
+                      className={styles.sourceIcon}
+                    />
+                  ) : video.source === "ArXiv" ? (
+                    <img
+                      src="../arxiv-logo-small.jpg" // Path to ArXiv logo
+                      alt="ArXiv"
                       className={styles.sourceIcon}
                     />
                   ) : null}

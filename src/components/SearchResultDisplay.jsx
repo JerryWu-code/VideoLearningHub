@@ -16,7 +16,6 @@ const SearchResultDisplay = () => {
   };
 
   return (
-    <div className={styles.startYourLearningJourneyHeParent}>
       <div className={styles.searchbar}>
         <SearchBar
           setResults={setResults} // Dynamically update suggestions
@@ -31,7 +30,6 @@ const SearchResultDisplay = () => {
           </div>
         )}
       </div>
-    </div>
   );
 };
 

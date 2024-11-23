@@ -11,6 +11,7 @@ import CoursePage from "./pages/CoursePage";
 import MainPage from "./pages/MainPage";
 import FeaturesOverviewPage from "./pages/FeaturesOverviewPage";
 import SearchPage from "./pages/SearchPage";
+import PDFReaderPage from "./pages/PDFReaderPage";
 import HistoryPage from "./pages/HistoryPage";
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
       <Route path="/main-page" element={<MainPage />} />
       <Route path="/course-page" element={<CoursePage />} />
       <Route path="/video-player-page" element={<VideoPlayerPage />} />
+      <Route path="/pdf-reader-page" element={<PDFReaderPage />} />
       <Route path="/features-page" element={<FeaturesOverviewPage />} />
       <Route path="/search-page" element={<SearchPage />} />
       <Route path="/history-page" element={<HistoryPage />} />
