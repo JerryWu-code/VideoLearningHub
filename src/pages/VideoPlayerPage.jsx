@@ -4,6 +4,7 @@ import styles from "./VideoPlayerPage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
 import SearchResultDisplay from "../components/SearchResultDisplay";
+import VideoPlayerAssistant from "../components/VideoPlayerAssistant";
 
 const VideoPlayerPage = () => {
   const location = useLocation();
@@ -33,6 +34,8 @@ const VideoPlayerPage = () => {
   console.log("playerURL now is: ", playerURL);
   
   return (
+    <>
+    <VideoPlayerAssistant/>
     <div className={styles.videoPlayerPage}>
       {/* navibar */}
       <Navibar />
@@ -57,6 +60,7 @@ const VideoPlayerPage = () => {
       {/* footer */}
       <Footer />
     </div>
+    </>
   );
 };
 
