@@ -85,27 +85,39 @@ const VideoPlayerPage = () => {
         {/* navibar */}
         <Navibar />
         <SearchResultDisplay />
-        
-        {/* player */}
-        <div className={styles.videoPlayerContainer}>
-          <h3 className={styles.videoTitle}>{singleVideo?.single?.source} Player</h3>
+        <div className={styles.pageContainer}>
+        {/* Left Column: Video Details and Player */}
+        <div className={styles.leftColumn}>
+          {/* Video Title */}
           <h5 className={styles.videoMainTitle}>{singleVideo?.single?.title}</h5>
-          <iframe
-            id="videoPlayer"
-            src={playerURL}
-            frameBorder="no"
-            framespacing="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen={true}
-            // sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"// block auto-redirection to bilibili when click
-            className={styles.responsiveIframe}
-            title={`${source} Video Player`}
-          ></iframe>
-        </div>
-  
-        {/* video details */}
-        <div className={styles.videoDetailsContainer}>
+
+          {/* Metadata (Views, Date, Tags) */}
+          <div className={styles.metadataSection}>
+          <p className={styles.videoMetadata}>
+            <span className={styles.viewCount}>{singleVideo?.single?.viewCount} views</span>
+            <span className={styles.dotSeparator}>•</span>
+            <span className={styles.pubDate}>Published on {singleVideo?.single?.pubDate}</span>
+            <span className={styles.dotSeparator}>•</span>
+            <span className={styles.tags}>Tags: {singleVideo?.single?.tags}</span>
+          </p>
+          </div>
+
+          {/* Video Player */}
+          <div className={styles.videoPlayerContainer}>
+            <iframe
+              id="videoPlayer"
+              src={playerURL}
+              frameBorder="no"
+              framespacing="0"
+              width="100%"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen={true}
+              className={styles.responsiveIframe}
+              title={singleVideo?.single?.title}
+            ></iframe>
+          </div>
+
           {/* Author Info */}
           <div className={styles.authorSection}>
             <img
@@ -113,23 +125,31 @@ const VideoPlayerPage = () => {
               alt={`${singleVideo?.single?.author?.name} icon`}
               className={styles.authorIcon}
             />
-            <p className={styles.authorName}>{singleVideo?.single?.author?.name}</p>
+            <div>
+              <p className={styles.authorName}>{singleVideo?.single?.author?.name}</p>
+              <p className={styles.videoSource}>{singleVideo?.single?.source}</p>
+            </div>
           </div>
-  
+
           {/* Description */}
           <div className={styles.descriptionSection}>
-            <h4>Description:</h4>
             <p>{singleVideo?.single?.description}</p>
           </div>
-  
-          {/* Metadata */}
-          <div className={styles.metadataSection}>
-            <p>Published on: {singleVideo?.single?.pubDate}</p>
-            <p>Views: {singleVideo?.single?.viewCount}</p>
-            <p>Likes: {singleVideo?.single?.likeCount}</p>
-            <p>Tags: {singleVideo?.single?.tags}</p>
-          </div>
+
+          {/* Tags
+          <div className={styles.tagsSection}>
+            <p>
+              <strong>Tags:</strong> {singleVideo?.single?.tags}
+            </p>
+          </div> 
+          */}
         </div>
+
+        {/* Right Column: Placeholder for Playlist */}
+        <div className={styles.rightColumn}>
+          <h3>Playlist (Coming Soon)</h3>
+        </div>
+      </div>
   
         <br />
         <br />
