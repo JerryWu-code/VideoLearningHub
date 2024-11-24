@@ -1,6 +1,12 @@
+// these apis are used to fetch data from youtube and bilibili in the search page
 export const YOUTUBE_SEARCH_API = "https://yt-api.p.rapidapi.com/search"
 export const BILIBILI_SEARCH_API = "https://api.bilibili.com/x/web-interface/search/all/v2"
-export const BILIBILI_SEARCH_INFO_API = "https://api.bilibili.com/x/player/pagelist"
+// export const BILIBILI_SEARCH_INFO_API = "https://api.bilibili.com/x/player/pagelist"
+// these apis are used to fetch data from youtube and bilibili in the video player page
+export const YOUTUBE_RELATED_VIDEO_API = "https://yt-api.p.rapidapi.com/related"
+export const BILIBILI_RELATED_VIDEO_API = "https://api.bilibili.com/x/web-interface/archive/related"
+export const BILIBILI_VIDEO_INFO_API = "https://api.bilibili.com/x/web-interface/view"
+// these prompts are used to generate the prompt for the GPT ranking search results
 export const GPT_SYSTEM_PROMPT = "You are an assistant tasked with filtering and sorting video resources for an educational platform. Your goal is to ensure that only videos relevant to the specified academic topic are retained."
 export const GPT_FILTER_PROMPT = (topic, videoData) => `
 ##Topic: 

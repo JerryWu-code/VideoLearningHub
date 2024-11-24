@@ -2,7 +2,15 @@
 import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch'; // Import node-fetch directly
-import { YOUTUBE_SEARCH_API, BILIBILI_SEARCH_API, BILIBILI_SEARCH_INFO_API, GPT_SYSTEM_PROMPT, GPT_FILTER_PROMPT } from '../constants.mjs';
+import {
+    YOUTUBE_SEARCH_API, 
+    BILIBILI_SEARCH_API,
+    BILIBILI_RELATED_VIDEO_API,
+    YOUTUBE_RELATED_VIDEO_API,
+    GPT_SYSTEM_PROMPT, 
+    GPT_FILTER_PROMPT,
+    BILIBILI_VIDEO_INFO_API
+} from '../constants.mjs';
 import dotenv from 'dotenv';
 import NodeCache from "node-cache";
 import arxiv_api from 'arxiv-api';
@@ -40,13 +48,14 @@ const config = {
 app.get('/api/videos', async (req, res) => {
     const keyword = req.query.keyword; // Get the keyword from query parameters
     const videoid = req.query.videoid; // Get the videoid from query parameters
+    const source = req.query.source; // Video source: YouTube or Bilibili
 
     if (cache.has(keyword)) {
         console.log('Cache hit for keyword:', keyword);
         return res.json(cache.get(keyword)); // Return cached results
       }
 
-    if (!keyword && !videoid) {
+    if (!keyword && (!source || !videoid)) {
         return res.status(400).json({ error: 'Keyword or videoid is required' }); // Handle missing parameters
     }
 
@@ -266,41 +275,124 @@ app.get('/api/videos', async (req, res) => {
             res.send(finalResults);
         }
 
-        if (videoid) {
-            console.log('Fetching data for videoid:', videoid);
-            const BILIBILI_VIDEO_INFO_API = `${BILIBILI_SEARCH_INFO_API}?aid=${videoid}`;
+        // new version for both youtube and bilibili and their related videos
+        if (source && videoid) {
+            if (source === 'Bilibili') {
+                console.log('Fetching related videos for Bilibili videoid:', videoid);
 
-            // Fetch data from Bilibili API for videoid
-            const bilibiliVideoResponse = await fetch(BILIBILI_VIDEO_INFO_API, {
-                headers: {
-                    Cookie: `SESSDATA=${config.bilibiliSessData}`,
-                },
-            });
+                const BILIBILI_SINGLE_VIDEO_API = `${BILIBILI_RELATED_VIDEO_API}?aid=${videoid}`;
+                const BILIBILI_THIS_VIDEO_API = `${BILIBILI_VIDEO_INFO_API}?aid=${videoid}`;
 
-            const bilibiliVideoData = await bilibiliVideoResponse.json();
+                const [relatedResponse, singleResponse] = await Promise.all([
+                    fetch(BILIBILI_SINGLE_VIDEO_API, {
+                        headers: {
+                            Cookie: `SESSDATA=${config.bilibiliSessData}`,
+                        },
+                    }),
+                    fetch(BILIBILI_THIS_VIDEO_API, {
+                        headers: {
+                            Cookie: `SESSDATA=${config.bilibiliSessData}`,
+                        },
+                    }),
+                ]);
+                
+                const singleData = await singleResponse.json();
+                const relatedData = await relatedResponse.json();
+                // Process single video data
+                let single = null;
+                if (singleData?.data) {
+                    const video = singleData.data;
+                    single = {
+                        id: video.aid.toString(),
+                        title: sanitizeHTML(video.title),
+                        description: video.desc || '',
+                        viewCount: video.stat?.view.toString() || '0',
+                        likeCount: video.stat?.like.toString() || '0',
+                        pubDate: video.pubdate ? new Date(video.pubdate * 1000).toISOString().split('T')[0] : '',
+                        tags: video.tname ? video.tname.split('·').map(tag => `#${tag.trim()}`).join(' ') : '',
+                        author: {
+                            name: video.owner?.name || '',
+                            authorId: video.owner?.mid || '',
+                            authorIcon: video.owner?.face || '',
+                        },
+                        source: 'Bilibili',
+                    };
+                }
+                // Process related videos
+                let recommend = [];
+                if (relatedData?.data) {
+                    recommend = relatedData.data.map(video => ({
+                        id: video.aid.toString(),
+                        title: sanitizeHTML(video.title),
+                        description: video.desc || '',
+                        image: video.pic ? `https:${video.pic}` : null,
+                        source: 'Bilibili',
+                        pubDate: video.pubdate ? new Date(video.pubdate * 1000).toISOString().split('T')[0] : '',
+                        tags: video.tname ? video.tname.split('·').map(tag => `#${tag.trim()}`).join(' ') : '',
+                        // tags: video.tname.split('·').map(tag => ({ name: tag })),
+                    }));
+                }
 
-            console.log('You clicked video:', bilibiliVideoData);
+                const result = {
+                    single,
+                    recommend,
+                };
+                return res.json(result);
 
-            // Extract video details from Bilibili response
-            const videoDetails = bilibiliVideoData?.data;
+            } else if (source === 'YouTube') {
+                console.log('Fetching related videos for YouTube videoid:', videoid);
 
-            console.log('cid extracted:', videoDetails[0].cid);
-            
-            // Send video details to the frontend
-            if (videoDetails) {
-                // Return the `cid` directly
-                return res.json({ cid: videoDetails[0].cid});
-            } else {
-                // Handle case where `avid` is not found
-                return res.status(404).json({ error: 'Video ID not found in the response' });
+                const YOUTUBE_SINGLE_VIDEO_API = `${YOUTUBE_RELATED_VIDEO_API}?id=${videoid}`;
+                const response = await fetch(YOUTUBE_SINGLE_VIDEO_API, {
+                    headers: {
+                        'x-rapidapi-key': config.rapidApiKey,
+                        'x-rapidapi-host': 'yt-api.p.rapidapi.com',
+                    },
+                });
+
+                const data = await response.json();
+                let single = null;
+                if (data?.meta) {
+                    const video = data.meta;
+                    single = {
+                        id: video.videoId,
+                        title: sanitizeHTML(video.title),
+                        description: video.description || '',
+                        viewCount: video.viewCount || 0,
+                        likeCount: video.likeCount || 0,
+                        pubDate: video.publishDate || '',
+                        tags: video.superTitle || '',
+                        author: {
+                            name: video.channelHandle || '',
+                            authorId: video.channelId || '',
+                            authorIcon: video.channelThumbnail?.[0]?.url || '',
+                        },
+                        source: 'YouTube',
+                    };
+                }
+                let recommend = [];
+                if (data?.data) {
+                    recommend = data.data.map((video) => ({
+                        id: video.videoId,
+                        title: sanitizeHTML(video.title),
+                        description: video.description || '',
+                        image: video.thumbnail?.[0]?.url || null,
+                        source: 'YouTube',
+                        pubDate: video.publishDate || '',
+                    }));
+                }
+
+                const result = {
+                    single,
+                    recommend,
+                };
+                return res.json(result);
             }
         }
-    
-        
-        
+
     } catch (error) {
         console.error('Error fetching data:', error);
-        res.status(500).json({ error: 'Failed to fetch data' });
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -351,4 +443,3 @@ const sendToOpenAI = async (query, descData) => {
 app.listen(3000, () => {
     console.log('Proxy server running on http://127.0.0.1:3000/');
 });
-
