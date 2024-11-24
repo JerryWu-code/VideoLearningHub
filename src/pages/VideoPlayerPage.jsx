@@ -15,6 +15,9 @@ const VideoPlayerPage = () => {
   let playerURL = decodeURIComponent(queryParams.get("url")); // Decode the URL
   let videoID = null;
 
+  //  State to store the single video data
+  const [singleVideo, setSingleVideo] = useState(null);
+
   // Determine player URL and extract video ID based on the source
   // And send these to backend to get the video title, video description, author, etc.
   if (source === "YouTube") {
@@ -29,29 +32,30 @@ const VideoPlayerPage = () => {
     console.log("Extracted Bilibili VideoID:", videoID);
   }
 
-  // Send a request to the backend to get the video info (single) and related videos (recommend)
-  let singleVideo = null;
-  if (videoID && source) {
-    const sinreAPI = `http://127.0.0.1:3000/api/videos?source=${source}&videoid=${videoID}`;
-    console.log("Single & Related Video API URL:", sinreAPI);
+  useEffect(() => {
+    // Fetch video data when videoID and source are available
+    if (videoID && source) {
+      const sinreAPI = `http://127.0.0.1:3000/api/videos?source=${source}&videoid=${videoID}`;
+      console.log("Single & Related Video API URL:", sinreAPI);
 
-    fetch(sinreAPI)
+      fetch(sinreAPI)
         .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
         })
         .then((data) => {
-            singleVideo = data;
-            console.log("Fetched single video data:", singleVideo);
+          setSingleVideo(data); // Update state with fetched data
+          console.log("Fetched single video data:", data);
         })
         .catch((error) => {
-            console.error("Error fetching API data:", error);
+          console.error("Error fetching API data:", error);
         });
-  } else {
+    } else {
       console.error("Invalid source or videoID. Cannot call API.");
-  }
+    }
+  }, [videoID, source]); // Re-run effect if videoID or source changes
 
   if (!playerURL) {
     return <p className={styles.errorText}>Error: Missing player URL.</p>;
@@ -73,38 +77,67 @@ const VideoPlayerPage = () => {
 
   console.log("videoID now is: ", videoID);
   console.log("playerURL now is: ", playerURL);
-  console.log("Single Video now is: ", singleVideo);
   
   return (
     <>
-    <VideoPlayerAssistant/>
-    <div className={styles.videoPlayerPage}>
-      {/* navibar */}
-      <Navibar />
-      <SearchResultDisplay />
-      {/* player */}
-      <div className={styles.videoPlayerContainer}>
-        <h3 className={styles.videoTitle}>{source} Player</h3>
-        <iframe
-          id="videoPlayer"
-          src={playerURL}
-          frameBorder="no"
-          framespacing="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerPolicy="strict-origin-when-cross-origin" 
-          allowFullScreen={true}
-          className={styles.responsiveIframe}
-          sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"// block auto-redirection to bilibili when click
-          title={`${source} Video Player`}
-        ></iframe>
+      <VideoPlayerAssistant />
+      <div className={styles.videoPlayerPage}>
+        {/* navibar */}
+        <Navibar />
+        <SearchResultDisplay />
+        
+        {/* player */}
+        <div className={styles.videoPlayerContainer}>
+          <h3 className={styles.videoTitle}>{singleVideo?.single?.source} Player</h3>
+          <h5 className={styles.videoMainTitle}>{singleVideo?.single?.title}</h5>
+          <iframe
+            id="videoPlayer"
+            src={playerURL}
+            frameBorder="no"
+            framespacing="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen={true}
+            // sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"// block auto-redirection to bilibili when click
+            className={styles.responsiveIframe}
+            title={`${source} Video Player`}
+          ></iframe>
+        </div>
+  
+        {/* video details */}
+        <div className={styles.videoDetailsContainer}>
+          {/* Author Info */}
+          <div className={styles.authorSection}>
+            <img
+              src={singleVideo?.single?.author?.authorIcon}
+              alt={`${singleVideo?.single?.author?.name} icon`}
+              className={styles.authorIcon}
+            />
+            <p className={styles.authorName}>{singleVideo?.single?.author?.name}</p>
+          </div>
+  
+          {/* Description */}
+          <div className={styles.descriptionSection}>
+            <h4>Description:</h4>
+            <p>{singleVideo?.single?.description}</p>
+          </div>
+  
+          {/* Metadata */}
+          <div className={styles.metadataSection}>
+            <p>Published on: {singleVideo?.single?.pubDate}</p>
+            <p>Views: {singleVideo?.single?.viewCount}</p>
+            <p>Likes: {singleVideo?.single?.likeCount}</p>
+            <p>Tags: {singleVideo?.single?.tags}</p>
+          </div>
+        </div>
+  
+        <br />
+        <br />
+        {/* footer */}
+        <Footer />
       </div>
-      <br />
-      <br />
-      {/* footer */}
-      <Footer />
-    </div>
     </>
   );
-};
+}
 
 export default VideoPlayerPage;
