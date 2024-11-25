@@ -42,7 +42,7 @@ The solution architecture for EDULink includes:
   •	History Page: Displays watched content and saved notes.
   •	Search Page: Allows keyword-based content discovery across all integrated platforms.
   
-    -**Information Architecture**
+- **Information Architecture**
   
   1. Modules:
      •	Content Aggregator: Handles APIs for content retrieval and metadata parsing.
