@@ -14,11 +14,11 @@
   flex-direction: column;
 }
 
-.videoPlayerContainer {
-  padding: 2rem;
+/* .videoPlayerContainer { */
+  /* padding: 2rem;
   text-align: left;
   flex-grow: 1;
-}
+} */
 
 .videoTitle {
   font-size: 1.6rem;
