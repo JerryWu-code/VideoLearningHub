@@ -2,7 +2,7 @@
 
 ## **EDULink: A centralised adaptive learning platform**
 
-### Documentation:
+## Documentation:
 
 <details><summary><b>1. Problem Statement</b></summary>
 
