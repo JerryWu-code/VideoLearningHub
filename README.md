@@ -31,6 +31,7 @@ The solution requires a robust backend for content aggregation, dynamic front-en
 - **Overview**
 
 The solution architecture for EDULink includes:
+
 •	Content Aggregation Layer: Fetches and organizes data from multiple sources (YouTube, ArXiv, GitHub, etc.).
 •	User Interface: Provides a seamless interface with interactive features like note-taking, real-time transcripts, and categorized learning paths.
 •	Recommendation Engine: Uses AI to filter and sort content based on user preferences and learning goals.
@@ -60,9 +61,11 @@ The solution architecture for EDULink includes:
   •	Third-party integrations (e.g., YouTube, ArXiv) comply with their respective terms of service.
   
 - **Open-Sourcing the Project**
+  
   •	EDULink can be open-sourced to encourage contributions from the developer community.
   •	Licensing under a permissive license like MIT ensures proper usage and credit.
-- Protecting Against Copying
+  
+- **Protecting Against Copying**
   
   •	Proprietary features like the AI-based recommendation engine and interactive tools can be protected by patents or copyrights.
   •	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
@@ -84,6 +87,7 @@ The solution architecture for EDULink includes:
   4. ArXiv
      •	Strengths: Rich collection of research papers.
      •	Weaknesses: No interactive tools, limited user interface.
+     
 - **How EDULink Stands Out**
   
   •	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
