@@ -19,6 +19,12 @@ const VideoPlayerPage = () => {
     // Decode and set player URL
     const decodedURL = decodeURIComponent(queryParams.get("url"));
     setPlayerURL(decodedURL);
+
+      // Trigger iframe resize after setting playerURL
+    const iframe = document.getElementById("videoPlayer");
+    if (iframe) {
+      iframe.style.height = iframe.offsetWidth * 0.5625 + "px"; // 16:9 aspect ratio
+    }
   }, [queryParams]);
 
   useEffect(() => {
@@ -57,24 +63,24 @@ const VideoPlayerPage = () => {
     }
   }, [videoID, source]);
 
-  useEffect(() => {
-    // Handle iframe resizing
-    const resizeIframe = () => {
-      const iframe = document.getElementById("videoPlayer");
-      if (iframe) {
-        iframe.style.height = iframe.offsetWidth * 0.5625 + "px"; // 16:9 aspect ratio
-      }
-    };
+  // useEffect(() => {
+  //   // Handle iframe resizing
+  //   const resizeIframe = () => {
+  //     const iframe = document.getElementById("videoPlayer");
+  //     if (iframe) {
+  //       iframe.style.height = iframe.offsetWidth * 0.5625 + "px"; // 16:9 aspect ratio
+  //     }
+  //   };
 
-    if (playerURL) {
-      resizeIframe(); // Initial resize
-      window.addEventListener("resize", resizeIframe);
-    }
+  //   if (playerURL) {
+  //     resizeIframe(); // Initial resize
+  //     window.addEventListener("resize", resizeIframe);
+  //   }
 
-    return () => {
-      window.removeEventListener("resize", resizeIframe);
-    };
-  }, [playerURL]);
+  //   return () => {
+  //     window.removeEventListener("resize", resizeIframe);
+  //   };
+  // }, [playerURL]);
 
   if (!playerURL) {
     return <p className={styles.errorText}>Error: Missing player URL.</p>;
