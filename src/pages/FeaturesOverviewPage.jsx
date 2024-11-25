@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import "./FeatureOverviewPage.css";
 
 const FeaturesOverviewPage = () => {
+    const location = useLocation();
     const navigate = useNavigate();
     const [openPanel, setOpenPanel] = useState(null); // Track which panel is open
 
@@ -12,6 +14,18 @@ const FeaturesOverviewPage = () => {
         setOpenPanel((prevPanel) => (prevPanel === panelId ? null : panelId)); // Toggle panel
     }
     const [nestedPanel, setNestedPanel] = React.useState(null);
+
+    useEffect(() => {
+        // Check the hash in the URL and open the corresponding panel
+        const hash = location.hash;
+        if (hash === "#about") {
+            setOpenPanel(1); // Open "About" accordion
+        } else if (hash === "#privacy-policy") {
+            setOpenPanel(2); // Open "Privacy Policy" accordion
+        } else if (hash === "#licensing") {
+            setOpenPanel(3); // Open "Licensing" accordion
+        }
+    }, [location]);
 
     const toggleNestedPanel = (panelNumber) => {
         setNestedPanel((prev) => (prev === panelNumber ? null : panelNumber));
@@ -39,42 +53,6 @@ const FeaturesOverviewPage = () => {
             </section>
 
             <main className="features">
-                {/* <section className="feature">
-                    <h2>📚 Seamless Learning</h2>
-                    <p>
-                        Dive into a unified learning experience that connects you with peers and resources. With Edulink, tracking your progress, accessing materials, and staying organized has never been easier.
-                    </p>
-                    <ul>
-                        <li>✅ <strong>Simplified Progress Tracking:</strong> Monitor your learning journey with intuitive tools.</li>
-                        <li>✅ <strong>Centralized Resources:</strong> All your study materials in one convenient place.</li>
-                        <li>✅ <strong>Peer-to-Peer Interaction:</strong> Connect with classmates for enhanced learning.</li>
-                    </ul>
-                </section>
-
-                <section className="feature">
-                    <h2>🛠️ Customizable Tools</h2>
-                    <p>
-                        Make your learning environment work for you. Our platform adapts to your needs with powerful tools you can personalize.
-                    </p>
-                    <ul>
-                        <li>✅ <strong>Tailored Dashboards:</strong> Organize your workspace for maximum efficiency.</li>
-                        <li>✅ <strong>Flexible Settings:</strong> Customize tools and features to fit your learning style.</li>
-                        <li>✅ <strong>Smart Reminders:</strong> Stay on top of deadlines with intelligent notifications.</li>
-                    </ul>
-                </section>
-
-                <section className="feature">
-                    <h2>🌍 Collaborative Features</h2>
-                    <p>
-                        Engage with others like never before. Edulink’s collaboration tools are designed to simplify teamwork and boost productivity.
-                    </p>
-                    <ul>
-                        <li>✅ <strong>Real-Time Discussions:</strong> Share ideas and solve problems with instant messaging and forums.</li>
-                        <li>✅ <strong>Group Project Management:</strong> Organize tasks, assign responsibilities, and track progress.</li>
-                        <li>✅ <strong>Interactive Tools:</strong> Collaborate on shared documents, presentations, and more.</li>
-                    </ul>
-                </section> */}
-
                 {/* Accordion */}
                 <section className="accordion w-full max-w-4xl mx-auto">
                     <div>
@@ -93,7 +71,7 @@ const FeaturesOverviewPage = () => {
                                             clipRule="evenodd"
                                         ></path>
                                     </svg>
-                                    What is EduLink?
+                                    About Us
                                 </span>
                                 <svg
                                     className={`w-5 h-5 transition-transform ${openPanel === 1 ? "rotate-180" : "rotate-0"}`}
@@ -109,7 +87,13 @@ const FeaturesOverviewPage = () => {
                         </h2>
                         {openPanel === 1 && (
                             <div className="p-3 text-gray-500 dark:text-gray-400 border border-t-0 border-gray-200 dark:border-gray-700 text-left">
-                                EduLink is a centralized learning platform that provides students and educators with access to educational videos, articles, transcripts, and collaboration tools, all in one place.
+                                <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">
+                                    Welcome to EDULink, your centralised adaptive learning platform designed to revolutionise the way you learn. Whether you’re a student, a professional, or a lifelong learner, EDULink offers you a seamless experience to access educational content from multiple sources all in one place. Our mission is to empower learners by providing a unified platform that combines diverse resources with powerful tools to personalise and enhance the learning process.
+                                </p>
+
+                                <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">
+                                    At EDULink, we believe learning should be comprehensive, accessible, and engaging. With features like categorised learning paths, real-time video transcripts, and interactive note-taking, we aim to transform how you consume and retain knowledge. By integrating videos, articles, PDFs, and research papers into a centralised hub, EDULink ensures you have the tools you need to succeed—no matter your goals or learning style.
+                                </p>
                             </div>
                         )}
                     </div>
@@ -130,7 +114,7 @@ const FeaturesOverviewPage = () => {
                                             clipRule="evenodd"
                                         ></path>
                                     </svg>
-                                    Does EduLink support collaboration?
+                                    Privacy Policy
                                 </span>
                                 <svg
                                     className={`w-5 h-5 transition-transform ${openPanel === 2 ? "rotate-180" : "rotate-0"}`}
@@ -145,8 +129,94 @@ const FeaturesOverviewPage = () => {
                             </button>
                         </h2>
                         {openPanel === 2 && (
-                            <div className="p-3 text-gray-500 dark:text-gray-400 border border-t-0 border-gray-200 dark:border-gray-700 text-left">
-                                Yes, EduLink includes a suite of collaborative tools such as real-time discussions, group project management, and shared note-taking to make teamwork more efficient and engaging.
+                            <div className="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">At EDULink, your privacy is our priority. This Privacy Policy outlines how we collect, use, and protect your personal information when you interact with our platform.</p>
+                                {/* Nested Accordion */}
+                                <div id="accordion-nested-collapse" data-accordion="collapse">
+                                    <h2 id="accordion-nested-collapse-heading-1">
+                                        <button
+                                            type="button"
+                                            className={`flex items-center rounded-t-xl justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 1 ? "bg-gray-100 dark:bg-gray-800" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
+                                            onClick={() => toggleNestedPanel(1)}
+                                        >
+                                            <span>What Information We Collect</span>
+                                            <svg
+                                                className={`w-3 h-3 transition-transform ${nestedPanel === 1 ? "rotate-180" : "rotate-0"}`}
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 10 6"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l-4-4-4 4" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    {nestedPanel === 1 && (
+                                        <div className="p-3 border border-b-0 border-gray-200 dark:border-gray-700">
+                                            <ul className="list-disc ps-5 text-gray-500 dark:text-gray-400 text-left">
+                                                <li><strong>Account Information:</strong> When you sign up, we collect your name, email address, and any optional profile information you provide.</li>
+                                                <li><strong>Usage Data:</strong> To improve our platform, we collect non-identifiable data such as pages visited, time spent on content, and interaction patterns.</li>
+                                                <li><strong>Saved Content:</strong> Notes, highlights, and saved learning paths are stored securely for your convenience.</li>
+                                            </ul>
+                                        </div>
+                                    )}
+                                    <h2>
+                                        <button
+                                            type="button"
+                                            className={`flex items-center justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 2 ? "bg-gray-100 dark:bg-gray-800" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
+                                            onClick={() => toggleNestedPanel(2)}
+                                        >
+                                            <span>How We Use Your Information</span>
+                                            <svg
+                                                className={`w-3 h-3 transition-transform ${nestedPanel === 2 ? "rotate-180" : "rotate-0"}`}
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 10 6"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l-4-4-4 4" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    {nestedPanel === 2 && (
+                                        <div className="p-3 border border-b-0 border-gray-200 dark:border-gray-700">
+                                            <ul className="list-disc ps-5 text-gray-500 dark:text-gray-400 text-left">
+                                                <li>To deliver a personalised learning experience tailored to your preferences.</li>
+                                                <li>To provide auto-save features for your notes, transcripts, and other study materials.</li>
+                                                <li>To improve our platform and ensure optimal user experience through data analysis.</li>
+                                            </ul>
+                                        </div>
+                                    )}
+                                    <h2>
+                                        <button
+                                            type="button"
+                                            className={`flex items-center justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 3 ? "bg-gray-100 dark:bg-gray-800" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
+                                            onClick={() => toggleNestedPanel(3)}
+                                        >
+                                            <span>Your Privacy Rights</span>
+                                            <svg
+                                                className={`w-3 h-3 transition-transform ${nestedPanel === 3 ? "rotate-180" : "rotate-0"}`}
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 10 6"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l-4-4-4 4" />
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    {nestedPanel === 3 && (
+                                        <div className="p-3 border border-b-0 border-gray-200 dark:border-gray-700">
+                                            <ul className="list-disc ps-5 text-gray-500 dark:text-gray-400 text-left">
+                                                <li>You can access, update, or delete your personal data through your account settings.</li>
+                                                <li>We do not sell your personal information to third parties. Data is only shared with trusted services required for functionality (e.g., transcript generation, video hosting).</li>
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -167,7 +237,7 @@ const FeaturesOverviewPage = () => {
                                             clipRule="evenodd"
                                         ></path>
                                     </svg>
-                                    What are the key features of EduLink?
+                                    Licensing
                                 </span>
                                 <svg
                                     className={`w-5 h-5 transition-transform ${openPanel === 3 ? "rotate-180" : "rotate-0"}`}
@@ -183,17 +253,18 @@ const FeaturesOverviewPage = () => {
                         </h2>
                         {openPanel === 3 && (
                             <div className="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                                <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">EduLink is a centralized learning platform that provides students and educators with access to educational videos, articles, transcripts, and collaboration tools, all in one place.</p>
-                                <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">Explore features like personalized learning paths, multi-source content access, and tools for interactive collaboration.</p>
+                                <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">
+                                    At EDULink, we are committed to respecting intellectual property rights and ensuring a transparent and fair licensing framework for the content and tools available on our platform.
+                                </p>
                                 {/* Nested Accordion */}
-                                <div>
+                                <div className="mt-3">
                                     <h2>
                                         <button
                                             type="button"
-                                            className={`flex items-center justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 1 ? "bg-gray-100 dark:bg-gray-800" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
+                                            className={`flex items-center rounded-t-xl justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 1 ? "bg-gray-100 dark:bg-gray-800 rounded-t-lg" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
                                             onClick={() => toggleNestedPanel(1)}
                                         >
-                                            <span>📚 Seamless Learning</span>
+                                            <span>Content Licensing</span>
                                             <svg
                                                 className={`w-3 h-3 transition-transform ${nestedPanel === 1 ? "rotate-180" : "rotate-0"}`}
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -208,12 +279,9 @@ const FeaturesOverviewPage = () => {
                                     </h2>
                                     {nestedPanel === 1 && (
                                         <div className="p-3 border border-b-0 border-gray-200 dark:border-gray-700">
-                                            <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">Dive into a unified learning experience that connects you with peers and resources. With EduLink, tracking your progress, accessing materials, and staying organized has never been easier.</p>
-                                            <ul className="list-disc ps-5 text-gray-500 dark:text-gray-400 text-left">
-                                                <li><strong>Simplified Progress Tracking:</strong> Monitor your learning journey with intuitive tools.</li>
-                                                <li><strong>Centralized Resources:</strong> All your study materials in one convenient place.</li>
-                                                <li><strong>Peer-to-Peer Interaction:</strong> Connect with classmates for enhanced learning.</li>
-                                            </ul>
+                                            <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">
+                                                Resources integrated from third-party platforms (e.g., YouTube, Bilibili, GitHub, ArXiv) remain the property of their respective owners. Users are responsible for adhering to the terms of these platforms.
+                                            </p>
                                         </div>
                                     )}
                                     <h2>
@@ -222,7 +290,7 @@ const FeaturesOverviewPage = () => {
                                             className={`flex items-center justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 2 ? "bg-gray-100 dark:bg-gray-800" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
                                             onClick={() => toggleNestedPanel(2)}
                                         >
-                                            <span>🛠️ Customizable Tools</span>
+                                            <span>User-Generated Content</span>
                                             <svg
                                                 className={`w-3 h-3 transition-transform ${nestedPanel === 2 ? "rotate-180" : "rotate-0"}`}
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -237,12 +305,9 @@ const FeaturesOverviewPage = () => {
                                     </h2>
                                     {nestedPanel === 2 && (
                                         <div className="p-3 border border-b-0 border-gray-200 dark:border-gray-700">
-                                            <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">Make your learning environment work for you. Our platform adapts to your needs with powerful tools you can personalize.</p>
-                                            <ul className="list-disc ps-5 text-gray-500 dark:text-gray-400 text-left">
-                                                <li><strong>Tailored Dashboards:</strong> Organize your workspace for maximum efficiency.</li>
-                                                <li><strong>Flexible Settings:</strong> Customize tools and features to fit your learning style.</li>
-                                                <li><strong>Smart Reminders:</strong> Stay on top of deadlines with intelligent notifications.</li>
-                                            </ul>
+                                            <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">
+                                                Notes, highlights, and learning paths created by users are stored securely for personal use. EDULink does not claim ownership of user-generated content.
+                                            </p>
                                         </div>
                                     )}
                                     <h2>
@@ -251,7 +316,7 @@ const FeaturesOverviewPage = () => {
                                             className={`flex items-center justify-between w-full p-3 text-lg font-medium text-gray-500 border ${nestedPanel === 3 ? "bg-gray-100 dark:bg-gray-800" : "hover:bg-gray-100 dark:hover:bg-gray-800"} dark:border-gray-700 dark:text-gray-400`}
                                             onClick={() => toggleNestedPanel(3)}
                                         >
-                                            <span>🌍 Collaborative Features</span>
+                                            <span>Platform Licensing</span>
                                             <svg
                                                 className={`w-3 h-3 transition-transform ${nestedPanel === 3 ? "rotate-180" : "rotate-0"}`}
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -266,12 +331,9 @@ const FeaturesOverviewPage = () => {
                                     </h2>
                                     {nestedPanel === 3 && (
                                         <div className="p-3 border border-b-0 border-gray-200 dark:border-gray-700">
-                                            <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">Engage with others like never before. EduLink’s collaboration tools are designed to simplify teamwork and boost productivity.</p>
-                                            <ul className="list-disc ps-5 text-gray-500 dark:text-gray-400 text-left">
-                                                <li><strong>Real-Time Discussions:</strong> Share ideas and solve problems with instant messaging and forums.</li>
-                                                <li><strong>Group Project Management:</strong> Organize tasks, assign responsibilities, and track progress.</li>
-                                                <li><strong>Interactive Tools:</strong> Collaborate on shared documents, presentations, and more.</li>
-                                            </ul>
+                                            <p className="mb-2 text-gray-500 dark:text-gray-400 text-left">
+                                                EDULink’s tools and software are proprietary. Redistribution or modification without explicit permission is prohibited.
+                                            </p>
                                         </div>
                                     )}
                                 </div>
