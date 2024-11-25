@@ -135,8 +135,10 @@ const PlayList = ({ recommend }) => {
                 src={video.image.replace("http:", "https:")} // https://... for images
                 alt={video.title}
                 className={styles.thumbnail}
-                referrerPolicy="no-referrer" // to avoid error loading
-                crossOrigin="anonymous" // same
+                {...(video.source === "Bilibili" && {
+                    referrerPolicy: "no-referrer", // only for Bilibili to avoid error loading
+                    crossOrigin: "anonymous",
+                })}
               />
               <div className={styles.videoInfo}>
                 <p className={styles.videoTitle}>{video.title}</p>

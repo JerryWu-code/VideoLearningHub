@@ -98,7 +98,7 @@
 .pageContainer {
   display: flex;
   flex-direction: row;
-  max-width: 1280px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 5px;
   gap: 20px; /* Space between left and right columns */
@@ -106,18 +106,18 @@
 
 /* Left Column: 70% Width */
 .leftColumn {
-  flex: 7.5;
+  flex: 7.8;
   display: flex;
   flex-direction: column;
 }
 
 /* Right Column: 30% Width */
 .rightColumn {
-  flex: 2.5;
+  flex: 2.2;
   background-color: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
-  max-height: calc(100vh + 100px);  /* limit height to 100vh - 200px */
+  padding: 5px;
+  border-radius: 5px;
+  max-height: calc(100vh + 136px);  /* limit height to 100vh - 200px */
   height: 100%;
   overflow-y: auto; /* scroll if content is too long */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
