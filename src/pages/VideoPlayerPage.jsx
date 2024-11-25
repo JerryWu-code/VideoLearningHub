@@ -5,6 +5,7 @@ import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
 import SearchResultDisplay from "../components/SearchResultDisplay";
 import VideoPlayerAssistant from "../components/VideoPlayerAssistant";
+import PlayList from "../components/PlayList";
 
 const VideoPlayerPage = () => {
   const location = useLocation();
@@ -149,7 +150,9 @@ const VideoPlayerPage = () => {
 
           {/* Right Column: Placeholder for Playlist */}
           <div className={styles.rightColumn}>
-            <h3>Playlist (Coming Soon)</h3>
+          <PlayList
+            recommend={singleVideo?.recommend} // recommended videos
+          />
           </div>
         </div>
 
