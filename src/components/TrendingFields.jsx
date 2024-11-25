@@ -19,6 +19,7 @@ const sendToOpenAI = async (query) => {
                     content: `${GPT_TRENDING_FIELD_PROMPT(query)}`,
                 },
             ],
+            temperature: 0.2
         }),
     });
     const data = await response.json();

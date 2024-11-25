@@ -418,6 +418,7 @@ const sendToOpenAI = async (query, descData) => {
                             content: `${GPT_FILTER_PROMPT(query, JSON.stringify(batchData))}`,
                         },
                     ],
+                    temperature: 0.2
                 }),
             }).then((res) => res.json())
         );

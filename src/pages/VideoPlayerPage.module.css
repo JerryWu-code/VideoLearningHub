@@ -46,6 +46,15 @@
   margin-top: 2rem;
 }
 
+.searchbarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .searchbar {
   display: flex;
   align-items: center;

@@ -11,7 +11,7 @@
   position: sticky; /* Ensures the title stays fixed at the top of the right column */
   top: 0; /* Position relative to the top of the container */
   background-color: #000000; /* Matches the background color of the right column */
-  z-index: 10; /* Ensures the title is above other scrolling content */
+  /* z-index: 10; Ensures the title is above other scrolling content */
   padding: 10px 0; /* Adds padding above and below the text */
   text-align: center; /* Centers the title text horizontally */
   font-size: 1.2rem; /* Sets the font size for the title */

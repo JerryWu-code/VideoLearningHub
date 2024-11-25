@@ -1,13 +1,11 @@
 import { useState, useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
-import { YOUTUBE_SEARCH_API } from "../../constants";
 import { debounce } from "lodash";
 import styles from "./SearchBar.module.css";
+import { GPT_RECOMMENDATION_SYSTEM_PROMPT, GPT_RECOMMENDATION_PROMPT } from "../../constants.mjs";
 
 export const SearchBar = ({ setResults, onFocus, onBlur, onSearch }) => {
   const [input, setInput] = useState("");
-
-  console.log("API Key:", import.meta.env.VITE_RAPID_API_KEY);
 
   const options = {
     method: 'GET',
@@ -17,27 +15,33 @@ export const SearchBar = ({ setResults, onFocus, onBlur, onSearch }) => {
     }
   };
 
-  const fetchData = async (value) => {
-    console.log("Fetching data for:", value);
-    try {
-      const response = await fetch(`${YOUTUBE_SEARCH_API}?query=${value}`, options);
-      const json = await response.json();
-      const results = json.data.filter((video) => {
-        return (
-          video &&
-          video.title &&
-          video.title.toLowerCase().includes(value.toLowerCase())
-        );
-      });
-      console.log("Search Results:", results);
-      setResults(results);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const sendToOpenAI = async (query) => {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: `${GPT_RECOMMENDATION_SYSTEM_PROMPT}` },
+                {
+                    role: "user",
+                    content: `${GPT_RECOMMENDATION_PROMPT(query)}`,
+                },
+            ],
+            temperature: 0.2
+        }),
+    });
+    const data = await response.json();
 
+    const GPTresponse = JSON.parse(data.choices[0].message.content.replace(/```json|```/g, '').trim());
+
+    setResults(GPTresponse.keyword);
+};
   // Debounce the fetchData function
-  const debouncedFetchData = useCallback(debounce(fetchData, 500), []);
+  const debouncedFetchData = useCallback(debounce(sendToOpenAI, 300), []);
 
   const handleChange = (value) => {
     setInput(value);

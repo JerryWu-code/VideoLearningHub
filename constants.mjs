@@ -56,3 +56,24 @@ ${topic}
 
 ##Action
 Ensure to focuses on the academic and educational alignment to the topic, and give your result of filering STRICTLY in the required JSON format`
+
+export const GPT_RECOMMENDATION_SYSTEM_PROMPT = `You are a assistant handling with search autocompletion, providing educational suggestions based on the user's input.`
+
+export const GPT_RECOMMENDATION_PROMPT = (keyword) => `
+##Task
+Based on the given input, provide 10 relevant keyword suggestions that expand on the user's input. Each suggestion should:
+1. Be directly related to the input.
+2. Focus on educational content.
+3. Start with the text the user entered.
+
+##User input
+${keyword}
+
+##Response Format
+
+{
+        "keyword": [suggest1, ...]
+}
+
+##Action
+Ensure your suggestion focues on the acdemic and aducational topics, and give your result of filering STRICTLY in the required JSON format`

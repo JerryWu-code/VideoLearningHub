@@ -93,7 +93,9 @@ const VideoPlayerPage = () => {
       <div className={styles.videoPlayerPage}>
         {/* navibar */}
         <Navibar />
-        <SearchResultDisplay />
+        <div className={styles.searchbarContainer}>
+          <SearchResultDisplay />
+          </div>
         <div className={styles.pageContainer}>
           {/* Left Column: Video Details and Player */}
           <div className={styles.leftColumn}>
