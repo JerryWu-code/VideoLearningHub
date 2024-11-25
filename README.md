@@ -46,10 +46,12 @@ The solution architecture for EDULink includes:
 - **Information Architecture**
   
   1. Modules:
-     •	Content Aggregator: Handles APIs for content retrieval and metadata parsing.
-     •	Recommendation Engine: Machine learning models for adaptive learning paths.
-     •	User Management: Authentication, profile settings, and user history.
-  2. Data Flow:
+     -	Content Aggregator: Handles APIs for content retrieval and metadata parsing.
+     
+     -	Recommendation Engine: Machine learning models for adaptive learning paths.
+     
+     -	User Management: Authentication, profile settings, and user history.
+  3. Data Flow:
      •	User queries → Content Aggregation → Recommendation → Display results with interactive tools.
 
 </details>
@@ -57,18 +59,18 @@ The solution architecture for EDULink includes:
 
 - **Open Source Usage**
   
-  •	The platform leverages open-source libraries for APIs, transcripts, and UI components.
-  •	Third-party integrations (e.g., YouTube, ArXiv) comply with their respective terms of service.
+  -	The platform leverages open-source libraries for APIs, transcripts, and UI components.
+  -	Third-party integrations (e.g., YouTube, ArXiv) comply with their respective terms of service.
   
 - **Open-Sourcing the Project**
   
-  •	EDULink can be open-sourced to encourage contributions from the developer community.
-  •	Licensing under a permissive license like MIT ensures proper usage and credit.
+  -	EDULink can be open-sourced to encourage contributions from the developer community.
+  -	Licensing under a permissive license like MIT ensures proper usage and credit.
   
 - **Protecting Against Copying**
   
-  •	Proprietary features like the AI-based recommendation engine and interactive tools can be protected by patents or copyrights.
-  •	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
+  -	Proprietary features like the AI-based recommendation engine and interactive tools can be protected by patents or copyrights.
+  -	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
 
 </details>
 <details><summary><b>4. Competition Analysis</b></summary>
@@ -76,24 +78,24 @@ The solution architecture for EDULink includes:
 - **Competitors**
   
   1. Khan Academy
-     •	Strengths: Comprehensive courses, interactive exercises.
-     •	Weaknesses: Limited third-party content aggregation, lack of real-time transcripts.
+     -	Strengths: Comprehensive courses, interactive exercises.
+     -	Weaknesses: Limited third-party content aggregation, lack of real-time transcripts.
   2. Coursera/edX
-     •	Strengths: University-level courses with certifications.
-     •	Weaknesses: Paid courses, limited note-taking tools.
+     -	Strengths: University-level courses with certifications.
+     -	Weaknesses: Paid courses, limited note-taking tools.
   3. YouTube
-     •	Strengths: Free and vast repository of videos.
-     •	Weaknesses: Lack of categorization for educational purposes, no transcripts or note integration.
+     -	Strengths: Free and vast repository of videos.
+     -	Weaknesses: Lack of categorization for educational purposes, no transcripts or note integration.
   4. ArXiv
-     •	Strengths: Rich collection of research papers.
-     •	Weaknesses: No interactive tools, limited user interface.
+     -	Strengths: Rich collection of research papers.
+     -	Weaknesses: No interactive tools, limited user interface.
      
 - **How EDULink Stands Out**
   
-  •	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
-  •	Interactive Tools: Real-time transcripts, highlighting, and note-taking features.
-  •	Adaptive Learning: AI-driven personalized recommendations based on user goals.
-  •	Scalability: Designed to handle diverse educational content, ensuring future relevance.
+  -	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
+  -	Interactive Tools: Real-time transcripts, highlighting, and note-taking features.
+  -	Adaptive Learning: AI-driven personalized recommendations based on user goals.
+  -	Scalability: Designed to handle diverse educational content, ensuring future relevance.
 
 Our target users are **students, professionals, and lifelong learners** who want to access educational content from **multiple sources in one place**. EDULink aims to provide a centralised learning hub with categorised learning paths, interactive transcripts, and note-taking features to enhance the learning experience.
 </details>
