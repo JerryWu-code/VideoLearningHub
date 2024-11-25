@@ -325,10 +325,10 @@ app.get('/api/videos', async (req, res) => {
                         id: video.aid.toString(),
                         title: sanitizeHTML(video.title),
                         description: video.desc || '',
-                        image: video.pic ? `https:${video.pic}` : null,
+                        image: video.pic ? `https:${video.pic.replace("http:", "")}` : null,
                         source: 'Bilibili',
                         pubDate: video.pubdate ? new Date(video.pubdate * 1000).toISOString().split('T')[0] : '',
-                        tags: video.tname ? video.tname.split('·').map(tag => `#${tag.trim()}`).join(' ') : '',
+                        tags: video.tname ? video.tname.split('·').src/pages/VideoPlayerPage.jsxmap(tag => `#${tag.trim()}`).join(' ') : '',
                         // tags: video.tname.split('·').map(tag => ({ name: tag })),
                     }));
                 }
