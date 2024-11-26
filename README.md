@@ -1,21 +1,21 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/eD9oPTLm)
 
-## **EDULink: A centralised adaptive learning platform**
+# **EDULink: A centralised adaptive learning platform**
 
 ## Documentation:
-
 <details><summary><b>1. Problem Statement</b></summary>
 
 - **Novelty of the Problem**
 
-The modern learner faces challenges in accessing and organizing educational content scattered across various platforms, including YouTube, academic repositories, and online learning portals. There is no unified hub where students, professionals, and lifelong learners can seamlessly access diverse learning resources and tools for interactive learning and note-taking.
+The modern learner faces challenges in accessing and organizing educational content scattered across various platforms, including YouTube, academic repositories, and online learning portals. There is no unified hub where students, professionals, and lifelong learners can seamlessly access diverse learning resources and tools for interactive learning.
 
 - **Challenges**
   
-  •	Aggregating content from multiple sources in real-time, maintaining relevance and quality.
-  •	Providing interactive tools such as note-taking, transcripts, and categorization to enhance the learning experience.
-  •	Ensuring user privacy and compliance with intellectual property rights while integrating third-party resources.
-  
+1. Aggregating content from multiple sources in real-time, maintaining relevance and quality.
+2. Refining search results and source materials based on the relevance to the search query to enhance the quality of study resources. 
+3. Offering interactive features like chatbots, curated collections, and organized categories to improve the learning experience.
+4. Ensuring user privacy and compliance with intellectual property rights while integrating third-party resources.
+
 - **Relevance in 2/5/10 Years**
 
 The need for centralized learning hubs will grow with the increasing proliferation of online educational content. EDULink addresses a timeless problem by streamlining learning and making it accessible, adaptable, and personalized—qualities that will remain relevant for decades.
@@ -30,42 +30,63 @@ The solution requires a robust backend for content aggregation, dynamic front-en
 
 - **Overview**
 
-The solution architecture for EDULink includes:
+The project is an educational web application designed to offer students interactive tools for learning, such as categorized study materials, video resources, and filtering/search features. It is modularly structured, promoting maintainability and scalability. This architecture outlines the page flow, component functionality, and key modules.
 
-•	Content Aggregation Layer: Fetches and organizes data from multiple sources (YouTube, ArXiv, GitHub, etc.).
-•	User Interface: Provides a seamless interface with interactive features like note-taking, real-time transcripts, and categorized learning paths.
-•	Recommendation Engine: Uses AI to filter and sort content based on user preferences and learning goals.
+- **Figma**
+![alt text](image.png)
 
-- **Wireframes/Mockups**
-  
-  •	Home Page: Displays categorized learning paths and recent content.
-  •	Video Player Page: Includes real-time transcript generation and note-taking tools.
-  •	History Page: Displays watched content and saved notes.
-  •	Search Page: Allows keyword-based content discovery across all integrated platforms.
   
 - **Information Architecture**
   
-  1. Modules:
-     -	Content Aggregator: Handles APIs for content retrieval and metadata parsing.
-     
-     -	Recommendation Engine: Machine learning models for adaptive learning paths.
-     
-     -	User Management: Authentication, profile settings, and user history.
-  3. Data Flow:
-     •	User queries → Content Aggregation → Recommendation → Display results with interactive tools.
+The application is divided into three layers:
+1. Presentation Layer (Frontend):
+	- Built using React.js to provide a responsive and interactive user experience.
+	- Modular components are used to build pages dynamically and efficiently.
+2. Application Logic Layer:
+	- Handles the state management, routing, and business logic using React states/hooks or a state management library like Redux.
+3. Data Layer:
+	- Backend API integration to fetch study materials, videos, and other content (e.g., course data, search results).
+	- Utilizes Proxy and GraphQL APIs for communication.
 
+- **Page Structure**
+1. Homepage:
+    - Components: Navibar, Footer.
+    - Purpose: Acts as the landing page with introduction of website.
+
+2.	CoursePage:
+	-	Components: Navibar, Footer, CourseCard, SearchResultDisplay.
+	-	Purpose: Displays categorized courses with filtering options.
+
+3. MainPage:
+    -  Components: Navibar, Footer, TrendingFields, PlayGrid, ResourceFilter, SearchResultDisplay.
+    - Purpose: Highlights “Trending Fields” and “Most Visited” content, allowing users to filter based on their selected preferences.
+
+4. VideoPlayerPage:
+	-	Components: Navibar, Footer, Collectionstar, PlayList, VideoPlayerAssistant, SearchResultDisplay.
+	- Purpose: Showcases video resources with added features such as a chatbot, personalized collections, and recommended playlists.
+
+5. SearchPage:
+	-	Components: Navibar, Footer, SearchResultsList, ResourceFilter.
+	-	Purpose: Provides search functionality with filtering and sorting features for relevant materials.
+
+6.	HistoryPage/CollectionPage:
+	-	Components: Navibar, Footer.
+	-	Purpose: Keeps a record of the user’s progress, recently accessed materials, or personal collections.
+
+- **Modular Architecture**
+1. Pages:
+Each page (e.g., Homepage, SearchPage) uses a combination of modular components to ensure reusability.
+2. Styling: Each component or page has a corresponding .module.css file to enable scoped styling.
+3. State Management: Use Context API for managing shared state (e.g., search results, user preferences).
+4. Routing: Utilize React Router for navigation between pages like /home, /courses, /search etc..
 </details>
+
 <details><summary><b>3. Legal/Other Aspects</b></summary>
 
 - **Open Source Usage**
   
-  -	The platform leverages open-source libraries for APIs, transcripts, and UI components.
-  -	Third-party integrations (e.g., YouTube, ArXiv) comply with their respective terms of service.
-  
-- **Open-Sourcing the Project**
-  
-  -	EDULink can be open-sourced to encourage contributions from the developer community.
-  -	Licensing under a permissive license like MIT ensures proper usage and credit.
+  -	The platform leverages open-source libraries for APIs and UI components.
+  -	Third-party integrations (e.g., YouTube, Bilibili, ArXiv, GitHub) comply with their respective terms of service.
   
 - **Protecting Against Copying**
   
@@ -93,7 +114,6 @@ The solution architecture for EDULink includes:
 - **How EDULink Stands Out**
   
   -	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
-  -	Interactive Tools: Real-time transcripts, highlighting, and note-taking features.
   -	Adaptive Learning: AI-driven personalized recommendations based on user goals.
   -	Scalability: Designed to handle diverse educational content, ensuring future relevance.
 
