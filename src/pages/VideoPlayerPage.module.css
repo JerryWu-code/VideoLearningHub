@@ -55,6 +55,11 @@
   position: relative;
 }
 
+.collectionStar {
+  margin-left: auto;
+  cursor: pointer;
+}
+
 .searchbar {
   display: flex;
   align-items: center;

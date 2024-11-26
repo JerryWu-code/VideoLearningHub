@@ -63,6 +63,7 @@ type Mutation {
     removeVideoFromCollection(email: String!, videoId: String!): User!
     addVideoToHistory(email: String!, video: InputVideoHistory!): User!
     clearVideoHistory(email: String!): User!
+    clearVideoCollection(email: String!): User!
 }
 
 type Query {

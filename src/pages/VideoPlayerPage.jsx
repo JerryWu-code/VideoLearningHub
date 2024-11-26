@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./VideoPlayerPage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
+import { UserContext } from "../UserContext";
+import { CollectionStar} from "../components/CollectionStar";
 import SearchResultDisplay from "../components/SearchResultDisplay";
 import VideoPlayerAssistant from "../components/VideoPlayerAssistant";
 import PlayList from "../components/PlayList";
@@ -10,11 +12,13 @@ import PlayList from "../components/PlayList";
 const VideoPlayerPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const { user } = useContext(UserContext);
 
   const source = queryParams.get("source"); // video source: YouTube or Bilibili
   const [playerURL, setPlayerURL] = useState(""); // State to track player URL
   const [videoID, setVideoID] = useState(null); // State to store video ID
   const [singleVideo, setSingleVideo] = useState(null); // Store video data
+  const [collection, setCollection] = useState([]);
 
   useEffect(() => {
     // Decode and set player URL
@@ -27,6 +31,28 @@ const VideoPlayerPage = () => {
       iframe.style.height = iframe.offsetWidth * 0.5625 + "px"; // 16:9 aspect ratio
     }
   }, [queryParams]);
+
+  useEffect(() => {
+    const fetchCollection = async () => {
+      const query = `
+        query listVideoCollection($email: String!) {
+          listVideoCollection(email: $email) {
+            videoId
+          }
+        }
+      `;
+  
+      const variables = { email: user.email };
+      const data = await graphQLFetch(query, variables);
+  
+      if (data && data.listVideoCollection) {
+        const collectionVideoIds = data.listVideoCollection.map((video) => video.videoId);
+        setCollection(collectionVideoIds); // Update the collection state
+      }
+    };
+  
+    fetchCollection();
+  }, [user]);
 
   useEffect(() => {
     // Extract video ID based on the source
@@ -141,6 +167,25 @@ const VideoPlayerPage = () => {
               <div>
                 <p className={styles.authorName}>{singleVideo?.single?.author?.name}</p>
                 <p className={styles.videoSource}>{singleVideo?.single?.source}</p>
+                <CollectionStar
+                    email={user.email}
+                    video={{
+                      videoId: videoID,
+                      title: singleVideo?.single?.title || "Untitled Video",
+                      image:
+                          source === "GitHub"
+                          ? "../github-logo.png"
+                          :source === "ArXiv"
+                          ? "../arxiv-logo.jpg"
+                          : singleVideo?.single?.image || "../default-featured-image.jpg.png",
+                      source: source,
+                      description: singleVideo?.single?.description || "No description available.",
+                      videoUrl: playerURL,
+                      addedAt: new Date().toISOString(),
+                    }}
+                    isCollectedInitially={collection.includes(videoID)} // Check if video is in the collection
+                    className={styles.collectionStar}
+                  />
               </div>
             </div>
 

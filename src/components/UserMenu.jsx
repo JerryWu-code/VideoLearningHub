@@ -54,15 +54,15 @@ function UserMenu({ fullname, email, profilePicture, onLogout }) {
           >
             <li>
               <a
-                onClick={() => handleNavigation("/history-page")}
+                onClick={() => handleNavigation("/history-page?type=history")}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                Histroy
+                History
               </a>
             </li>
             <li>
               <a
-                href="#"
+                onClick={() => handleNavigation("/history-page?type=collection")}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Collections

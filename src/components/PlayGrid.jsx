@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import styles from "./PlayGrid.module.css";
 import { UserContext } from "../UserContext";
+import {CollectionStar} from "./CollectionStar";
 
 export const PlayGrid = ({ query, category, page }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filteredData, setFilteredData] = useState([]); // State to store filtered data
+  const [collection, setCollection] = useState([]); // State to store collection data
   const { user } = useContext(UserContext);
 
   console.log("playgrid Query:", query);
@@ -82,11 +84,11 @@ export const PlayGrid = ({ query, category, page }) => {
 
     const response = await graphQLFetch(mutation, variables);
 
-    if (response.addVideoToHistory) {
-      alert("Video successfully added to your history!");
-    } else {
-      alert("An unexpected error occurred while adding the video to history.");
-    }
+    // if (response.addVideoToHistory) {
+    //   alert("Video successfully added to your history!");
+    // } else {
+    //   alert("An unexpected error occurred while adding the video to history.");
+    // }
   };
 
   const handleVideoClick = async (video) => {
@@ -162,6 +164,29 @@ export const PlayGrid = ({ query, category, page }) => {
     }
   }, [category, data]);
 
+  useEffect(() => {
+    const fetchCollection = async () => {
+      const query = `
+        query listVideoCollection($email: String!) {
+          listVideoCollection(email: $email) {
+            videoId
+          }
+        }
+      `;
+  
+      const variables = { email: user.email };
+      const data = await graphQLFetch(query, variables);
+  
+      if (data && data.listVideoCollection) {
+        const collectionVideoIds = data.listVideoCollection.map((video) => video.videoId);
+        setCollection(collectionVideoIds); // Update the collection state
+      }
+    };
+  
+    fetchCollection();
+  }, [user]);
+  
+
   return (
     <div>
       {loading ? (
@@ -188,65 +213,69 @@ export const PlayGrid = ({ query, category, page }) => {
         </div>
       ) : (
         <ul className={styles.grid}>
-          {filteredData.map((video) => (
-            <li
-              key={video.id}
-              className={styles.card}
-              onClick={() => handleVideoClick(video)}
-            >
-              <div>
-                {video.source === 'GitHub' ? (
-                  console.log("video.username:", video.id.split('/')[1]),
-                  <>
+          {filteredData.map((video) => {
+            const videoProps = {
+              videoId: video.id,
+              title: video.title || "Untitled Video",
+              image:
+                video.source === "GitHub"
+                  ? "../github-logo.png"
+                  : video.source === "ArXiv"
+                  ? "../arxiv-logo.jpg"
+                  : video.image || "../default-featured-image.jpg.png",
+              source: video.source,
+              description: video.description || "No description available.",
+              videoUrl:
+                video.source === "YouTube"
+                  ? `https://www.youtube.com/embed/${video.id}`
+                  : video.source === "Bilibili"
+                  ? `https://player.bilibili.com/player.html?aid=${video.id}&page=1&high_quality=1`
+                  : "",
+              addedAt: new Date().toISOString(),
+            };
+
+            return (
+              <li
+                key={video.id}
+                className={styles.card}
+                onClick={() => handleVideoClick(video)}
+              >
+                <div>
+                {video.source === "Bilibili" || video.source === "YouTube" ? (
+                   <img src={video.image} alt={video.title} />
+                  ) : (
                     <p className={styles.arxivDescription}>{video.description}</p>
-                    <h3>{video.title}</h3>
-                    <div className={styles.source}>
-                      <span>Source:</span>
-                      <img
-                        src="../github-mark.png" // Path to GitHub logo
-                        alt="GitHub"
-                        className={styles.sourceIcon}
-                      />
-                    </div>
-                  </>
-                ) : video.source === 'ArXiv' ? (
-                  <>
-                    <p className={styles.arxivDescription}>{video.description}</p>
-                    <h3>{video.title}</h3>
-                    <div className={styles.source}>
-                      <span>Source:</span>
-                      <img
-                        src="../arxiv-logo-small.jpg" // Path to ArXiv logo
-                        alt="ArXiv"
-                        className={styles.sourceIcon}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <img src={video.image} alt={video.title} />
-                    <h3>{video.title}</h3>
-                    <div className={styles.source}>
-                      <span>Source:</span>
-                      {video.source === 'YouTube' ? (
-                        <img
-                          src="../frame-12@2x.png" // Path to YouTube logo
-                          alt="YouTube"
-                          className={styles.sourceIcon}
-                        />
-                      ) : video.source === 'Bilibili' ? (
-                        <img
-                          src="../frame-121@2x.png" // Path to Bilibili logo
-                          alt="Bilibili"
-                          className={styles.sourceIcon}
-                        />
-                      ) : null}
-                    </div>
-                  </>
-                )}
-              </div>
-            </li>
-          ))}
+                  )}
+                  <h3>{videoProps.title}</h3>
+                  <div className={styles.source}>
+                    <span>Source:</span>
+                    <img
+                      src={
+                        video.source === "YouTube"
+                          ? "../frame-12@2x.png"
+                          : video.source === "Bilibili"
+                          ? "../frame-121@2x.png"
+                          : video.source === "GitHub"
+                          ? "../github-mark.png"
+                          : video.source === "ArXiv"
+                          ? "../arxiv-logo-small.jpg"
+                          : ""
+                      }
+                      alt={video.source}
+                      className={styles.sourceIcon}
+                    />
+                  </div>
+                  <div className="absolute bottom-4 right-4">
+                    <CollectionStar
+                      email={user.email}
+                      video={videoProps}
+                      isCollectedInitially={collection.includes(video.id)} // Dynamically check collection state
+                    />
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

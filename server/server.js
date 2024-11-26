@@ -95,6 +95,21 @@ const Mutation = {
     }
   },
 
+  async clearVideoCollection(_, { email }) {
+    try {
+      const updatedUser = await db.collection('users').findOneAndUpdate(
+        { email },
+        { $set: { collections: [] } },
+        { returnDocument: 'after' } // Return the updated document
+      );
+      if (!updatedUser.value) throw new UserInputError('User not found.');
+      return updatedUser.value;
+    } catch (err) {
+      console.error('Error clearing video collection:', err);
+      throw new Error(`Error clearing video collection. Details: ${err.message}`);
+    }
+  },
+
   async clearVideoHistory(_, { email }) {
     try {
       const updatedUser = await db.collection('users').findOneAndUpdate(
