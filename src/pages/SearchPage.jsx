@@ -4,6 +4,7 @@ import styles from "./SearchPage.module.css";
 import { Navibar } from "../components/Navibar";
 import { Footer } from "../components/Footer";
 import { PlayGrid } from "../components/PlayGrid";
+import {ResourceFilter} from "../components/ResourceFilter";
 import SearchResultDisplay from "../components/SearchResultDisplay";
 
 const SearchPage = () => {
@@ -11,6 +12,7 @@ const SearchPage = () => {
   const searchParams = new URLSearchParams(location.search);
   const query1 = searchParams.get("query1") || ""; 
   const [currentPage, setCurrentPage] = useState(1);
+  const [category, setCategory] = useState("All categories");
 
   console.log("SearchPage: query1", query1);
 
@@ -30,11 +32,12 @@ const SearchPage = () => {
       <div className={styles.searchbarContainer}>
         <SearchResultDisplay />
       </div>
+      <ResourceFilter setCategory={setCategory} />
       <h4 className="text-2xl font-bold dark:text-white pl-20 pb-3">
         Results for "{query1}"
       </h4>
       <div className={styles.resultsContainer}>
-        <PlayGrid query={query1} page={currentPage} />
+        <PlayGrid query={query1} category={category} page={currentPage} />
       </div>
       <div className="fixed bottom-8 left-0 right-0 flex flex-col items-center py-2 pb-3 bg-white border-t">
         <span className="mb-1 text-sm font-medium text-gray-900 dark:text-white">

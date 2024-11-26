@@ -2,9 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import styles from "./PlayGrid.module.css";
 import { UserContext } from "../UserContext";
 
-export const PlayGrid = ({ query, page }) => {
+export const PlayGrid = ({ query, category, page }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]); // State to store filtered data
   const { user } = useContext(UserContext);
 
   console.log("playgrid Query:", query);
@@ -16,7 +17,7 @@ export const PlayGrid = ({ query, page }) => {
       console.log("Results:", Results);
 
       setData(Results);
-
+      setFilteredData(Results); // Initialize filtered data with full data
     } catch (error) {
       console.error("Error fetching combined data:", error);
     } finally {
@@ -150,6 +151,17 @@ export const PlayGrid = ({ query, page }) => {
     fetchData();
   }, [query, page]);
 
+  // Filter data when the category changes
+  useEffect(() => {
+    if (category === "All categories") {
+      setFilteredData(data); // Show all data if no specific category is selected
+    } else {
+      setFilteredData(
+        data.filter((item) => item.source === category) // Filter by category
+      );
+    }
+  }, [category, data]);
+
   return (
     <div>
       {loading ? (
@@ -176,7 +188,7 @@ export const PlayGrid = ({ query, page }) => {
         </div>
       ) : (
         <ul className={styles.grid}>
-          {data.map((video) => (
+          {filteredData.map((video) => (
             <li
               key={video.id}
               className={styles.card}
