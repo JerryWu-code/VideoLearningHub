@@ -49,11 +49,15 @@ app.get('/api/videos', async (req, res) => {
     const keyword = req.query.keyword; // Get the keyword from query parameters
     const videoid = req.query.videoid; // Get the videoid from query parameters
     const source = req.query.source; // Video source: YouTube or Bilibili
+    const page = req.query.page || 1; // Default to page 1
 
-    if (cache.has(keyword)) {
-        console.log('Cache hit for keyword:', keyword);
-        return res.json(cache.get(keyword)); // Return cached results
-      }
+    const cacheKey = `${keyword}_${page}`;
+    
+    // Check cache
+    if (cache.has(cacheKey)) {
+        console.log(`Cache hit for key: ${cacheKey}`);
+        return res.json(cache.get(cacheKey)); // Return cached results
+    }
 
     if (!keyword && (!source || !videoid)) {
         return res.status(400).json({ error: 'Keyword or videoid is required' }); // Handle missing parameters
@@ -65,9 +69,9 @@ app.get('/api/videos', async (req, res) => {
         if (keyword) {
             console.log('Fetching data for keyword:', keyword);
             // YouTube API Configuration for keyword search
-            const YOUTUBE_API_URL = `${YOUTUBE_SEARCH_API}?query=${keyword}&type=video&sort=views&duration=long`;
+            const YOUTUBE_API_URL = `${YOUTUBE_SEARCH_API}?query=${keyword}&type=video&sort=views&duration=long&page=${page}`;
             // Bilibili API Configuration for keyword search
-            const BILIBILI_API_URL = `${BILIBILI_SEARCH_API}?keyword=${keyword}`;
+            const BILIBILI_API_URL = `${BILIBILI_SEARCH_API}?keyword=${keyword}&search_type=video&page=${page}`;
 
             async function searchArxiv() {
                 try {
@@ -122,6 +126,7 @@ app.get('/api/videos', async (req, res) => {
                 fetch(BILIBILI_API_URL, {
                     headers: {
                         Cookie: `SESSDATA=${config.bilibiliSessData}`,
+                        Referer: 'https://www.bilibili.com',
                     },
                 }),
             ]);
@@ -133,14 +138,12 @@ app.get('/api/videos', async (req, res) => {
             ]);
 
             // Extract video results from Bilibili response
-            const bilibiliVideoData = bilibiliData?.data?.result?.find(
-                (item) => item.result_type === 'video'
-            );
+            const bilibiliVideoData = bilibiliData.data.result
             
             console.log('Arxiv Data:', arxivData[0]);
             console.log('GitHub Data:', githubData[0]);
-            console.log('YouTube Data:', youtubeData.data[0]);
-            console.log('Bilibili Data:', bilibiliVideoData.data[0]);
+            console.log('YouTube Data:', youtubeData.data);
+            console.log('Bilibili Data:', bilibiliVideoData);
 
 
             // Helper function to clean and extract a given number of words
@@ -169,13 +172,13 @@ app.get('/api/videos', async (req, res) => {
                     title: data.title,
                     description: cleanAndExtract(data.description, 30),
                 })),
-                ...bilibiliVideoData.data.map((data) => ({
+                ...bilibiliVideoData.map((data) => ({
                     title: data.title,
                     description: cleanAndExtract(data.description, 10),
                 })),
             ];
               
-            console.log('desclist:', desclist);  
+            // console.log('desclist:', desclist);  
             
             // parallel fetch data from GPT, YouTube and Bilibili
             const [openAIRelevanceMap, arxivResults, githubResults, youtubeResults, bilibiliResults] = await Promise.all([
@@ -233,14 +236,12 @@ app.get('/api/videos', async (req, res) => {
                 // Bilibili data processing
                 (async () => {
                     console.time('Process Bilibili Results');
-                    if (!bilibiliVideoData || !bilibiliVideoData.data) {
+                    if (!bilibiliVideoData) {
                         return [];
                     }
         
                     const result =  Promise.all(
-                        bilibiliVideoData.data
-                            .filter((video) => video && video.title)
-                            .map(async (video) => ({
+                        bilibiliVideoData.map(async (video) => ({
                                     id: video.id,
                                     title: sanitizeHTML(video.title),
                                     description: video.description || '',
@@ -253,9 +254,13 @@ app.get('/api/videos', async (req, res) => {
                     return result;
                 })(),
             ]);
+            
+            console.log('OpenAI Relevance Map:', openAIRelevanceMap);
 
             // Combine results from keyword search
             combinedResults = [...arxivResults, ...githubResults, ...youtubeResults, ...bilibiliResults];
+
+            // console.log('Combined Results:', combinedResults);
 
             // Add relevance to the combined results
             const enrichedResults = combinedResults.map((data) => ({
@@ -269,7 +274,7 @@ app.get('/api/videos', async (req, res) => {
             // Sort the filtered results based on relevance
             const finalResults = filteredResults.sort((a, b) => b.relevanceScore - a.relevanceScore);
 
-            cache.set(keyword, finalResults);
+            cache.set(cacheKey, finalResults);
 
             // Send combined results to the frontend
             res.send(finalResults);

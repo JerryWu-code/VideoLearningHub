@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import styles from "./PlayGrid.module.css";
 import { UserContext } from "../UserContext";
 
-export const PlayGrid = ({ query }) => {
+export const PlayGrid = ({ query, page }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
@@ -11,7 +11,7 @@ export const PlayGrid = ({ query }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/videos?keyword=${query}`);
+      const response = await fetch(`http://127.0.0.1:3000/api/videos?keyword=${query}&page=${page}`);
       const Results = await response.json();
       console.log("Results:", Results);
 
@@ -159,7 +159,7 @@ export const PlayGrid = ({ query }) => {
     console.log("Query changed, fetching data:", query);
     setLoading(true);
     fetchData();
-  }, [query]);
+  }, [query, page]);
 
   return (
     <div>
