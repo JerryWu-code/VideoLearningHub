@@ -52,7 +52,6 @@ app.get('/api/videos', async (req, res) => {
     const page = req.query.page || 1; // Default to page 1
 
     const cacheKey = `${keyword}_${page}`;
-    
     // Check cache
     if (cache.has(cacheKey)) {
         console.log(`Cache hit for key: ${cacheKey}`);

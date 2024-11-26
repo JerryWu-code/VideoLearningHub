@@ -37,7 +37,7 @@ const MainPage = () => {
       <h4 className="text-2xl font-bold dark:text-white pl-20 pb-3">Most Visits</h4>
       <div className={styles.gridContainer}>
         {/* Use query to fetch data for coursepage */}
-        <PlayGrid query={query} />
+        <PlayGrid query={query} page='1'/>
       </div>
 
       <Footer />
