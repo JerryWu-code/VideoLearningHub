@@ -99,17 +99,6 @@ export const PlayGrid = ({ query, page }) => {
         videoUrl = `https://www.youtube.com/embed/${video.id}`;
       } else if (video.source === "GitHub") { githubUrl = `https://github.com/${video.id}`; }
       else if (video.source === "Bilibili") {
-        // const response = await fetch(
-        //   `http://127.0.0.1:3000/api/videos?videoid=${video.id}`
-        // );
-        // const videoDetails = await response.json();
-
-        // if (!videoDetails.cid) {
-        //   console.error("Failed to fetch Bilibili video details. CID not found.");
-        //   return;
-        // }
-
-        // videoUrl = `https://player.bilibili.com/player.html?aid=${video.id}&cid=${videoDetails.cid}&page=1&high_quality=1`;
         videoUrl = `https://player.bilibili.com/player.html?aid=${video.id}&page=1&high_quality=1`;
       } else if (video.source == "ArXiv") {
         paperUrl = video.id;

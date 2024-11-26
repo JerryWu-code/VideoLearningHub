@@ -7,8 +7,7 @@ export const SearchResult = ({ result }) => {
   const handleClick = () => {
     navigate(`/search-page?query1=${encodeURIComponent(result)}`);
   };
-
-  console.log("SearchResult received:", result);
+  
   return (
     <div
       className={styles.search_result}

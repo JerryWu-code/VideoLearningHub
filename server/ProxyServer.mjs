@@ -72,7 +72,10 @@ app.get('/api/videos', async (req, res) => {
             // Bilibili API Configuration for keyword search
             const BILIBILI_API_URL = `${BILIBILI_SEARCH_API}?keyword=${keyword}&search_type=video&page=${page}`;
 
-            async function searchArxiv() {
+            const perPage = 5; // Results per page for arXiv
+            const start = (page - 1) * perPage; // Calculate the start index for arXiv
+
+            async function searchArxiv(perPage, start) {
                 try {
                     const results = await arxiv_api.search({
                         searchQueryParams: [
@@ -80,7 +83,8 @@ app.get('/api/videos', async (req, res) => {
                                 include: [{ name: `${keyword}`, scope: 'abs' }]
                             },
                         ],
-                        maxResults: 5,
+                        maxResults: perPage,
+                        start: start,
                         sortBy: 'relevance',
                     });
                     return results;
@@ -96,13 +100,14 @@ app.get('/api/videos', async (req, res) => {
             });
 
             // Search repositories based on keyword
-            async function searchRepos() {
+            async function searchRepos(page = 1) {
                 try {
                   const response = await octokit.rest.search.repos({
                     q: `${keyword}`,
                     sort: 'stars',
                     order: 'desc',
-                    per_page: 10
+                    per_page: 10,
+                    page: page
                   }
                 );
                 return response.data.items;
@@ -114,8 +119,8 @@ app.get('/api/videos', async (req, res) => {
 
             // Fetch data from YouTube and Bilibili concurrently
             const [arxivData, githubData, youtubeResponse, bilibiliResponse] = await Promise.all([
-                searchArxiv(),
-                searchRepos(),
+                searchArxiv(perPage, start),
+                searchRepos(page),
                 fetch(YOUTUBE_API_URL, {
                     headers: {
                         'x-rapidapi-key': config.rapidApiKey,
@@ -141,8 +146,8 @@ app.get('/api/videos', async (req, res) => {
             
             console.log('Arxiv Data:', arxivData[0]);
             console.log('GitHub Data:', githubData[0]);
-            console.log('YouTube Data:', youtubeData.data);
-            console.log('Bilibili Data:', bilibiliVideoData);
+            console.log('YouTube Data:', youtubeData.data[0]);
+            console.log('Bilibili Data:', bilibiliVideoData[0]);
 
 
             // Helper function to clean and extract a given number of words
@@ -161,19 +166,19 @@ app.get('/api/videos', async (req, res) => {
             const desclist = [
                 ...arxivData.map((data) => ({
                     title: data.title,
-                    description: cleanAndExtract(data.summary, 30),
+                    description: cleanAndExtract(data.summary, 20),
                 })),
                 ...githubData.map((data) => ({
                     title: data.name,
-                    description: cleanAndExtract(data.description, 30),
+                    description: cleanAndExtract(data.description, 20),
                 })),
                 ...youtubeData.data.map((data) => ({
                     title: data.title,
-                    description: cleanAndExtract(data.description, 30),
+                    description: cleanAndExtract(data.description, 20),
                 })),
                 ...bilibiliVideoData.map((data) => ({
                     title: data.title,
-                    description: cleanAndExtract(data.description, 10),
+                    description: cleanAndExtract(data.description, 5),
                 })),
             ];
               
@@ -244,7 +249,7 @@ app.get('/api/videos', async (req, res) => {
                                     id: video.id,
                                     title: sanitizeHTML(video.title),
                                     description: video.description || '',
-                                    image: video.pic ? await fetchImageAsBase64('https:' + video.pic) : null,
+                                    image: video.pic ? await fetchImageAsBase64('https:' + (video.pic).replace("https:", '')) : null,
                                     source: 'Bilibili',
                                 }))
                     );
@@ -253,8 +258,6 @@ app.get('/api/videos', async (req, res) => {
                     return result;
                 })(),
             ]);
-            
-            console.log('OpenAI Relevance Map:', openAIRelevanceMap);
 
             // Combine results from keyword search
             combinedResults = [...arxivResults, ...githubResults, ...youtubeResults, ...bilibiliResults];
