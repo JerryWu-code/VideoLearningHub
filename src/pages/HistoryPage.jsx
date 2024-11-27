@@ -211,9 +211,10 @@ const HistoryPage = () => {
                         } catch (error) {
                         console.error("Error handling video click:", error);
                         }
-                    }}
-                    style={{ cursor: "pointer" }}
-                    />
+                  }}
+                  style={{ cursor: "pointer" }}
+                  />
+                  
                   <div className={styles.videoDetails}>
                     <h3>{item.title || "Untitled Video"}</h3>
                     <p className={styles.videoDescription}>

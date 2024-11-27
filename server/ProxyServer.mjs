@@ -9,6 +9,7 @@ import {
     YOUTUBE_RELATED_VIDEO_API,
     GPT_SYSTEM_PROMPT, 
     GPT_FILTER_PROMPT,
+    YOUTUBE_VIDEO_INFO_API,
     BILIBILI_VIDEO_INFO_API
 } from '../constants.mjs';
 import dotenv from 'dotenv';
@@ -353,13 +354,29 @@ app.get('/api/videos', async (req, res) => {
                 console.log('Fetching related videos for YouTube videoid:', videoid);
 
                 const YOUTUBE_SINGLE_VIDEO_API = `${YOUTUBE_RELATED_VIDEO_API}?id=${videoid}`;
-                const response = await fetch(YOUTUBE_SINGLE_VIDEO_API, {
-                    headers: {
-                        'x-rapidapi-key': config.rapidApiKey,
-                        'x-rapidapi-host': 'yt-api.p.rapidapi.com',
-                    },
-                });
+                const YOUTUBE_THIS_VIDEO_API = `${YOUTUBE_VIDEO_INFO_API}?id=${videoid}`;
+                // const response = await fetch(YOUTUBE_SINGLE_VIDEO_API, {
+                //     headers: {
+                //         'x-rapidapi-key': config.rapidApiKey,
+                //         'x-rapidapi-host': 'yt-api.p.rapidapi.com',
+                //     },
+                // });
+                const [singleResponse, response] = await Promise.all([
+                    fetch(YOUTUBE_THIS_VIDEO_API, {
+                        headers: {
+                            'x-rapidapi-key': config.rapidApiKey,
+                            'x-rapidapi-host': 'yt-api.p.rapidapi.com',
+                        },
+                    }),
+                    fetch(YOUTUBE_SINGLE_VIDEO_API, {
+                        headers: {
+                            'x-rapidapi-key': config.rapidApiKey,
+                            'x-rapidapi-host': 'yt-api.p.rapidapi.com',
+                        },
+                    }),
+                ]);
 
+                const singleData = await singleResponse.json();
                 const data = await response.json();
                 let single = null;
                 if (data?.meta) {
@@ -368,7 +385,7 @@ app.get('/api/videos', async (req, res) => {
                         id: video.videoId,
                         title: sanitizeHTML(video.title),
                         description: video.description || '',
-                        image: video.channelThumbnail?.[0]?.url || '',
+                        image: singleData.thumbnail?.[0]?.url || null,
                         viewCount: video.viewCount || 0,
                         likeCount: video.likeCount || 0,
                         pubDate: video.publishDate || '',

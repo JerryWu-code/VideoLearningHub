@@ -4,6 +4,7 @@ export const BILIBILI_SEARCH_API = "https://api.bilibili.com/x/web-interface/sea
 // export const BILIBILI_SEARCH_INFO_API = "https://api.bilibili.com/x/player/pagelist"
 // these apis are used to fetch data from youtube and bilibili in the video player page
 export const YOUTUBE_RELATED_VIDEO_API = "https://yt-api.p.rapidapi.com/related"
+export const YOUTUBE_VIDEO_INFO_API = "https://yt-api.p.rapidapi.com/video/info"
 export const BILIBILI_RELATED_VIDEO_API = "https://api.bilibili.com/x/web-interface/archive/related"
 export const BILIBILI_VIDEO_INFO_API = "https://api.bilibili.com/x/web-interface/view"
 // these prompts are used to generate the prompt for the GPT ranking search results
