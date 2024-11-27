@@ -197,7 +197,24 @@ const HistoryPage = () => {
                     src={item.image || "/images/video-placeholder.png"}
                     alt={item.title}
                     className={styles.thumbnail}
-                    onClick={() => window.location.href = item.videoUrl}
+                    onClick={() =>async () => {
+                        try {
+                            if (item.source === "YouTube" || item.source === "Bilibili") {
+                                // Redirect to video-player page for YouTube or Bilibili
+                                window.location.href = `/video-player-page?source=${item.source}&url=${encodeURIComponent(
+                                    item.videoUrl
+                                )}`;
+                            } else if (video.source === "GitHub" || video.source === "ArXiv") {
+                                // Redirect directly to GitHub link
+                                window.location.href = item.videoUrl;
+                            } else {
+                                console.error("Unknown video source:", item.source);
+                                return;
+                            }
+                        } catch (error) {
+                            console.error("Error handling video click:", error);
+                        }
+                    }}
                     style={{ cursor: "pointer" }}
                   />
                   <div className={styles.videoDetails}>

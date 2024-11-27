@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 
 export const CollectionStar = ({ email, video, isCollectedInitially, refreshCollection }) => {
   const [isCollected, setIsCollected] = useState(isCollectedInitially);
+  console.log("starisCollected:", isCollected);
 
   const toggleStar = async (event) => {
     event.stopPropagation(); // Prevent the click event from propagating to the parent

@@ -6,6 +6,7 @@ import {CollectionStar} from "./CollectionStar";
 export const PlayGrid = ({ query, category, page }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingCollection, setLoadingCollection] = useState(true);
   const [filteredData, setFilteredData] = useState([]); // State to store filtered data
   const [collection, setCollection] = useState([]); // State to store collection data
   const { user } = useContext(UserContext);
@@ -166,30 +167,40 @@ export const PlayGrid = ({ query, category, page }) => {
 
   useEffect(() => {
     const fetchCollection = async () => {
-      const query = `
-        query listVideoCollection($email: String!) {
-          listVideoCollection(email: $email) {
-            videoId
+      try {
+        if (!user || !user.email) return;
+        const query = `
+          query listVideoCollection($email: String!) {
+            listVideoCollection(email: $email) {
+              videoId
+            }
           }
+        `;
+
+        const variables = { email: user.email };
+        const data = await graphQLFetch(query, variables);
+
+        if (data && data.listVideoCollection) {
+          const collectionVideoIds = data.listVideoCollection.map((video) => String(video.videoId));
+          setCollection(collectionVideoIds);
         }
-      `;
-  
-      const variables = { email: user.email };
-      const data = await graphQLFetch(query, variables);
-  
-      if (data && data.listVideoCollection) {
-        const collectionVideoIds = data.listVideoCollection.map((video) => video.videoId);
-        setCollection(collectionVideoIds); // Update the collection state
+      } catch (error) {
+        console.error("Error fetching collection data:", error);
+      } finally {
+        setLoadingCollection(false);
       }
     };
-  
+    
+    setLoadingCollection(true);
     fetchCollection();
   }, [user]);
+
+  console.log("collection", collection);
   
 
   return (
     <div>
-      {loading ? (
+      {loading || loadingCollection ? (
         <div className="text-center">
           <div role="status">
             <svg
@@ -215,7 +226,7 @@ export const PlayGrid = ({ query, category, page }) => {
         <ul className={styles.grid}>
           {filteredData.map((video) => {
             const videoProps = {
-              videoId: video.id,
+              videoId: String(video.id),
               title: video.title || "Untitled Video",
               image:
                 video.source === "GitHub"
