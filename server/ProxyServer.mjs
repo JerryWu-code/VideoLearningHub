@@ -140,6 +140,8 @@ app.get('/api/videos', async (req, res) => {
                 youtubeResponse.json(),
                 bilibiliResponse.json(),
             ]);
+            console.log('Bili API:', BILIBILI_API_URL);
+            console.log('Bilibili Data:', bilibiliData);
 
             // Extract video results from Bilibili response
             const bilibiliVideoData = bilibiliData.data.result
