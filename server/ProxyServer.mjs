@@ -368,7 +368,7 @@ app.get('/api/videos', async (req, res) => {
                         id: video.videoId,
                         title: sanitizeHTML(video.title),
                         description: video.description || '',
-                        image: video.thumbnail?.[0]?.url || null,
+                        image: video.channelThumbnail?.[0]?.url || '',
                         viewCount: video.viewCount || 0,
                         likeCount: video.likeCount || 0,
                         pubDate: video.publishDate || '',
