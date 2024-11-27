@@ -5,22 +5,22 @@
 ## Documentation:
 <details><summary><b>1. Problem Statement</b></summary>
 
-- **Novelty of the Problem**
+### **Novelty of the Problem**
 
 The modern learner faces challenges in accessing and organizing educational content scattered across various platforms, including YouTube, academic repositories, and online learning portals. There is no unified hub where students, professionals, and lifelong learners can seamlessly access diverse learning resources and tools for interactive learning.
 
-- **Challenges**
+### **Challenges**
   
 1. Aggregating content from multiple sources in real-time, maintaining relevance and quality.
 2. Refining search results and source materials based on the relevance to the search query to enhance the quality of study resources. 
 3. Offering interactive features like chatbots, curated collections, and organized categories to improve the learning experience.
 4. Ensuring user privacy and compliance with intellectual property rights while integrating third-party resources.
 
-- **Relevance in 2/5/10 Years**
+### **Relevance in 2/5/10 Years**
 
 The need for centralized learning hubs will grow with the increasing proliferation of online educational content. EDULink addresses a timeless problem by streamlining learning and making it accessible, adaptable, and personalized—qualities that will remain relevant for decades.
 
-- **Complexity of the Solution**
+### **Complexity of the Solution**
 
 The solution requires a robust backend for content aggregation, dynamic front-end tools for user interaction, and machine learning models for adaptive learning recommendations. It also involves ensuring scalability and handling large volumes of data from diverse sources.
 
@@ -28,15 +28,15 @@ The solution requires a robust backend for content aggregation, dynamic front-en
 
 <details><summary><b>2. Solution Architecture</b></summary>
 
-- **Overview**
+### **Overview**
 
 The project is an educational web application designed to offer students interactive tools for learning, such as categorized study materials, video resources, and filtering/search features. It is modularly structured, promoting maintainability and scalability. This architecture outlines the page flow, component functionality, and key modules.
 
-- **Figma**
+### **Figma**
 ![alt text](image.png)
 
   
-- **Information Architecture**
+### **Information Architecture**
   
 The application is divided into three layers:
 1. Presentation Layer (Frontend):
@@ -48,7 +48,7 @@ The application is divided into three layers:
 	- Backend API integration to fetch study materials, videos, and other content (e.g., course data, search results).
 	- Utilizes Proxy and GraphQL APIs for communication.
 
-- **Page Structure**
+### **Page Structure**
 1. Homepage:
     - Components: Navibar, Footer.
     - Purpose: Acts as the landing page with introduction of website.
@@ -73,7 +73,7 @@ The application is divided into three layers:
 	-	Components: Navibar, Footer.
 	-	Purpose: Keeps a record of the user’s progress, recently accessed materials, or personal collections.
 
-- **Modular Architecture**
+### **Modular Architecture**
 1. Pages:
 Each page (e.g., Homepage, SearchPage) uses a combination of modular components to ensure reusability.
 2. Styling: Each component or page has a corresponding .module.css file to enable scoped styling.
@@ -83,12 +83,12 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 
 <details><summary><b>3. Legal/Other Aspects</b></summary>
 
-- **Open Source Usage**
+### **Open Source Usage**
   
   -	The platform leverages open-source libraries for APIs and UI components.
   -	Third-party integrations (e.g., YouTube, Bilibili, ArXiv, GitHub) comply with their respective terms of service.
   
-- **Protecting Against Copying**
+### **Protecting Against Copying**
   
   -	Proprietary features like the AI-based recommendation engine and interactive tools can be protected by patents or copyrights.
   -	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
@@ -96,7 +96,7 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 </details>
 <details><summary><b>4. Competition Analysis</b></summary>
 
-- **Competitors**
+### **Competitors**
   
   1. Khan Academy
      -	Strengths: Comprehensive courses, interactive exercises.
@@ -111,7 +111,7 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
      -	Strengths: Rich collection of research papers.
      -	Weaknesses: No interactive tools, limited user interface.
      
-- **How EDULink Stands Out**
+### **How EDULink Stands Out**
   
   -	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
   -	Adaptive Learning: AI-driven personalized recommendations based on user goals.
