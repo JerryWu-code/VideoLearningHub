@@ -73,34 +73,42 @@ const Mutation = {
 
   async addVideoToHistory(_, { email, video }) {
     try {
+      // Find the user by email
+      const user = await db.collection("users").findOne({ email });
+      if (!user) {
+        throw new UserInputError("User not found.");
+      }
+  
+      // Check if the video is already in the user's history
+      const videoExists = user.history?.some((entry) => entry.videoId === video.videoId);
+  
+      if (videoExists) {
+        // If the video is already in the history, return the user as is
+        return user;
+      }
+  
+      // Prepare the history entry
       const historyEntry = {
         ...video,
         watchedAt: video.watchedAt ? new Date(video.watchedAt) : new Date(),
       };
-
-      // Ensure the video is not already in the history based on `videoId`
-    const updatedUser = await db.collection("users").findOneAndUpdate(
-      {
-        email,
-        // Check if `history` does not already contain an entry with the same `videoId`
-        "history.videoId": { $ne: video.videoId },
-      },
-      {
-        $push: { history: historyEntry }, // Add the new video to `history`
-      },
-      { returnDocument: "after" } // Return the updated document
-    );
-
-      if (!updatedUser.value) {
-        throw new UserInputError("User not found.");
-      }
-
+  
+      // Add the new video to the user's history
+      const updatedUser = await db.collection("users").findOneAndUpdate(
+        { email },
+        {
+          $push: { history: historyEntry },
+        },
+        { returnDocument: "after" } // Return the updated document
+      );
+  
       return updatedUser.value;
     } catch (err) {
       console.error("Error adding video to history:", err);
       throw new Error(`Error adding video to history. Details: ${err.message}`);
     }
   },
+  
 
   async clearVideoCollection(_, { email }) {
     try {
