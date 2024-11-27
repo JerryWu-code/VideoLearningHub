@@ -281,11 +281,13 @@ export const PlayGrid = ({ query, category, page }) => {
                     />
                   </div>
                   <div className="absolute bottom-4 right-4">
+                  {user && user.email ? (
                     <CollectionStar
                       email={user.email}
                       video={videoProps}
                       isCollectedInitially={collection.includes(String(video.id))} // Dynamically check collection state
                     />
+                  ) : null}
                   </div>
                 </div>
               </li>

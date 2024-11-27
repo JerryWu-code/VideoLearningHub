@@ -170,6 +170,7 @@ const HistoryPage = () => {
   return (
     <div className={styles.videoHistoryPage}>
       <Navibar />
+      {user ? (
       <div className={styles.historyContainer}>
         <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
           {isHistory ? "Watch History" : "\u00A0Collections"}
@@ -274,6 +275,15 @@ const HistoryPage = () => {
           </p>
         )}
       </div>
+      ) : (
+        <div className="flex flex-col items-center justify-start h-screen">
+  <p className="text-2xl font-bold text-gray-700 lg:text-4xl dark:text-gray-300">
+    Please log in to view your data.
+  </p>
+</div>
+
+
+      )}
       <Footer />
     </div>
   );
