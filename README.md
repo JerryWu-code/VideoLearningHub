@@ -144,11 +144,11 @@ Our target users are **students, professionals, and lifelong learners** who want
 ## Features
 ### **1. Centralised Learning Hub**
 
-- (1) Multi-Source Video and Articles: Users can access videos, research papers, and codes from multiple sources on the same topic, all in one place.
+- (1) **Multi-Source Video and Articles**: Users can access videos, research papers, and codes from multiple sources on the same topic, all in one place.
 
-- (2) Categorised Learning Paths: Different paths based on subjects or skills (e.g., “Maths Path,” “Programming Path”) with curated resources from various websites and platforms.
+- (2) **Categorised Learning Paths**: Different paths based on subjects or skills (e.g., “Maths Path,” “Programming Path”) with curated resources from various websites and platforms.
 
-- (3) Integration with YouTube/External Platforms: Embed educational videos from YouTube, Bilibili, Arxiv and Github to ensure users have access to different content formats, including note only Streaming videos but also papers and code.
+- (3) **Integration with YouTube/External Platforms**: Embed educational videos from YouTube, Bilibili, Arxiv and Github to ensure users have access to different content formats, including note only Streaming videos but also papers and code.
 
 ### **2. User-Friendly Login and History Tracking**
 
