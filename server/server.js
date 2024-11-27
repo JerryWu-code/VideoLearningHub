@@ -78,11 +78,18 @@ const Mutation = {
         watchedAt: video.watchedAt ? new Date(video.watchedAt) : new Date(),
       };
 
-      const updatedUser = await db.collection("users").findOneAndUpdate(
-        { email },
-        { $push: { history: historyEntry } },
-        { returnDocument: "after" } // Return the updated document
-      );
+      // Ensure the video is not already in the history based on `videoId`
+    const updatedUser = await db.collection("users").findOneAndUpdate(
+      {
+        email,
+        // Check if `history` does not already contain an entry with the same `videoId`
+        "history.videoId": { $ne: video.videoId },
+      },
+      {
+        $push: { history: historyEntry }, // Add the new video to `history`
+      },
+      { returnDocument: "after" } // Return the updated document
+    );
 
       if (!updatedUser.value) {
         throw new UserInputError("User not found.");

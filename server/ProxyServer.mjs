@@ -362,7 +362,6 @@ app.get('/api/videos', async (req, res) => {
                 let single = null;
                 if (data?.meta) {
                     const video = data.meta;
-                    console.log("interesting", video);
                     single = {
                         id: video.videoId,
                         title: sanitizeHTML(video.title),
