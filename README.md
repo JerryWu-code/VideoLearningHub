@@ -113,6 +113,7 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
   -	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
 
 </details>
+
 ### **4. Competition Analysis**
 <details><summary><b>click to expand Competition Analysis</b></summary>
 
