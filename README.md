@@ -144,20 +144,19 @@ git clone https://github.com/IT5007-2410/course-project-project-3.git
 cd course-project-project-3
 ```
 
-### **2. Install NodeJS 16**
+### **2. Install and Switch to NodeJS 16**
 - (1) Firstly, please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>.
-- (2) Secondly, we need to switch to NodeJS 16.0.0 or higher. You can run the following commands to install and switch to NodeJS 16.0.0:
+- (2) Secondly, we need to switch to NodeJS 16.0.0 or higher. You can run the following commands to download nvm (if you haven't):
     ```bash
     # install nvm
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
     source ~/.bashrc  # reload shell
-
-    # install Node.js latest LTS version
-    nvm install 16 
-    nvm use 16
-
-    # set Node.js 16 as default version
-    nvm alias default 16
+    ```
+- (3) Then, you can run the following commands to install and then switch to NodeJS 16.0.0:
+    ```bash
+    nvm install 16 # install Node.js latest LTS version
+    nvm use 16 # switch to Node.js 16
+    nvm alias default 16 # set Node.js 16 as default
     ```
 
 ### **3. Install Dependencies**
