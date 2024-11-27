@@ -2,25 +2,41 @@
 
 # **EDULink: A centralised adaptive learning platform**
 
+## Table of Contents
+- [Documentation:](#documentation)
+  - [1.Problem Statement](#1-problem-statement)
+  - [2.Solution Architecture](#2-solution-architecture)
+  - [3.Legal/Other Aspects](#3-legalother-aspects)
+  - [4.Competition Analysis](#4-competition-analysis)
+- [Features](#features)
+  - [1.Centralised Learning Hub](#1-centralised-learning-hub)
+  - [2.User-Friendly Login and History Tracking](#2-user-friendly-login-and-history-tracking)
+  - [3.AI-Powered Search with Relevance Filtering](#3-ai-powered-search-with-relevance-filtering)
+  - [4.AI Assistant Integration on the Player Page](#4-ai-assistant-integration-on-the-player-page)
+- [Project Setup](#project-setup)
+  - [1.Clone the repository](#1-clone-the-repository)
+  - [2.Install and Switch to NodeJS 16](#2-install-and-switch-to-nodejs-16)
+  - [3.Install Dependencies](#3-install-dependencies)
+
 ## Documentation:
 <details><summary><b>1. Problem Statement</b></summary>
 
-### **Novelty of the Problem**
+### **(1) Novelty of the Problem**
 
 The modern learner faces challenges in accessing and organizing educational content scattered across various platforms, including YouTube, academic repositories, and online learning portals. There is no unified hub where students, professionals, and lifelong learners can seamlessly access diverse learning resources and tools for interactive learning.
 
-### **Challenges**
+### **(2) Challenges**
   
 1. Aggregating content from multiple sources in real-time, maintaining relevance and quality.
 2. Refining search results and source materials based on the relevance to the search query to enhance the quality of study resources. 
 3. Offering interactive features like chatbots, curated collections, and organized categories to improve the learning experience.
 4. Ensuring user privacy and compliance with intellectual property rights while integrating third-party resources.
 
-### **Relevance in 2/5/10 Years**
+### **(3) Relevance in 2/5/10 Years**
 
 The need for centralized learning hubs will grow with the increasing proliferation of online educational content. EDULink addresses a timeless problem by streamlining learning and making it accessible, adaptable, and personalized—qualities that will remain relevant for decades.
 
-### **Complexity of the Solution**
+### **(4) Complexity of the Solution**
 
 The solution requires a robust backend for content aggregation, dynamic front-end tools for user interaction, and machine learning models for adaptive learning recommendations. It also involves ensuring scalability and handling large volumes of data from diverse sources.
 
@@ -28,15 +44,15 @@ The solution requires a robust backend for content aggregation, dynamic front-en
 
 <details><summary><b>2. Solution Architecture</b></summary>
 
-### **Overview**
+### **(1) Overview**
 
 The project is an educational web application designed to offer students interactive tools for learning, such as categorized study materials, video resources, and filtering/search features. It is modularly structured, promoting maintainability and scalability. This architecture outlines the page flow, component functionality, and key modules.
 
-### **Figma**
+### **(2) Figma Design**
 ![alt text](image.png)
 
   
-### **Information Architecture**
+### **(3) Information Architecture**
   
 The application is divided into three layers:
 1. Presentation Layer (Frontend):
@@ -48,7 +64,7 @@ The application is divided into three layers:
 	- Backend API integration to fetch study materials, videos, and other content (e.g., course data, search results).
 	- Utilizes Proxy and GraphQL APIs for communication.
 
-### **Page Structure**
+### **(4) Page Structure**
 1. Homepage:
     - Components: Navibar, Footer.
     - Purpose: Acts as the landing page with introduction of website.
@@ -73,7 +89,7 @@ The application is divided into three layers:
 	-	Components: Navibar, Footer.
 	-	Purpose: Keeps a record of the user’s progress, recently accessed materials, or personal collections.
 
-### **Modular Architecture**
+### **(5) Modular Architecture**
 1. Pages:
 Each page (e.g., Homepage, SearchPage) uses a combination of modular components to ensure reusability.
 2. Styling: Each component or page has a corresponding .module.css file to enable scoped styling.
@@ -83,12 +99,12 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 
 <details><summary><b>3. Legal/Other Aspects</b></summary>
 
-### **Open Source Usage**
+### **(1) Open Source Usage**
   
   -	The platform leverages open-source libraries for APIs and UI components.
   -	Third-party integrations (e.g., YouTube, Bilibili, ArXiv, GitHub) comply with their respective terms of service.
   
-### **Protecting Against Copying**
+### **(2) Protecting Against Copying**
   
   -	Proprietary features like the AI-based recommendation engine and interactive tools can be protected by patents or copyrights.
   -	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
@@ -96,7 +112,7 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 </details>
 <details><summary><b>4. Competition Analysis</b></summary>
 
-### **Competitors**
+### **(1) Competitors**
   
   1. Khan Academy
      -	Strengths: Comprehensive courses, interactive exercises.
@@ -111,7 +127,7 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
      -	Strengths: Rich collection of research papers.
      -	Weaknesses: No interactive tools, limited user interface.
      
-### **How EDULink Stands Out**
+### **(2) How EDULink Stands Out**
   
   -	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
   -	Adaptive Learning: AI-driven personalized recommendations based on user goals.
@@ -123,19 +139,36 @@ Our target users are **students, professionals, and lifelong learners** who want
 ## Features
 ### **1. Centralised Learning Hub**
 
-- (1) Multi-Source Video and Articles: Users can access videos, articles, PDFs, and research papers from multiple sources on the same topic, all in one place.
+- (1) Multi-Source Video and Articles: Users can access videos, research papers, and codes from multiple sources on the same topic, all in one place.
 
 - (2) Categorised Learning Paths: Different paths based on subjects or skills (e.g., “Maths Path,” “Programming Path”) with curated resources from various websites and platforms.
 
-- (3) Integration with YouTube/External Platforms: Embed educational videos from YouTube, Vimeo, or other platforms to ensure users have access to different content formats.
+- (3) Integration with YouTube/External Platforms: Embed educational videos from YouTube, Bilibili, Arxiv and Github to ensure users have access to different content formats, including note only Streaming videos but also papers and code.
 
-### **2. Interactive Transcript with Notes**
+### **2. User-Friendly Login and History Tracking**
 
-- (1) Real-Time Video Transcripts: Automatically generated transcripts for videos, allowing users to follow along, read, or reference key points later.
+- (1) **Google Account Integration**: Users can log in seamlessly using their Google accounts, ensuring a quick and secure authentication process.
 
-- (2) Highlighting & Note-Taking: Users can highlight sections of the transcript or text from articles and save personalised notes for later review.
+- (2) **Access History Tracking**: The platform keeps a record of all videos, articles, and papers accessed by users, allowing them to revisit previous materials with ease.
 
-- (3) Auto-Save Notes: Notes are auto-saved with timestamps (for videos) or text references, so users can go back to specific parts of the material.
+- (3) **Favorites and Collections**: Users can bookmark or save their favorite resources into categorized collections, making it simple to organize and retrieve important learning materials.
+
+### **3. AI-Powered Search with Relevance Filtering**
+
+- (1) **GPT-Based Search Recommendations**: When users type text into the search bar, GPT provides relevance-based suggestions to guide their search queries.
+
+- (2) **Relevance Sorting for API Results**: Results returned by the backend API are ranked from highest to lowest relevance using GPT, ensuring users see the most relevant content first.
+
+- (3) **Category-Based Filtering and Pagination**: Users can filter results by different categories (e.g., topics, formats) and navigate through paginated content for a more personalized search experience.
+
+
+### **4. AI Assistant Integration on the Player Page**
+
+- (1) **Real-Time Assistance**: An AI ChatBot is integrated directly into the Player page, enabling users to ask questions or seek clarifications about the video content they are watching.
+
+- (2) **Context-Aware Responses**: The AI Assistant can understand the context of the video and provide tailored explanations or additional resources related to the topic.
+
+- (3) **Enhanced Learning Experience**: Users can interact with the ChatBot without leaving the Player page, ensuring an uninterrupted and interactive learning environment.
 
 ## **Project Setup**
 ### **1. Clone the repository**
