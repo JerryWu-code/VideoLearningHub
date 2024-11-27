@@ -205,3 +205,9 @@ systemctl start mongod
 npm start
 ```
 Then you could access the project at <code><a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a></code>.
+
+> [!NOTE]
+> Explanation for different ports we use in this project:
+> - 5173: The port for the frontend.
+> - 3000: The port for the public API we integrated in the backend.
+> - 8000: The port for the own graphql API we integrated in the backend.
