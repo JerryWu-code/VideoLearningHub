@@ -181,7 +181,7 @@ export const PlayGrid = ({ query, category, page }) => {
         const data = await graphQLFetch(query, variables);
 
         if (data && data.listVideoCollection) {
-          const collectionVideoIds = data.listVideoCollection.map((video) => String(video.videoId));
+          const collectionVideoIds = data.listVideoCollection.map((video) => video.videoId);
           setCollection(collectionVideoIds);
         }
       } catch (error) {
@@ -241,7 +241,11 @@ export const PlayGrid = ({ query, category, page }) => {
                   ? `https://www.youtube.com/embed/${video.id}`
                   : video.source === "Bilibili"
                   ? `https://player.bilibili.com/player.html?aid=${video.id}&page=1&high_quality=1`
-                  : "",
+                  : video.source === "GitHub"
+                  ? `https://github.com/${video.id}`
+                  : video.source === "ArXiv"
+                  ? video.id
+                  : null,
               addedAt: new Date().toISOString(),
             };
 
@@ -280,7 +284,7 @@ export const PlayGrid = ({ query, category, page }) => {
                     <CollectionStar
                       email={user.email}
                       video={videoProps}
-                      isCollectedInitially={collection.includes(video.id)} // Dynamically check collection state
+                      isCollectedInitially={collection.includes(String(video.id))} // Dynamically check collection state
                     />
                   </div>
                 </div>
