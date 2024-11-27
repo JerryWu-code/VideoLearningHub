@@ -4,10 +4,10 @@
 
 ## Table of Contents
 - [Documentation:](#documentation)
-  - [1.Problem Statement](#1-problem-statement)
-  - [2.Solution Architecture](#2-solution-architecture)
-  - [3.Legal/Other Aspects](#3-legalother-aspects)
-  - [4.Competition Analysis](#4-competition-analysis)
+  - [1. Problem Statement](#1-problem-statement)
+  - [2. Solution Architecture](#2-solution-architecture)
+  - [3. Legal/Other Aspects](#3-legalother-aspects)
+  - [4. Competition Analysis](#4-competition-analysis)
 - [Features](#features)
   - [1.Centralised Learning Hub](#1-centralised-learning-hub)
   - [2.User-Friendly Login and History Tracking](#2-user-friendly-login-and-history-tracking)
@@ -19,7 +19,8 @@
   - [3.Install Dependencies](#3-install-dependencies)
 
 ## Documentation:
-<details><summary><b>1. Problem Statement</b></summary>
+### **1. Problem Statement**
+<details><summary><b>click to expand Problem Statement</b></summary>
 
 ### **(1) Novelty of the Problem**
 
@@ -42,7 +43,8 @@ The solution requires a robust backend for content aggregation, dynamic front-en
 
 </details>
 
-<details><summary><b>2. Solution Architecture</b></summary>
+### **2. Solution Architecture**
+<details><summary><b>click to expand Solution Architecture</b></summary>
 
 ### **(1) Overview**
 
@@ -97,7 +99,8 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 4. Routing: Utilize React Router for navigation between pages like /home, /courses, /search etc..
 </details>
 
-<details><summary><b>3. Legal/Other Aspects</b></summary>
+### **3. Legal/Other Aspects**
+<details><summary><b>click to expand Legal/Other Aspects</b></summary>
 
 ### **(1) Open Source Usage**
   
@@ -110,7 +113,8 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
   -	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
 
 </details>
-<details><summary><b>4. Competition Analysis</b></summary>
+### **4. Competition Analysis**
+<details><summary><b>click to expand Competition Analysis</b></summary>
 
 ### **(1) Competitors**
   
