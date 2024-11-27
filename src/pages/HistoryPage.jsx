@@ -50,10 +50,6 @@ const HistoryPage = () => {
 
   // Fetch user data (history or collection)
   const fetchData = async () => {
-    // if (!user || !user.email) {
-    //   alert("Please log in to view your data.");
-    //   return;
-    // }
 
     const query = isHistory
       ? `
@@ -175,8 +171,8 @@ const HistoryPage = () => {
     <div className={styles.videoHistoryPage}>
       <Navibar />
       <div className={styles.historyContainer}>
-      <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
-        {isHistory ? "Watch History" : "\u00A0Collections"}
+        <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
+          {isHistory ? "Watch History" : "\u00A0Collections"}
         </h2>
         {data.length > 0 ? (
           <div>
@@ -224,50 +220,48 @@ const HistoryPage = () => {
                     </p>
                     <p>
                       {isHistory
-                        ? `Watched on: ${
-                            item.watchedAt
-                              ? new Date(item.watchedAt).toLocaleString()
-                              : "Unknown"
-                          }`
-                        : `Added on: ${
-                            item.addedAt
-                              ? new Date(item.addedAt).toLocaleString()
-                              : "Unknown"
-                          }`}
+                        ? `Watched on: ${item.watchedAt
+                          ? new Date(item.watchedAt).toLocaleString()
+                          : "Unknown"
+                        }`
+                        : `Added on: ${item.addedAt
+                          ? new Date(item.addedAt).toLocaleString()
+                          : "Unknown"
+                        }`}
                     </p>
                     <div className={styles.actionButtons}>
                       {/* View Again Button */}
                       <button
                         onClick={async () => {
-                            try {
-                                if (item.source === "YouTube" || item.source === "Bilibili") {
-                                    // Redirect to video-player page for YouTube or Bilibili
-                                    window.location.href = `/video-player-page?source=${item.source}&url=${encodeURIComponent(
-                                        item.videoUrl
-                                    )}`;
-                                } else if (video.source === "GitHub" || video.source === "ArXiv") {
-                                    // Redirect directly to GitHub link
-                                    window.location.href = item.videoUrl;
-                                } else {
-                                    console.error("Unknown video source:", item.source);
-                                    return;
-                                }
-                            } catch (error) {
-                                console.error("Error handling video click:", error);
+                          try {
+                            if (item.source === "YouTube" || item.source === "Bilibili") {
+                              // Redirect to video-player page for YouTube or Bilibili
+                              window.location.href = `/video-player-page?source=${item.source}&url=${encodeURIComponent(
+                                item.videoUrl
+                              )}`;
+                            } else if (item.source === "GitHub" || item.source === "ArXiv") {
+                              // Redirect directly to GitHub link
+                              window.location.href = item.videoUrl;
+                            } else {
+                              console.error("Unknown video source:", item.source);
+                              return;
                             }
+                          } catch (error) {
+                            console.error("Error handling video click:", error);
+                          }
                         }}
                         className="text-white bg-blue-500 hover:bg-blue-600 rounded-full px-3 py-1 text-sm"
-                        >
+                      >
                         View Again
-                        </button>
-                        {!isHistory && (
+                      </button>
+                      {!isHistory && (
                         <button
-                            onClick={() => handleDelete(item.videoId)}
-                            className="ml-4 text-white bg-red-500 hover:bg-red-600 rounded-full px-3 py-1 text-sm"
+                          onClick={() => handleDelete(item.videoId)}
+                          className="ml-4 text-white bg-red-500 hover:bg-red-600 rounded-full px-3 py-1 text-sm"
                         >
-                            Delete
+                          Delete
                         </button>
-                        )}
+                      )}
                     </div>
                   </div>
                 </li>

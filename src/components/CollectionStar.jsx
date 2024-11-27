@@ -24,6 +24,12 @@ export const CollectionStar = ({ email, video, isCollectedInitially, refreshColl
           email
           collections {
             videoId
+            title
+            image
+            description
+            source
+            videoUrl
+            addedAt
           }
         }
       }
