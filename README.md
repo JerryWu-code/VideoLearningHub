@@ -10,11 +10,9 @@
   - [2. Solution Architecture](#2-solution-architecture)
   - [3. Legal/Other Aspects](#3-legalother-aspects)
   - [4. Competition Analysis](#4-competition-analysis)
-- [Features](#features)
-  - [1. Centralised Learning Hub](#1-centralised-learning-hub)
-  - [2. User-Friendly Login and History Tracking](#2-user-friendly-login-and-history-tracking)
-  - [3. AI-Powered Search with Relevance Filtering](#3-ai-powered-search-with-relevance-filtering)
-  - [4. AI Assistant Integration on the Player Page](#4-ai-assistant-integration-on-the-player-page)
+- [Novel Features](#novel-features)
+  - [1. Front-end Feature](#1-front-end-feature)
+  - [2. Back-end Feature](#2-back-end-feature)
 - [Project Setup](#project-setup)
   - [1. Clone the Repository](#1-clone-the-repository)
   - [2. Install and Switch to NodeJS 16](#2-install-and-switch-to-nodejs-16)
@@ -240,7 +238,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 <details>
 <summary><b>click to expand Front-end Feature</b></summary>
 
-### 2. Core Features
+### 1. Core Features
 - **Multi-page Application with React Router**:
   - Designed and implemented **7 pages** that mentioned in [Page Structure](#4-page-structure) above to handle different user interactions and present information dynamically:
   - Utilized **React Router** for seamless navigation across pages.
@@ -268,7 +266,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 3. Enhanced User Experience
+### 2. Enhanced User Experience
 - **Interactive Features**:
   - **Google Login Integration**:
     - Enables user account management with avatar, name and emailaddress displayed upon login.
@@ -298,7 +296,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 4. UI & UX Enhancements
+### 3. UI & UX Enhancements
 - **Consistent Styling**:
   - Followed a unified color scheme, font styles, and spacing for a cohesive user experience.
   - Scoped styles with **module.css** to maintain component-specific CSS without affecting the overall design.
@@ -313,7 +311,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 5. Novel Features
+### 4. Novel Features
 - **Trending Field Cards**:
   - AI-driven content highlights popular topics dynamically, engaging users with relevant trends.
 - **Filtered Search Results**:
@@ -326,7 +324,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 6. Future-Proof Features
+### 5. Future-Proof Features
 - Modular structure ensures scalability and ease of adding new features or pages.
 - AI-powered personalization supports evolving user needs.
 - Responsive design ensures usability across devices and screen sizes.
