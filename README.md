@@ -95,6 +95,7 @@ The demand for centralized learning platforms will grow as the **proliferation o
    - Incorporating technologies like **AI-powered tutoring** and **real-time feedback tools**.
    - Enhancing engagement and productivity for users.
 
+---
 ### **Competitive Edge**
 By focusing on **accessibility**, **adaptability**, and **personalization**, EDULink ensures its relevance and competitiveness in an ever-evolving educational landscape.
 
@@ -103,15 +104,18 @@ By focusing on **accessibility**, **adaptability**, and **personalization**, EDU
 ### **2. Solution Architecture**
 <details><summary><b>click to expand Solution Architecture</b></summary>
 
-### **(1) Overview**
+### **Overview**
 
 The project is an educational web application designed to offer students interactive tools for learning, such as categorized study materials, video resources, and filtering/search features. It is modularly structured, promoting maintainability and scalability. This architecture outlines the page flow, component functionality, and key modules.
 
-### **(2) Figma Design**
+---
+
+### **Figma Design**
 ![alt text](image.png)
 
+---
   
-### **(3) Information Architecture**
+### **Information Architecture**
   
 The application is divided into three layers:
 1. Presentation Layer (Frontend):
@@ -123,7 +127,9 @@ The application is divided into three layers:
 	- Backend API integration to fetch study materials, videos, and other content (e.g., course data, search results).
 	- Utilizes Proxy and GraphQL APIs for communication.
 
-### **(4) Page Structure**
+---
+
+### **Page Structure**
 1. Homepage:
     - Components: Navibar, Footer.
     - Purpose: Acts as the landing page with introduction of website.
@@ -148,7 +154,9 @@ The application is divided into three layers:
 	-	Components: Navibar, Footer.
 	-	Purpose: Keeps a record of the user’s progress, recently accessed materials, or personal collections.
 
-### **(5) Modular Architecture**
+---
+
+### **Modular Architecture**
 1. Pages:
 Each page (e.g., Homepage, SearchPage) uses a combination of modular components to ensure reusability.
 2. Styling: Each component or page has a corresponding .module.css file to enable scoped styling.
@@ -159,20 +167,24 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 ### **3. Legal/Other Aspects**
 <details><summary><b>click to expand Legal/Other Aspects</b></summary>
 
-#### **(1) Open Source Usage**
+### **Open Source Usage**
 - The platform relies on open-source libraries and frameworks for APIs, UI components, and web development frameworks (e.g., React, Node.js).
 - Third-party integrations (e.g., YouTube, Bilibili, ArXiv, GitHub) are implemented in compliance with their respective terms of service and usage policies, ensuring proper attribution and adherence to licensing requirements.
 - Regular audits are conducted to ensure updates in third-party API terms are reflected in the platform's usage.
 - Open-source contributions to improve the platform’s features are encouraged and managed through a transparent licensing model, such as MIT or Apache 2.0, to foster community engagement.
+---
 
-#### **(2) Protecting Against Copying**
+
+### **Protecting Against Copying**
 - **Proprietary Features:** The AI-based recommendation engine, personalized learning algorithms, and interactive tools are proprietary and can be safeguarded through patents to ensure originality and competitive advantage.
 - **Branding:** The platform’s logo, color scheme, and other distinctive elements can be trademarked to protect the brand identity from imitation.
 - **UI/UX Design:** The user interface and unique content organization strategies can be copyrighted to secure intellectual property rights.
 - **Digital Watermarking:** Educational resources, especially AI-generated materials, can be embedded with digital watermarks to trace unauthorized replication or redistribution.
 - **Data Encryption:** User data, particularly progress and preferences, is encrypted to prevent breaches and unauthorized access.
 
-#### **(3) Compliance with Legal Standards**
+---
+
+### **Compliance with Legal Standards**
 - The platform adheres to global data privacy laws, such as the General Data Protection Regulation (GDPR) in the EU and the Personal Data Protection Act (PDPA) in Singapore.
 - Content sourced from third-party platforms ensures respect for intellectual property rights, and takedown mechanisms are implemented to address disputes promptly.
 - All user-generated content, such as notes or collections, is protected by platform-specific policies, ensuring both user ownership and platform moderation for compliance.
@@ -183,7 +195,7 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 ### **4. Competition Analysis**
 <details><summary><b>Click to expand Competition Analysis</b></summary>
 
-### **(1) Competitors**
+### **Competitors**
   
 1. **Khan Academy**
    - **Strengths:** Comprehensive free courses, interactive exercises, and a well-organized learning structure.
@@ -201,14 +213,18 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
    - **Strengths:** Extensive library of academic and research papers, particularly in STEM fields.
    - **Weaknesses:** No interactive tools, minimal user interface enhancements, and limited accessibility for non-academic users.
 
-### **(2) How EDULink Stands Out**
+---
+
+### **How EDULink Stands Out**
   
 - **Centralized Platform:** Integrates videos, articles, and research papers from multiple sources, providing users with a unified hub for diverse educational content.
 - **AI-Driven Personalization:** Delivers adaptive learning through AI-powered recommendations tailored to user goals, behavior, and preferences.
 - **Interactivity:** Offers features like chatbots, history/collection track to improve engagement and learning efficiency.
 - **Scalability and Accessibility:** Designed to handle diverse and growing educational content while ensuring relevance for students, professionals, and lifelong learners.
 
-### **(3) Target Audience**
+---
+
+### **Target Audience**
 Our primary users include **students, professionals, and lifelong learners** who value:
 - Access to educational content from **multiple sources in one place**.
 - Enhanced learning tools, such as categorization, adaptive pathways, and personal collections.
@@ -219,39 +235,222 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 </details>
 
 
-## Novel Features
-### **1. Centralised Learning Hub**
+## 1. Novel Features
+### **1. Front-end Feature**
+<details>
+<summary><b>click to expand Front-end Feature</b></summary>
 
-- (1) **Multi-Source Video and Articles**: Users can access videos, research papers, and codes from multiple sources on the same topic, all in one place.
+### 2. Core Features
+- **Multi-page Application with React Router**:
+  - Designed and implemented **7 pages** that mentioned in [Page Structure](#4-page-structure) above to handle different user interactions and present information dynamically:
+  - Utilized **React Router** for seamless navigation across pages.
 
-- (2) **Categorised Learning Paths**: Different paths based on subjects or skills (e.g., “Maths Path,” “Programming Path”) with curated resources from various websites and platforms.
+- **TailwindCSS Integration**:
+  - Leveraged **TailwindCSS** for building responsive and modern UI components with a consistent design language.
+  - Incorporated **Flowbite components** to enhance usability and aesthetics.
 
-- (3) **Integration with YouTube/External Platforms**: Embed educational videos from YouTube, Bilibili, Arxiv and Github to ensure users have access to different content formats, including note only Streaming videos but also papers and code.
+- **Reusable Components**:
+  - **Header (NavBar)**:
+    - Displays the logo, navigation buttons, and a Google login button.
+    - Post-login, shows the user's avatar and name with a dropdown menu for account management, history, and collection redirection.
+  - **Footer**:
+    - Redirects users to different informational sections based on parameters added to the URL.
+  - **Search Bar**:
+    - Features dynamic search with real-time suggestions based on user input.
+    - Provides exact matches and handles diverse search queries efficiently.
 
-### **2. User-Friendly Login and History Tracking**
+- **Responsive Video Player Page**:
+  - Developed a **unified VideoPlayerPage** to play videos from different sources (YouTube, Bilibili, etc.).
+  - Includes interactive features:
+    - **Collection Star** for bookmarking videos.
+    - A responsive chatbot assistant for real-time queries during video playback.
+    - Recommended playlists based on video context.
 
-- (1) **Google Account Integration**: Users can log in seamlessly using their Google accounts, ensuring a quick and secure authentication process.
+---
 
-- (2) **Access History Tracking**: The platform keeps a record of all videos, articles, and papers accessed by users, allowing them to revisit previous materials with ease.
+### 3. Enhanced User Experience
+- **Interactive Features**:
+  - **Google Login Integration**:
+    - Enables user account management with avatar, name and emailaddress displayed upon login.
+    - Dropdown menu for accessing history, collections and log out.
+  - **Dynamic PlayGrid**:
+    - Displays resource cards dynamically, showing cover images, source logos, titles and descriptions fetched from APIs.
+  - **Trending Field Cards**:
+    - Utilizes AI to display trending fields of a subject.
+    - Presents these as clickable cards for deeper exploration of specific topics.
 
-- (3) **Favorites and Collections**: Users can bookmark or save their favorite resources into categorized collections, making it simple to organize and retrieve important learning materials.
+- **Advanced Search & Filters**:
+  - **Search Bar** dynamically provides relevant suggestions as users type.
+  - **Filter Component**:
+    - Located under the search bar, allows users to refine results by restricting them to specific sources.
+  - **Pagination Component**:
+    - Available on the search page to load additional results when required.
 
-### **3. AI-Powered Search with Relevance Filtering**
+- **Collection Management**:
+  - **Collection Star Component**:
+    - Located on the top-right corner of resource cards.
+    - Toggle functionality to add/remove resources from collections dynamically.
+    - Updates in real-time based on the user's interaction.
 
-- (1) **GPT-Based Search Recommendations**: When users type text into the search bar, GPT provides relevance-based suggestions to guide their search queries.
+- **AI-Powered Chatbot**:
+  - Integrated an external chatbot library.
+  - Allows users to ask questions and get AI-powered responses while interacting with the platform, especially while watching videos.
 
-- (2) **Relevance Sorting for API Results**: Results returned by the backend API are ranked from highest to lowest relevance using GPT, ensuring users see the most relevant content first.
+---
 
-- (3) **Category-Based Filtering and Pagination**: Users can filter results by different categories (e.g., topics, formats) and navigate through paginated content for a more personalized search experience.
+### 4. UI & UX Enhancements
+- **Consistent Styling**:
+  - Followed a unified color scheme, font styles, and spacing for a cohesive user experience.
+  - Scoped styles with **module.css** to maintain component-specific CSS without affecting the overall design.
+  
+- **Interactive Components**:
+  - Buttons, icons, and dropdowns are designed for intuitive use.
+  - Hover and focus states enhance interactivity.
 
+- **Navigation & Usability**:
+  - All links and buttons are functional, with no broken URLs.
+  - Form validations are implemented where applicable.
 
-### **4. AI Assistant Integration on the Player Page**
+---
 
-- (1) **Real-Time Assistance**: An AI ChatBot is integrated directly into the Player page, enabling users to ask questions or seek clarifications about the video content they are watching.
+### 5. Novel Features
+- **Trending Field Cards**:
+  - AI-driven content highlights popular topics dynamically, engaging users with relevant trends.
+- **Filtered Search Results**:
+  - Dynamically suggests relevant search results as users type into the search bar.
+  - Leverages AI algorithms to predict and display the most likely matches in real-time, enhancing search efficiency and user experience.
+- **VideoPlayer Assistant**:
+  - A real-time chatbot assistant integrated into the video player to provide immediate help.
+- **Dynamic API Integration**:
+  - Cards in PlayGrid and search suggestions are dynamically updated based on backend API responses.
 
-- (2) **Context-Aware Responses**: The AI Assistant can understand the context of the video and provide tailored explanations or additional resources related to the topic.
+---
 
-- (3) **Enhanced Learning Experience**: Users can interact with the ChatBot without leaving the Player page, ensuring an uninterrupted and interactive learning environment.
+### 6. Future-Proof Features
+- Modular structure ensures scalability and ease of adding new features or pages.
+- AI-powered personalization supports evolving user needs.
+- Responsive design ensures usability across devices and screen sizes.
+</details>
+
+### **2. Back-end Feature**
+<details>
+<summary><b>click to expand Back-end Feature</b></summary>
+
+### 1. Integration with Multiple APIs
+- **Supported APIs**:
+  - **YouTube**: Fetches video metadata, related videos, and recommendations.
+  - **Bilibili**: Retrieves video metadata, high-resolution thumbnails, and tags using session cookies.
+  - **arXiv**: Searches and retrieves research paper metadata.
+  - **GitHub**: Fetches repository metadata such as stars, description, and language.
+- **Unified Response Structure**:
+  - Combines diverse API responses into a consistent schema with properties like `id`, `title`, `description`, `image`, and `source`.
+
+---
+
+## 2. Performance Optimizations
+- **Caching with NodeCache**:
+  - Caches API responses for 5 minutes (`stdTTL: 300`) to reduce redundant calls and improve performance.
+- **Parallel Processing**:
+  - Utilizes `Promise.all` to handle multiple API requests and data parsing concurrently, minimizing latency.
+- **Batch Processing for GPT Efficiency**:
+  - Handles OpenAI API rate limits by dividing data into batches (`BATCH_SIZE: 10`) for parallel processing.
+
+---
+
+## 3. AI-Enhanced Content Filtering
+- **Relevance Scoring with OpenAI GPT**:
+  - Dynamically scores videos and other content based on relevance.
+  - Filters out low-relevance results and sorts them in descending order of relevance.
+- **Custom GPT Prompting**:
+  - GPT prompts are dynamically generated based on the query and data to improve accuracy of relevance scores.
+
+---
+
+## 4. User Authentication
+- **Google API Integration**:
+  - Supports user authentication via Google.
+  - Maintains user sessions across the website.
+- **GraphQL Integration**:
+  - Provides a schema-based API for authentication and user management.
+
+---
+
+## 5. Advanced Data Handling
+- **HTML Sanitization**:
+  - Removes unwanted HTML tags from titles and descriptions to ensure clean and safe content display.
+- **Image Conversion to Base64**:
+  - Encodes images (e.g., video thumbnails) in Base64 for seamless transmission, ensuring consistency even with external image hosting failures.
+
+---
+
+## 6. Flexible Query Parameters
+- Supports dynamic query parameters (`keyword`, `videoid`, `source`, `page`) to:
+  - Fetch content based on user input.
+  - Retrieve related videos from YouTube and Bilibili.
+
+---
+
+## 7. Enhanced Pagination
+- Handles pagination for all supported sources:
+  - **arXiv**: Supports start index for incremental fetching.
+  - **GitHub**: Supports paginated results with customizable page sizes.
+
+---
+
+## 8. Environment Variable Management
+- **Secure Key Management**:
+  - API keys (e.g., RapidAPI, Bilibili, OpenAI, GitHub) are securely stored in `.env` files using `dotenv`.
+
+---
+
+## 9. Proxy Server for CORS Handling
+- **Centralized Proxy Server**:
+  - Handles incoming requests and resolves CORS issues for external API calls.
+- **Dynamic Request Handling**:
+  - Centralized processing for APIs like YouTube, Bilibili, arXiv, and GitHub.
+
+---
+
+## 10. MongoDB Integration
+- **Database Features**:
+  - Stores user data, collections, and history in MongoDB.
+  - Provides seamless connections using `connectToDb`.
+  - Optimized queries using MongoDB operations (`findOneAndUpdate`, `$push`, `$pull`).
+
+---
+
+## 11. GraphQL API with Apollo Server
+- **Schema-Based Queries**:
+  - Provides flexible and efficient client-server interactions with clearly defined queries (`Query`) and mutations (`Mutation`).
+- **Supported GraphQL Operations**:
+  - Query user video history and collections.
+  - Add or remove videos from history and collections.
+  - Clear video history or collections.
+
+---
+
+## 12. Error Handling
+- **Robust Error Management**:
+  - Comprehensive `try-catch` blocks to handle network issues, API limits, and other failures gracefully.
+
+---
+
+## 13. Novel Features
+- **Dynamic Data Mapping**:
+  - Combines results from diverse sources (arXiv, GitHub, YouTube, Bilibili) into a unified schema.
+- **Detailed Bilibili Metadata**:
+  - Enriches video data with additional properties like tags, author details, and high-resolution thumbnails.
+- **Relevance-Enriched Sorting**:
+  - Combines GPT-based scores and metadata to deliver the most relevant content.
+
+---
+
+## 14. Automation and Setup
+- **Setup Scripts**:
+  - The backend initializes automatically with `npm start`, setting up all dependencies, server, and services.
+- **Environment Setup**:
+  - `.env` configuration ensures sensitive credentials are loaded dynamically.
+</details>
 
 ## **Project Setup**
 ### **1. Clone the repository**
