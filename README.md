@@ -233,14 +233,14 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 </details>
 
 
-## 1. Novel Features
+## Novel Features
 ### **1. Front-end Feature**
 <details>
 <summary><b>click to expand Front-end Feature</b></summary>
 
-### 1. Core Features
+### Core Features
 - **Multi-page Application with React Router**:
-  - Designed and implemented **7 pages** that mentioned in [Page Structure](#4-page-structure) above to handle different user interactions and present information dynamically:
+  - Designed and implemented **7 pages** that mentioned in [Page Structure](#page-structure) above to handle different user interactions and present information dynamically:
   - Utilized **React Router** for seamless navigation across pages.
 
 - **TailwindCSS Integration**:
@@ -266,7 +266,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 2. Enhanced User Experience
+### Enhanced User Experience
 - **Interactive Features**:
   - **Google Login Integration**:
     - Enables user account management with avatar, name and emailaddress displayed upon login.
@@ -296,7 +296,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 3. UI & UX Enhancements
+### UI & UX Enhancements
 - **Consistent Styling**:
   - Followed a unified color scheme, font styles, and spacing for a cohesive user experience.
   - Scoped styles with **module.css** to maintain component-specific CSS without affecting the overall design.
@@ -311,7 +311,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 4. Novel Features
+### Novel Features
 - **Trending Field Cards**:
   - AI-driven content highlights popular topics dynamically, engaging users with relevant trends.
 - **Filtered Search Results**:
@@ -324,7 +324,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### 5. Future-Proof Features
+### Future-Proof Features
 - Modular structure ensures scalability and ease of adding new features or pages.
 - AI-powered personalization supports evolving user needs.
 - Responsive design ensures usability across devices and screen sizes.
@@ -334,7 +334,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 <details>
 <summary><b>click to expand Back-end Feature</b></summary>
 
-### 1. Integration with Multiple APIs
+### Integration with Multiple APIs
 - **Supported APIs**:
   - **YouTube**: Fetches video metadata, related videos, and recommendations.
   - **Bilibili**: Retrieves video metadata, high-resolution thumbnails, and tags using session cookies.
@@ -345,7 +345,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 2. Performance Optimizations
+### Performance Optimizations
 - **Caching with NodeCache**:
   - Caches API responses for 5 minutes (`stdTTL: 300`) to reduce redundant calls and improve performance.
 - **Parallel Processing**:
@@ -355,7 +355,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 3. AI-Enhanced Content Filtering
+### AI-Enhanced Content Filtering
 - **Relevance Scoring with OpenAI GPT**:
   - Dynamically scores videos and other content based on relevance.
   - Filters out low-relevance results and sorts them in descending order of relevance.
@@ -364,7 +364,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 4. User Authentication
+### User Authentication
 - **Google API Integration**:
   - Supports user authentication via Google.
   - Maintains user sessions across the website.
@@ -373,7 +373,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 5. Advanced Data Handling
+### Advanced Data Handling
 - **HTML Sanitization**:
   - Removes unwanted HTML tags from titles and descriptions to ensure clean and safe content display.
 - **Image Conversion to Base64**:
@@ -381,27 +381,27 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 6. Flexible Query Parameters
+### Flexible Query Parameters
 - Supports dynamic query parameters (`keyword`, `videoid`, `source`, `page`) to:
   - Fetch content based on user input.
   - Retrieve related videos from YouTube and Bilibili.
 
 ---
 
-## 7. Enhanced Pagination
+### Enhanced Pagination
 - Handles pagination for all supported sources:
   - **arXiv**: Supports start index for incremental fetching.
   - **GitHub**: Supports paginated results with customizable page sizes.
 
 ---
 
-## 8. Environment Variable Management
+### Environment Variable Management
 - **Secure Key Management**:
   - API keys (e.g., RapidAPI, Bilibili, OpenAI, GitHub) are securely stored in `.env` files using `dotenv`.
 
 ---
 
-## 9. Proxy Server for CORS Handling
+### Proxy Server for CORS Handling
 - **Centralized Proxy Server**:
   - Handles incoming requests and resolves CORS issues for external API calls.
 - **Dynamic Request Handling**:
@@ -409,7 +409,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 10. MongoDB Integration
+### MongoDB Integration
 - **Database Features**:
   - Stores user data, collections, and history in MongoDB.
   - Provides seamless connections using `connectToDb`.
@@ -417,7 +417,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 11. GraphQL API with Apollo Server
+### GraphQL API with Apollo Server
 - **Schema-Based Queries**:
   - Provides flexible and efficient client-server interactions with clearly defined queries (`Query`) and mutations (`Mutation`).
 - **Supported GraphQL Operations**:
@@ -427,13 +427,13 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 12. Error Handling
+### Error Handling
 - **Robust Error Management**:
   - Comprehensive `try-catch` blocks to handle network issues, API limits, and other failures gracefully.
 
 ---
 
-## 13. Novel Features
+### Novel Features
 - **Dynamic Data Mapping**:
   - Combines results from diverse sources (arXiv, GitHub, YouTube, Bilibili) into a unified schema.
 - **Detailed Bilibili Metadata**:
@@ -443,7 +443,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-## 14. Automation and Setup
+### Automation and Setup
 - **Setup Scripts**:
   - The backend initializes automatically with `npm start`, setting up all dependencies, server, and services.
 - **Environment Setup**:
