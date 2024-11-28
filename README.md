@@ -2,44 +2,101 @@
 
 # **EDULink: A centralised adaptive learning platform**
 
-## Table of Contents
-- [Documentation:](#documentation)
-  - [1. Problem Statement](#1-problem-statement)
+<details>
+<summary><b>Table of Contents</b></summary>
+
+- [General](#general)
+  - [1. Relevance of Problem Statement](#1-relevance-of-problem-statement)
   - [2. Solution Architecture](#2-solution-architecture)
   - [3. Legal/Other Aspects](#3-legalother-aspects)
   - [4. Competition Analysis](#4-competition-analysis)
 - [Features](#features)
-  - [1.Centralised Learning Hub](#1-centralised-learning-hub)
-  - [2.User-Friendly Login and History Tracking](#2-user-friendly-login-and-history-tracking)
-  - [3.AI-Powered Search with Relevance Filtering](#3-ai-powered-search-with-relevance-filtering)
-  - [4.AI Assistant Integration on the Player Page](#4-ai-assistant-integration-on-the-player-page)
+  - [1. Centralised Learning Hub](#1-centralised-learning-hub)
+  - [2. User-Friendly Login and History Tracking](#2-user-friendly-login-and-history-tracking)
+  - [3. AI-Powered Search with Relevance Filtering](#3-ai-powered-search-with-relevance-filtering)
+  - [4. AI Assistant Integration on the Player Page](#4-ai-assistant-integration-on-the-player-page)
 - [Project Setup](#project-setup)
-  - [1.Clone the repository](#1-clone-the-repository)
-  - [2.Install and Switch to NodeJS 16](#2-install-and-switch-to-nodejs-16)
-  - [3.Install Dependencies](#3-install-dependencies)
+  - [1. Clone the Repository](#1-clone-the-repository)
+  - [2. Install and Switch to NodeJS 16](#2-install-and-switch-to-nodejs-16)
+  - [3. Install Dependencies](#3-install-dependencies)
 
-## Documentation:
-### **1. Problem Statement**
-<details><summary><b>click to expand Problem Statement</b></summary>
+</details>
 
-### **(1) Novelty of the Problem**
+	
+## General:
+### **1. Relevance of Problem Statement**
 
-The modern learner faces challenges in accessing and organizing educational content scattered across various platforms, including YouTube, academic repositories, and online learning portals. There is no unified hub where students, professionals, and lifelong learners can seamlessly access diverse learning resources and tools for interactive learning.
+<details><summary><b>Click to expand Relevance of Problem Statement</b></summary>   
+	
+### **The Problem**
+Modern learners face significant challenges in accessing and organizing educational content, which is often scattered across multiple platforms, such as:
+- **YouTube**: Abundant video resources but unstructured content.
+- **Bilibili**: Educational content mixed with entertainment, offer rich information for Chinese users
+- **Academic Papers and Research Repositories** (e.g., ArXiv): Rich content but limited accessibility and interactivity.
+- **GitHub and Coding Platforms**: Useful for practical learning but challenging to integrate with theoretical content.
 
-### **(2) Challenges**
+Searching through these platforms one by one is **time-consuming** and risks:
+- Missing critical information.
+- Being distracted by unrelated content.
+- Facing inefficiencies in managing diverse resources.
+
+---
+
+### **Key Requirements for a Solution**
+To address these challenges, there is a pressing need for an **integrated, immersive self-study environment** that provides:
+1. **Content Aggregation**: 
+   - Collects resources from multiple sources in real-time.
+   - Ensures relevance and quality in a centralized hub.
+2. **Enhanced Search and Filtering**: 
+   - Refines search results to prioritize relevance.
+   - Improves the quality of study resources with AI-powered filtering.
+3. **Interactive Features**: 
+   - Includes chatbots, curated collections, and organized categories.
+   - Enhances user engagement and learning outcomes.
+4. **Unified User Accounts**:
+   - Enables secure login.
+   - Tracks study progress and provides personalized learning tools.
+
+---
+
+### **Implementation Complexity**
+Implementing such a solution comes with several challenges, including:
+
+- **Backend Development**:
+  - Building a scalable backend to aggregate and process vast amounts of data.
+  - Continuously integrating with various **APIs** for dynamic content updates.
   
-1. Aggregating content from multiple sources in real-time, maintaining relevance and quality.
-2. Refining search results and source materials based on the relevance to the search query to enhance the quality of study resources. 
-3. Offering interactive features like chatbots, curated collections, and organized categories to improve the learning experience.
-4. Ensuring user privacy and compliance with intellectual property rights while integrating third-party resources.
+- **AI Integration**:
+  - Leveraging AI technologies for **adaptive recommendations** that evolve based on user behavior.
+  - Ensuring personalized and context-aware suggestions for diverse learning needs.
 
-### **(3) Relevance in 2/5/10 Years**
+- **User-Friendly Front End**:
+  - Designing an intuitive interface with advanced filtering, search, and interactive tools.
+  - Catering to users of all technical expertise levels.
 
-The need for centralized learning hubs will grow with the increasing proliferation of online educational content. EDULink addresses a timeless problem by streamlining learning and making it accessible, adaptable, and personalized—qualities that will remain relevant for decades.
+- **Cross-Device Synchronization**:
+  - Ensuring seamless accessibility across devices.
+  - Allowing users to maintain progress and retrieve learning materials anytime, anywhere.
 
-### **(4) Complexity of the Solution**
+---
 
-The solution requires a robust backend for content aggregation, dynamic front-end tools for user interaction, and machine learning models for adaptive learning recommendations. It also involves ensuring scalability and handling large volumes of data from diverse sources.
+### **Future Relevance (2/5/10 Years)**
+
+The demand for centralized learning platforms will grow as the **proliferation of online educational content accelerates**. EDULink positions itself as a sustainable solution by focusing on:
+1. **Continuous Integration**:
+   - Adding relevant resources from emerging platforms.
+   - Keeping the platform fresh and comprehensive.
+
+2. **AI-Driven Personalization**:
+   - Refining domain-specific recommendation algorithms.
+   - Delivering tailored learning experiences to meet evolving user goals.
+
+3. **Cutting-Edge Features**:
+   - Incorporating technologies like **AI-powered tutoring** and **real-time feedback tools**.
+   - Enhancing engagement and productivity for users.
+
+### **Competitive Edge**
+By focusing on **accessibility**, **adaptability**, and **personalization**, EDULink ensures its relevance and competitiveness in an ever-evolving educational landscape.
 
 </details>
 
@@ -76,8 +133,8 @@ The application is divided into three layers:
 	-	Purpose: Displays categorized courses with filtering options.
 
 3. MainPage:
-    -  Components: Navibar, Footer, TrendingFields, PlayGrid, ResourceFilter, SearchResultDisplay.
-    - Purpose: Highlights “Trending Fields” and “Most Visited” content, allowing users to filter based on their selected preferences.
+    - Components: Navibar, Footer, TrendingFields, PlayGrid, ResourceFilter, SearchResultDisplay, CollectionStar.
+    - Purpose: Highlights “Trending Fields” and “Most Visited” content, allowing users to filter resources based on their selected preferences and add specific resources to their collection as needed.
 
 4. VideoPlayerPage:
 	-	Components: Navibar, Footer, Collectionstar, PlayList, VideoPlayerAssistant, SearchResultDisplay.
@@ -102,46 +159,67 @@ Each page (e.g., Homepage, SearchPage) uses a combination of modular components 
 ### **3. Legal/Other Aspects**
 <details><summary><b>click to expand Legal/Other Aspects</b></summary>
 
-### **(1) Open Source Usage**
-  
-  -	The platform leverages open-source libraries for APIs and UI components.
-  -	Third-party integrations (e.g., YouTube, Bilibili, ArXiv, GitHub) comply with their respective terms of service.
-  
-### **(2) Protecting Against Copying**
-  
-  -	Proprietary features like the AI-based recommendation engine and interactive tools can be protected by patents or copyrights.
-  -	The branding, user interface, and content organization can be trademarked to maintain uniqueness.
+#### **(1) Open Source Usage**
+- The platform relies on open-source libraries and frameworks for APIs, UI components, and web development frameworks (e.g., React, Node.js).
+- Third-party integrations (e.g., YouTube, Bilibili, ArXiv, GitHub) are implemented in compliance with their respective terms of service and usage policies, ensuring proper attribution and adherence to licensing requirements.
+- Regular audits are conducted to ensure updates in third-party API terms are reflected in the platform's usage.
+- Open-source contributions to improve the platform’s features are encouraged and managed through a transparent licensing model, such as MIT or Apache 2.0, to foster community engagement.
+
+#### **(2) Protecting Against Copying**
+- **Proprietary Features:** The AI-based recommendation engine, personalized learning algorithms, and interactive tools are proprietary and can be safeguarded through patents to ensure originality and competitive advantage.
+- **Branding:** The platform’s logo, color scheme, and other distinctive elements can be trademarked to protect the brand identity from imitation.
+- **UI/UX Design:** The user interface and unique content organization strategies can be copyrighted to secure intellectual property rights.
+- **Digital Watermarking:** Educational resources, especially AI-generated materials, can be embedded with digital watermarks to trace unauthorized replication or redistribution.
+- **Data Encryption:** User data, particularly progress and preferences, is encrypted to prevent breaches and unauthorized access.
+
+#### **(3) Compliance with Legal Standards**
+- The platform adheres to global data privacy laws, such as the General Data Protection Regulation (GDPR) in the EU and the Personal Data Protection Act (PDPA) in Singapore.
+- Content sourced from third-party platforms ensures respect for intellectual property rights, and takedown mechanisms are implemented to address disputes promptly.
+- All user-generated content, such as notes or collections, is protected by platform-specific policies, ensuring both user ownership and platform moderation for compliance.
+
 
 </details>
 
 ### **4. Competition Analysis**
-<details><summary><b>click to expand Competition Analysis</b></summary>
+<details><summary><b>Click to expand Competition Analysis</b></summary>
 
 ### **(1) Competitors**
   
-  1. Khan Academy
-     -	Strengths: Comprehensive courses, interactive exercises.
-     -	Weaknesses: Limited third-party content aggregation, lack of real-time transcripts.
-  2. Coursera/edX
-     -	Strengths: University-level courses with certifications.
-     -	Weaknesses: Paid courses, limited note-taking tools.
-  3. YouTube
-     -	Strengths: Free and vast repository of videos.
-     -	Weaknesses: Lack of categorization for educational purposes, no transcripts or note integration.
-  4. ArXiv
-     -	Strengths: Rich collection of research papers.
-     -	Weaknesses: No interactive tools, limited user interface.
-     
+1. **Khan Academy**
+   - **Strengths:** Comprehensive free courses, interactive exercises, and a well-organized learning structure.
+   - **Weaknesses:** Limited aggregation of third-party content and less focus on advanced or professional-level topics.
+
+2. **Coursera/edX**
+   - **Strengths:** Offers university-level courses, industry-recognized certifications, and collaborations with top institutions.
+   - **Weaknesses:** High cost for certifications and limited free content. Lack of real-time personalized recommendations or integration with diverse learning formats.
+
+3. **YouTube**
+   - **Strengths:** Free access to a vast repository of educational videos on a wide range of topics.
+   - **Weaknesses:** Content is often unstructured, lacks categorization for educational purposes, and includes distractions from entertainment-focused content.
+
+4. **ArXiv**
+   - **Strengths:** Extensive library of academic and research papers, particularly in STEM fields.
+   - **Weaknesses:** No interactive tools, minimal user interface enhancements, and limited accessibility for non-academic users.
+
 ### **(2) How EDULink Stands Out**
   
-  -	Centralized Platform: Aggregates videos, articles, and research papers from multiple sources.
-  -	Adaptive Learning: AI-driven personalized recommendations based on user goals.
-  -	Scalability: Designed to handle diverse educational content, ensuring future relevance.
+- **Centralized Platform:** Integrates videos, articles, and research papers from multiple sources, providing users with a unified hub for diverse educational content.
+- **AI-Driven Personalization:** Delivers adaptive learning through AI-powered recommendations tailored to user goals, behavior, and preferences.
+- **Interactivity:** Offers features like chatbots, history/collection track to improve engagement and learning efficiency.
+- **Scalability and Accessibility:** Designed to handle diverse and growing educational content while ensuring relevance for students, professionals, and lifelong learners.
 
-Our target users are **students, professionals, and lifelong learners** who want to access educational content from **multiple sources in one place**. EDULink aims to provide a centralised learning hub with categorised learning paths, interactive transcripts, and note-taking features to enhance the learning experience.
+### **(3) Target Audience**
+Our primary users include **students, professionals, and lifelong learners** who value:
+- Access to educational content from **multiple sources in one place**.
+- Enhanced learning tools, such as categorization, adaptive pathways, and personal collections.
+- Support for self-paced study with interactive features that simplify learning.
+
+By addressing gaps in existing platforms and focusing on user-centric innovations, EDULink positions itself as a comprehensive solution for modern learners.
+
 </details>
 
-## Features
+
+## Novel Features
 ### **1. Centralised Learning Hub**
 
 - (1) **Multi-Source Video and Articles**: Users can access videos, research papers, and codes from multiple sources on the same topic, all in one place.
