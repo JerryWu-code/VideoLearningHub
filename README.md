@@ -376,18 +376,20 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 <summary><b>click to expand Back-end Feature</b></summary>
 
 ### Integration with Multiple APIs
-- **Supported APIs**:
-  - **YouTube**: [Obtain from Rapid API](https://rapidapi.com/ytjar/api/yt-api). Fetches video metadata, related videos, and recommendations.
-  - **Bilibili**: [Open source from GitHub Repo](https://github.com/SocialSisterYi/bilibili-API-collect/tree/master) Retrieves video metadata, high-resolution thumbnails, and tags using session cookies.
-  - **arXiv**: [Open source ArXiv API](https://info.arxiv.org/help/api/index.html) Searches and retrieves research paper metadata.
-  - **GitHub**: [Open source GitHub API](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28) Fetches repository metadata such as stars, description, and language.
-  - **OpenAI**: AI API for resource filtering and content recommendation
+- **Integrated APIs**:
+  - **YouTube**: [Obtain from Rapid API](https://rapidapi.com/ytjar/api/yt-api). Fetches Youtube video metadata, related videos, and recommendations.
+  - **Bilibili**: [Open source from GitHub Repo](https://github.com/SocialSisterYi/bilibili-API-collect/tree/master) Fetches Bilibili video metadata, related videos, and recommendations.
+  - **arXiv**: [Open source ArXiv API](https://info.arxiv.org/help/api/index.html) Searches and retrieves ArXiv research paper metadata.
+  - **GitHub**: [Open source GitHub API](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28) Fetches GitHub repository metadata such as stars, description, and language.
+  - **OpenAI**: [OpenAI API](https://openai.com/index/openai-api/) AI API for resource filtering and content recommendation. (Pricing based on amount of tokens used)
+  - **Google**: [React OAuth2 Google](https://www.npmjs.com/package/@react-oauth/google) Google's OAuth2 API integration using `@react-oauth/google` component.
+    
 - **Unified Response Structure**:
-  - Combines diverse API responses into a consistent schema with properties like `id`, `title`, `description`, `image`, and `source`.
+  - Combines API responses from different sources into a consistent schema with properties like `id`, `title`, `description`, `image`, and `source`.
 
 ---
 
-### Performance Optimizations
+### User Performance Optimizations
 - **Caching with NodeCache**:
   - Caches API responses for 5 minutes (`stdTTL: 300`) to reduce redundant calls and improve performance.
 - **Parallel Processing**:
@@ -399,10 +401,12 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ### AI-Enhanced Content Filtering
 - **Relevance Scoring with OpenAI GPT**:
-  - Dynamically scores videos and other content based on relevance.
-  - Filters out low-relevance results and sorts them in descending order of relevance.
+  - Dynamically scores educational videos and other content based on relevance according according to the current topic.
+  - Filters out low-relevance results, sorts, and further presents them in descending order of relevance.
+-  **GPT-Based Search Recommendations**:
+  -  When users type text into the search bar, GPT provides relevance-based suggestions to guide their search queries.
 - **Custom GPT Prompting**:
-  - GPT prompts are dynamically generated based on the query and data to improve accuracy of relevance scores.
+  - GPT prompts are dynamically generated based on the current page's query and data to improve accuracy of relevance scores.
 
 ---
 
@@ -410,30 +414,11 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 - **Google API Integration**:
   - Supports user authentication via Google.
   - Maintains user sessions across the website.
-- **GraphQL Integration**:
-  - Provides a schema-based API for authentication and user management.
-
----
-
-### Advanced Data Handling
-- **HTML Sanitization**:
-  - Removes unwanted HTML tags from titles and descriptions to ensure clean and safe content display.
-- **Image Conversion to Base64**:
-  - Encodes images (e.g., video thumbnails) in Base64 for seamless transmission, ensuring consistency even with external image hosting failures.
-
----
-
-### Flexible Query Parameters
-- Supports dynamic query parameters (`keyword`, `videoid`, `source`, `page`) to:
-  - Fetch content based on user input.
-  - Retrieve related videos from YouTube and Bilibili.
-
+    
 ---
 
 ### Enhanced Pagination
-- Handles pagination for all supported sources:
-  - **arXiv**: Supports start index for incremental fetching.
-  - **GitHub**: Supports paginated results with customizable page sizes.
+- Handles pagination for all supported sources with relative request to the APIs using `page` parameter.
 
 ---
 
@@ -475,16 +460,6 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### Novel Features
-- **Dynamic Data Mapping**:
-  - Combines results from diverse sources (arXiv, GitHub, YouTube, Bilibili) into a unified schema.
-- **Detailed Bilibili Metadata**:
-  - Enriches video data with additional properties like tags, author details, and high-resolution thumbnails.
-- **Relevance-Enriched Sorting**:
-  - Combines GPT-based scores and metadata to deliver the most relevant content.
-
----
-
 ### Automation and Setup
 - **Setup Scripts**:
   - The backend initializes automatically with `npm start`, setting up all dependencies, server, and services.
@@ -522,6 +497,25 @@ systemctl start mongod
 npm start
 ```
 Then you could access the project at <code><a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a></code>.
+
+### **4. API Key initialization**
+If a `.env` file is not provided, create one with the following API settings. Ensure the variable names remain unchanged to allow the program to run correctly.
+> **Note:** Keep all sensitive information secure and do not share your `.env` file publicly.
+
+#### API Key Settings
+Add the following variables to your `.env` file:
+```
+VITE_RAPID_API_KEY="xxxx"
+VITE_BILIBILI_SESSDATA="xxxx"
+VITE_OPENAI_API_KEY="xxxx"
+VITE_GITHUB_API_KEY="xxxx"
+```
+#### How to Find Your Bilibili `SESSDATA`
+1. Log in to [www.bilibili.com](https://www.bilibili.com).
+2. Open the web inspector (Developer Tools) in your browser.
+3. Check the cookies and locate the `SESSDATA` property.
+
+
 
 > [!NOTE]
 > Explanation for different ports we use in this project:
