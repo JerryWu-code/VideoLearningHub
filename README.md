@@ -17,6 +17,7 @@
   - [1. Clone the Repository](#1-clone-the-repository)
   - [2. Install and Switch to NodeJS 16](#2-install-and-switch-to-nodejs-16)
   - [3. Install Dependencies](#3-install-dependencies)
+  - [4. API Key Initialization](#4-api-key-initialization)
 
 </details>
 
