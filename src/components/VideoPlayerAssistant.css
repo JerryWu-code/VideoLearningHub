@@ -14,7 +14,7 @@
   position: fixed;
   bottom: 38px; /* Adjust to reduce overlap */
   right: 5px;
-  width: 800px;
+  width: 500px;
   height: 640px;
   background: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
