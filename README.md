@@ -361,7 +361,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 - **Navigation & Usability**:
   - All links and buttons are functional, with no broken URLs.
-  - Form validations are implemented where applicable.
+  - Robust error handling machnism, provide error-free user experience
 
 ---
 
@@ -377,10 +377,11 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ### Integration with Multiple APIs
 - **Supported APIs**:
-  - **YouTube**: Fetches video metadata, related videos, and recommendations.
-  - **Bilibili**: Retrieves video metadata, high-resolution thumbnails, and tags using session cookies.
-  - **arXiv**: Searches and retrieves research paper metadata.
-  - **GitHub**: Fetches repository metadata such as stars, description, and language.
+  - **YouTube**: [Obtain from Rapid API](https://rapidapi.com/ytjar/api/yt-api). Fetches video metadata, related videos, and recommendations.
+  - **Bilibili**: [Open source from GitHub Repo](https://github.com/SocialSisterYi/bilibili-API-collect/tree/master) Retrieves video metadata, high-resolution thumbnails, and tags using session cookies.
+  - **arXiv**: [Open source ArXiv API](https://info.arxiv.org/help/api/index.html) Searches and retrieves research paper metadata.
+  - **GitHub**: [Open source GitHub API](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28) Fetches repository metadata such as stars, description, and language.
+  - **OpenAI**: AI API for resource filtering and content recommendation
 - **Unified Response Structure**:
   - Combines diverse API responses into a consistent schema with properties like `id`, `title`, `description`, `image`, and `source`.
 
