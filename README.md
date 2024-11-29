@@ -240,13 +240,18 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 <summary><b>click to expand Front-end Feature</b></summary>
 
 ### Core Features
-- **Multi-page Application with React Router**:
-  - Designed and implemented **7 pages** that mentioned in [Page Structure](#page-structure) above to handle different user interactions and present information dynamically:
-  - Utilized **React Router** for seamless navigation across pages.
 
+- **Multi-page Application with React Router**:
+  - Designed and implemented **7 pages** that mentioned in [Solution Architecture](#2-solution-architecture) above to handle different user interactions and present information dynamically:
+  - Utilized **React Router** for seamless navigation across pages.
+    
 - **TailwindCSS Integration**:
   - Leveraged **TailwindCSS** for building responsive and modern UI components with a consistent design language.
   - Incorporated **Flowbite components** to enhance usability and aesthetics.
+
+---
+
+### Enhanced User Experience
 
 - **Reusable Components**:
   - **Header (NavBar)**:
@@ -265,14 +270,21 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
     - A responsive chatbot assistant for real-time queries during video playback.
     - Recommended playlists based on video context.
 
----
+- **Homepage**:
+    - Introduces users to the platform with a clean and engaging layout.
+    - Highlights the platform's mission and features.
+    - Provides a brief description of the **APIs** referenced, such as YouTube, Bilibili, ArXiv, and GitHub, to aggregate diverse resources.
+    - Includes a **Getting Started** button to guide new users through the platform's functionalities.
 
-### Enhanced User Experience
+- **Course Page**:
+  - Pre-Defined Category Cards
+  - Displays visually appealing cards representing various subjects or fields of study (e.g., Programming, Mathematics, Science, Arts).
+      
 - **Interactive Features**:
   - **Google Login Integration**:
     - Enables user account management with avatar, name and emailaddress displayed upon login.
     - Dropdown menu for accessing history, collections and log out.
-  - **Dynamic PlayGrid**:
+  - **Dynamic PlayGrid Cards**:
     - Displays resource cards dynamically, showing cover images, source logos, titles and descriptions fetched from APIs.
   - **Trending Field Cards**:
     - Utilizes AI to display trending fields of a subject.
@@ -287,13 +299,17 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 - **Collection Management**:
   - **Collection Star Component**:
-    - Located on the top-right corner of resource cards.
+    - Located on the bottom-right corner of resource cards.
     - Toggle functionality to add/remove resources from collections dynamically.
     - Updates in real-time based on the user's interaction.
+      
+  - **History Tracking Page**
+    - **Access History Tracking**: keeps a record of all videos, articles, and papers accessed/collected by users, allowing them to revisit previous materials with ease.
 
-- **AI-Powered Chatbot**:
-  - Integrated an external chatbot library.
-  - Allows users to ask questions and get AI-powered responses while interacting with the platform, especially while watching videos.
+- **3-rd party AI Assistant Integration on the Player Page**
+  - **Real-Time Assistance**: An AI ChatBot is integrated directly into the Player page, enabling users to ask questions or seek clarifications about the video content they are watching.
+  - **Context-Aware Responses**: The AI Assistant can understand the context of the video and provide tailored explanations or additional resources related to the topic.
+  - **Enhanced Learning Experience**: Users can interact with the ChatBot without leaving the Player page, ensuring an uninterrupted and interactive learning environment.
 
 ---
 
@@ -309,19 +325,6 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 - **Navigation & Usability**:
   - All links and buttons are functional, with no broken URLs.
   - Form validations are implemented where applicable.
-
----
-
-### Novel Features
-- **Trending Field Cards**:
-  - AI-driven content highlights popular topics dynamically, engaging users with relevant trends.
-- **Filtered Search Results**:
-  - Dynamically suggests relevant search results as users type into the search bar.
-  - Leverages AI algorithms to predict and display the most likely matches in real-time, enhancing search efficiency and user experience.
-- **VideoPlayer Assistant**:
-  - A real-time chatbot assistant integrated into the video player to provide immediate help.
-- **Dynamic API Integration**:
-  - Cards in PlayGrid and search suggestions are dynamically updated based on backend API responses.
 
 ---
 
