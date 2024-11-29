@@ -109,7 +109,7 @@ The project is an educational web application designed to offer students interac
 ---
 
 ### **Figma Design**
-![alt text](image.png)
+![Figma](./assets/image.png)
 
 ---
   
@@ -127,7 +127,6 @@ The application is divided into three layers:
 
 ---
 
-<a id="page-structure"></a>
 ### **Page Structure**
 1. Homepage:
     - Components: Navibar, Footer.
@@ -255,58 +254,97 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 - **Reusable Components**:
   - **Header (NavBar)**:
+    ![Header](./assets/Header.png)
+    
     - Displays the logo, navigation buttons, and a Google login button.
     - Post-login, shows the user's avatar and name with a dropdown menu for account management, history, and collection redirection.
+      
   - **Footer**:
+    ![Footer](./assets/Footer.png)
+    
     - Redirects users to different informational sections based on parameters added to the URL.
+      
   - **Search Bar**:
+    ![SearchBar](./assets/SearchBar.png)
+    
     - Features dynamic search with real-time suggestions based on user input.
     - Provides exact matches and handles diverse search queries efficiently.
+      
 
 - **Responsive Video Player Page**:
+  ![VideoPlayer](./assets/VideoPlayerPage.png)
+  
   - Developed a **unified VideoPlayerPage** to play videos from different sources (YouTube, Bilibili, etc.).
   - Includes interactive features:
     - **Collection Star** for bookmarking videos.
     - A responsive chatbot assistant for real-time queries during video playback.
     - Recommended playlists based on video context.
+          
 
 - **Homepage**:
-    - Introduces users to the platform with a clean and engaging layout.
-    - Highlights the platform's mission and features.
-    - Provides a brief description of the **APIs** referenced, such as YouTube, Bilibili, ArXiv, and GitHub, to aggregate diverse resources.
-    - Includes a **Getting Started** button to guide new users through the platform's functionalities.
+  ![HomePage](./assets/HomePage.png)
+  
+  - Introduces users to the platform with a clean and engaging layout.
+  - Highlights the platform's mission and features.
+  - Provides a brief description of the **APIs** referenced, such as YouTube, Bilibili, ArXiv, and GitHub, to aggregate diverse resources.
+  - Includes a **Getting Started** button to guide new users through the platform's functionalities.
+    
 
 - **Course Page**:
+  ![CoursePage](./assets/CoursePage.png)
+  
   - Pre-Defined Category Cards
   - Displays visually appealing cards representing various subjects or fields of study (e.g., Programming, Mathematics, Science, Arts).
       
 - **Interactive Features**:
   - **Google Login Integration**:
+    
+    <img src="./assets/Avatar.png" width="200">   
+    
     - Enables user account management with avatar, name and emailaddress displayed upon login.
     - Dropdown menu for accessing history, collections and log out.
+      
   - **Dynamic PlayGrid Cards**:
+    ![PlayGrid](./assets/PlayGrid.png)
+    
     - Displays resource cards dynamically, showing cover images, source logos, titles and descriptions fetched from APIs.
+      
   - **Trending Field Cards**:
+    ![TrendingField](./assets/TrendingFields.png)
+    
     - Utilizes AI to display trending fields of a subject.
     - Presents these as clickable cards for deeper exploration of specific topics.
-
-- **Advanced Search & Filters**:
-  - **Search Bar** dynamically provides relevant suggestions as users type.
+      
   - **Filter Component**:
+    
+    <img src="./assets/Filter.png" width="600">   
+    
     - Located under the search bar, allows users to refine results by restricting them to specific sources.
+      
   - **Pagination Component**:
+    
+    <img src="./assets/Pagination.png" width="500">   
+    
     - Available on the search page to load additional results when required.
 
 - **Collection Management**:
   - **Collection Star Component**:
+    
+    <img src="./assets/CollectionStar.png" width="300">   
+    
     - Located on the bottom-right corner of resource cards.
     - Toggle functionality to add/remove resources from collections dynamically.
     - Updates in real-time based on the user's interaction.
       
   - **History Tracking Page**
+    ![History](./assets/History%20Tracking.png)   
+    
     - **Access History Tracking**: keeps a record of all videos, articles, and papers accessed/collected by users, allowing them to revisit previous materials with ease.
 
 - **3-rd party AI Assistant Integration on the Player Page**
+  
+  <img src="./assets/ChatBot.png" width="300">
+  
   - **Real-Time Assistance**: An AI ChatBot is integrated directly into the Player page, enabling users to ask questions or seek clarifications about the video content they are watching.
   - **Context-Aware Responses**: The AI Assistant can understand the context of the video and provide tailored explanations or additional resources related to the topic.
   - **Enhanced Learning Experience**: Users can interact with the ChatBot without leaving the Player page, ensuring an uninterrupted and interactive learning environment.
