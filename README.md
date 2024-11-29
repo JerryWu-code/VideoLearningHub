@@ -127,6 +127,7 @@ The application is divided into three layers:
 
 ---
 
+<a id="page-structure"></a>
 ### **Page Structure**
 1. Homepage:
     - Components: Navibar, Footer.
