@@ -269,34 +269,7 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
     
     - Features dynamic search with real-time suggestions based on user input.
     - Provides exact matches and handles diverse search queries efficiently.
-      
 
-- **Responsive Video Player Page**:
-  ![VideoPlayer](./assets/VideoPlayerPage.png)
-  
-  - Developed a **unified VideoPlayerPage** to play videos from different sources (YouTube, Bilibili, etc.).
-  - Includes interactive features:
-    - **Collection Star** for bookmarking videos.
-    - A responsive chatbot assistant for real-time queries during video playback.
-    - Recommended playlists based on video context.
-          
-
-- **Homepage**:
-  ![HomePage](./assets/HomePage.png)
-  
-  - Introduces users to the platform with a clean and engaging layout.
-  - Highlights the platform's mission and features.
-  - Provides a brief description of the **APIs** referenced, such as YouTube, Bilibili, ArXiv, and GitHub, to aggregate diverse resources.
-  - Includes a **Getting Started** button to guide new users through the platform's functionalities.
-    
-
-- **Course Page**:
-  ![CoursePage](./assets/CoursePage.png)
-  
-  - Pre-Defined Category Cards
-  - Displays visually appealing cards representing various subjects or fields of study (e.g., Programming, Mathematics, Science, Arts).
-      
-- **Interactive Features**:
   - **Google Login Integration**:
     
     <img src="./assets/Avatar.png" width="200">   
@@ -326,6 +299,32 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
     <img src="./assets/Pagination.png" width="500">   
     
     - Available on the search page to load additional results when required.
+      
+
+- **Responsive Video Player Page**:
+  ![VideoPlayer](./assets/VideoPlayerPage.png)
+  
+  - Developed a **unified VideoPlayerPage** to play videos from different sources (YouTube, Bilibili, etc.).
+  - Includes interactive features:
+    - **Collection Star** for bookmarking videos.
+    - A responsive chatbot assistant for real-time queries during video playback.
+    - Recommended playlists based on video context.
+          
+
+- **Homepage**:
+  ![HomePage](./assets/HomePage.png)
+  
+  - Introduces users to the platform with a clean and engaging layout.
+  - Highlights the platform's mission and features.
+  - Provides a brief description of the **APIs** referenced, such as YouTube, Bilibili, ArXiv, and GitHub, to aggregate diverse resources.
+  - Includes a **Getting Started** button to guide new users through the platform's functionalities.
+    
+
+- **Course Page**:
+  ![CoursePage](./assets/CoursePage.png)
+  
+  - Pre-Defined Category Cards
+  - Displays visually appealing cards representing various subjects or fields of study (e.g., Programming, Mathematics, Science, Arts).      
 
 - **Collection Management**:
   - **Collection Star Component**:
