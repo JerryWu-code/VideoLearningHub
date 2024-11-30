@@ -2,8 +2,7 @@
 
 # **EDULink: A centralised adaptive learning platform**
 
-<details>
-<summary><b>Table of Contents</b></summary>
+## Table of Contents
 
 - [General](#general)
   - [1. Relevance of Problem Statement](#1-relevance-of-problem-statement)
@@ -18,8 +17,7 @@
   - [2. Install and Switch to NodeJS 16](#2-install-and-switch-to-nodejs-16)
   - [3. Install Dependencies](#3-install-dependencies)
   - [4. API Key Initialization](#4-api-key-initialization)
-
-</details>
+- [Credits](#credits)
 
 ## Presentation
 You can check the demo presentation of this website with the following link [EDULink Demo](https://drive.google.com/file/d/1nZpSO41kDEn6tAuw8FOUPzXvDfeb_tGq/view?usp=sharing)
@@ -379,6 +377,60 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 <details>
 <summary><b>click to expand Back-end Feature</b></summary>
 
+### Architecture
+
+The back-end architecture is designed to handle multiple incoming requests efficiently while integrating various third-party APIs and providing optimized data processing. Below are the details of how requests are processed and the interaction with third-party APIs:
+
+---
+
+### **Incoming Requests Supported**
+
+1. **Fetching Educational Videos**
+   - Endpoint: `/api/videos`
+   - **Parameters**:
+     - `keyword`: The search keyword.
+     - `page`: Pagination parameter (default: 1).
+   - **Processing**:
+     - Retrieves video data from multiple APIs (YouTube, Bilibili, arXiv, GitHub) using parallel API calls.
+     - Filters non-educational content using an OpenAI GPT-powered relevance score.
+     - Sorts the videos by relevance and returns a unified response to the front-end.
+
+2. **Fetching Related Videos**
+   - Endpoint: `/api/videos`
+   - **Parameters**:
+     - `source`: The video source (YouTube or Bilibili).
+     - `videoid`: ID of the video for which related content is requested.
+   - **Processing**:
+     - Fetches related videos from the respective platform's API.
+     - Formats and returns the results in a structured format.
+
+3. **GraphQL API**
+   - Endpoint: `/graphql`
+   - **Operations**:
+     - Queries:
+       - `listVideoHistory`: Retrieves the video history of a user.
+       - `listVideoCollection`: Fetches a user's saved video collection.
+     - Mutations:
+       - `addUser`: Adds a new user to the system.
+       - `addVideoToCollection`: Adds a video to a user's collection.
+       - `removeVideoFromCollection`: Removes a video from a user's collection.
+       - `addVideoToHistory`: Adds a video to a user's watch history.
+       - `clearVideoCollection`: Clears all videos from a user's collection.
+       - `clearVideoHistory`: Clears a user's video watch history.
+
+---
+
+### **Interaction Model**
+
+| Component       | Responsible for                                                |
+|------------------|----------------------------------------------------------------|
+| Front-End        | Sends requests to the back-end for data.                      |
+| Back-End         | Handles all third-party API calls, processes data, and returns results. |
+| Third-Party APIs | Provides raw data that the back-end processes into usable formats. |
+| Database         | Stores and manages user-specific data like collections and history. |
+
+---
+
 ### Integration with Multiple APIs
 - **Integrated APIs**:
   - **YouTube**: [Obtain from Rapid API](https://rapidapi.com/ytjar/api/yt-api). Fetches Youtube video metadata, related videos, and recommendations.
@@ -449,16 +501,6 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ---
 
-### GraphQL API with Apollo Server
-- **Schema-Based Queries**:
-  - Provides flexible and efficient client-server interactions with clearly defined queries (`Query`) and mutations (`Mutation`).
-- **Supported GraphQL Operations**:
-  - Query user video history and collections.
-  - Add or remove videos from history and collections.
-  - Clear video history or collections.
-
----
-
 ### Error Handling
 - **Robust Error Management**:
   - Comprehensive `try-catch` blocks to handle network issues, API limits, and other failures gracefully.
@@ -520,10 +562,12 @@ VITE_GITHUB_API_KEY="xxxx"
 2. Open the web inspector (Developer Tools) in your browser.
 3. Check the cookies and locate the `SESSDATA` property.
 
-
-
 > [!NOTE]
 > Explanation for different ports we use in this project:
 > - 5173: The port for the frontend.
 > - 3000: The port for the public API we integrated in the backend.
 > - 8000: The port for the own graphql API we integrated in the backend.
+
+## Credits:
+- The searchbar functions in this project are adapted from [react-search-bar](https://github.com/CodeCompleteYT/react-search-bar).
+- The chatbot functionality in this project is implemented from [react-chatbotify](https://github.com/tjtanjin/react-chatbotify).
