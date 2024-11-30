@@ -46,10 +46,10 @@ const PlayList = ({ recommend }) => {
 
   // add video to history
   const addVideoToHistory = async (video) => {
-    if (!user || !user.email) {
-      alert("Please log in to save videos to your history.");
-      return;
-    }
+    // if (!user || !user.email) {
+    //   alert("Please log in to save videos to your history.");
+    //   return;
+    // }
 
     const mutation = `
       mutation AddVideoToHistory($email: String!, $video: InputVideoHistory!) {

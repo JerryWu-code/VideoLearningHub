@@ -235,7 +235,8 @@ const VideoPlayerPage = () => {
                       collection.includes(videoID)
                     )}
   
-                    <CollectionStar
+                    {user && user.email ? (
+                      <CollectionStar
                       email={user.email}
                       video={{
                         videoId: videoID,
@@ -252,6 +253,7 @@ const VideoPlayerPage = () => {
                       isCollectedInitially={collection.includes(videoID)}
                       className={styles.collectionStar}
                     />
+                  ) :  null}
                   </div>
                 </div>
   

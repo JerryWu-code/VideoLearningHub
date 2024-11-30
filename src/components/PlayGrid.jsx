@@ -111,10 +111,10 @@ export const PlayGrid = ({ query, category, page }) => {
         return;
       }
 
-      if (!user || !user.email) {
-        alert("Please log in to save videos to your history.");
-        return;
-      }
+      // if (!user || !user.email) {
+      //   alert("Please log in to save videos to your history.");
+      //   return;
+      // }
 
       try {
         await addVideoToHistory(user.email, {
