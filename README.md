@@ -22,7 +22,7 @@
 </details>
 
 ## Presentation
-You can check the demo presentation of this website with the following link [EDULink Demo](https://drive.google.com/file/d/1e8F9c4jKOpYzaOPVhMcOGLHHU5nfbAJ9/view?usp=sharing)
+You can check the demo presentation of this website with the following link [EDULink Demo](https://drive.google.com/file/d/1nZpSO41kDEn6tAuw8FOUPzXvDfeb_tGq/view?usp=sharing)
 
 	
 ## General:
@@ -405,10 +405,11 @@ By addressing gaps in existing platforms and focusing on user-centric innovation
 
 ### AI-Enhanced Content Filtering
 - **Relevance Scoring with OpenAI GPT**:
-  - Dynamically scores educational videos and other content based on relevance according according to the current topic.
-  - Filters out low-relevance results, sorts, and further presents them in descending order of relevance.
+  - Retains only educational videos by filtering out entertainment and any uncorrelated content.
+  - Uses AI in the backend to assign a relevancy score to the remaining educational videos.
+  - Sorts the videos based on their relevancy scores and presents them in descending order of relevance.
 -  **GPT-Based Search Recommendations**:
-  -  When users type text into the search bar, GPT provides relevance-based suggestions to guide their search queries.
+  -  When users type text into the search bar, GPT is tasked with providing only education-related suggestions to guide their search queries effectively.
 - **Custom GPT Prompting**:
   - GPT prompts are dynamically generated based on the current page's query and data to improve accuracy of relevance scores.
 
