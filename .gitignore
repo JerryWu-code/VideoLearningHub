@@ -102,6 +102,7 @@ dist
 public/App.js
 .env
 .DS_Store
+.github
 
 # old cacheing files
 src/pages/VideoPlayerPage.module_old.css
