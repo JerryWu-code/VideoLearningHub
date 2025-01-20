@@ -99,11 +99,10 @@ dist
 
 # TernJS port file
 .tern-port
-
 public/App.js
-
+.env
 .DS_Store
 
 # old cacheing files
 src/pages/VideoPlayerPage.module_old.css
-src/pages/VideoPlayerPage_old.jsx
+src/pages/VideoPlayerPage_old.jsx.env
